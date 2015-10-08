@@ -88,7 +88,7 @@ export var handleForms = ComposedComponent => class extends Component {
   }
 
   isNumber(value) {
-    if (isNaN(value)) {
+    if (isNaN(value) || !value) {
       return ('Must be a number');
     }
     return ('Success!');

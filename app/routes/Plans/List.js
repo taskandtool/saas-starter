@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
 import {Plans} from '../../collections';
-import PlanList from '../../components/plans/PlanList';
+import PlanList from '../../components/Plans/PlanList';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class PlanListRoute extends Component {
