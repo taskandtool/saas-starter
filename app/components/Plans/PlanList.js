@@ -17,7 +17,7 @@ export default class PlanList extends React.Component {
 
     let plans = this.props.plans.map((plan) => {
       return (
-          <PlanItem plan={plan} />
+          <PlanItem key={plan._id} plan={plan} />
       );
     })
 
