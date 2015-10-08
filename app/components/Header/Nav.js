@@ -30,7 +30,7 @@ export default class Nav extends React.Component {
       rightSide = (
         <ul className={styles.navbarListRight}>
           <li className={styles.divider}></li>
-          <li className={styles.item}><i className="fa fa-search fa-2x"></i></li>
+          <li className={styles.item}><i className="fa fa-search"></i></li>
           <li className={styles.item}><Link to="/signin" className={styles.link}>Sign in</Link></li>
           <li className={styles.item}><Link to="/join" className={styles.link}>Join</Link></li>
         </ul>
