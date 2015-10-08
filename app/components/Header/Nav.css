@@ -98,11 +98,8 @@
   width: 2.95em;
 }
 
-@media all and (max-width: 30em) {
+@media all and (max-width: 38em) {
   .itemHiddenOnSmall, .menu {
     display: none;
-  }
-  .divider {
-    visibility: hidden;
   }
 }

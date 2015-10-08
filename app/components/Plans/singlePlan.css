@@ -1,0 +1,34 @@
+.wrapper {
+  margin: 4em 1em;
+  lost-utility: clearfix;
+}
+
+.otherFields {
+  lost-waffle: 2/3;
+}
+
+@media all and (max-width: 60em) {
+  .otherFields {
+    lost-waffle: 1/2;
+  }
+}
+
+@media all and (max-width: 40em) {
+  .otherFields {
+    lost-waffle: 1;
+  }
+}
+
+.listGroup {
+  margin-bottom: 2em;
+  list-style: none;
+}
+
+.listGroup {
+  margin-bottom: 2em;
+  list-style: none;
+}
+
+.subTitle {
+  margin-bottom: 1em;
+}

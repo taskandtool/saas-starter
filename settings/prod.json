@@ -1,0 +1,14 @@
+{
+  "public": {
+    "env": "PROD",
+    "foo": "bar"
+  },
+  "googleSecret": "key",
+  "googleClientID": "key",
+  "twitterSecret": "key",
+  "twitterClientID": "key",
+  "facebookSecret": "key",
+  "facebookClientID": "key",
+  "AWSAccessKeyId": "key",
+  "AWSSecretAccessKey": "key"
+}

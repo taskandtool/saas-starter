@@ -8,7 +8,6 @@
   width: 12em;
   display: block;
   top: 0;
-  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
 }
 
 .sidebarList {
@@ -37,9 +36,6 @@
 
 .link {
   color: #fff;
-}
-
-.link {
   display: block;
   text-decoration: none;
   white-space: nowrap;
@@ -57,4 +53,23 @@
   font-size: 1em;
   padding-top: .6em;
   padding-bottom: .6em;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.active > .heading,
+.heading:hover,
+.heading:focus {
+  color: #fff;
+}
+
+@media all and (max-width: 38em) {
+  .sidebar {
+    box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  }
+  .heading {
+    border: none;
+  }
 }

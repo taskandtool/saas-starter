@@ -1,3 +1,30 @@
 .wrapper {
   margin: 4em 1em;
 }
+
+.btn {
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .7em;
+  margin-top: .2em;
+  margin-bottom: 1em;
+}
+
+@media all and (max-width: 38em) {
+  .btn {
+    background-color: #03A9F4;
+    color: #fff;
+    padding: .4em;
+    margin-bottom: 1em;
+  }
+}
+
+.container {
+  height: 100%;
+  lost-utility: clearfix;
+}
+
+
+.title {
+  margin-bottom: .2em;
+}

@@ -2,13 +2,3 @@ dist
 node_modules
 npm-debug.log
 /webpack/lib
-
-settings/devel.json
-
-settings/prod.json
-
-settings/stage.json
-
-settings/prod.json
-
-settings/stage.json

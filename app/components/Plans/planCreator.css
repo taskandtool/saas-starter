@@ -1,0 +1,47 @@
+.btn {
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .2em;
+  width: 100%;
+}
+
+.section {
+  padding: 1em;
+}
+
+.formBox {
+  lost-column: 1/3;
+}
+
+@media all and (max-width: 55em) {
+  .formBox {
+    lost-waffle: 1/2;
+  }
+}
+
+@media all and (max-width: 31em) {
+  .formBox {
+    lost-waffle: 1;
+  }
+}
+
+.title {
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom:.2em;
+  margin-top:.6em;
+  text-align: center;
+}
+
+.form input, .form label{
+  display: block;
+  margin: 0.25em 0;
+  z-index: 3;
+}
+
+.fieldset {
+  text-align: left;
+}

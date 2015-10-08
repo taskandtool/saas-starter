@@ -23,17 +23,20 @@ export default class InputStacked extends React.Component {
 
   render() {
     let style;
+    let message;
     if (this.props.errorMsg) {
       style = styles.messageError;
+      message = {__html: '- ' + this.props.errorMsg};
     }
     if (this.props.errorMsg === 'Success!') {
       style = styles.messageSuccess;
+      message = {__html: ' <i class="fa fa-check"></i>'};
     }
 
     return (
       <div>
         <label htmlFor={ this.props.name } title={ this.props.label }>
-          {this.props.label} <span className={style}>- { this.props.errorMsg }</span>
+          {this.props.label} <span className={style} dangerouslySetInnerHTML={message} />
         </label>
         <input
           className={styles.input}

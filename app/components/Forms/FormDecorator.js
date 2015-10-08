@@ -86,6 +86,13 @@ export var handleForms = ComposedComponent => class extends Component {
     return ('Success!');
   }
 
+  isNumber(value) {
+    if (isNaN(value)) {
+      return ('Must be a number');
+    }
+    return ('Success!');
+  }
+
   email(value) {
     if (value.search(/[^\s@]+@[^\s@]+\.[^\s@]+/) < 0) {
       return ('Doesn\'t look like a valid email');

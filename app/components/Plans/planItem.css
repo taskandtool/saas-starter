@@ -1,0 +1,34 @@
+.column {
+  lost-waffle: 1/3;
+  background-color: #607D8B;
+  color: #fff;
+  padding: 1em;
+  border-radius: .5em;
+}
+
+@media all and (max-width: 60em) {
+  .column {
+    lost-waffle: 1/2;
+  }
+}
+
+@media all and (max-width: 40em) {
+  .column {
+    lost-waffle: 1;
+  }
+}
+
+.planTitle {
+  color:white;
+  margin-bottom: 0;
+}
+
+.date {
+  color: #f7f7f7;
+  font-size: 80%;
+  margin-bottom: .2em;
+}
+
+.features {
+  margin-bottom: .2em;
+}

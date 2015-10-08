@@ -1,10 +1,9 @@
-//import styles from './styles.styl';
-
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-//import CSSModules from 'react-css-modules';
+import PlanItem from './PlanItem.js';
 
-//@CSSModules(styles)
+import styles from './singlePlan.css';
+
 export default class SinglePlan extends React.Component {
   static propTypes = {
     plan: PropTypes.object
@@ -24,24 +23,21 @@ export default class SinglePlan extends React.Component {
               isDeleted } = plan;
 
     return (
-      <div styleName="wrapper">
-        <ul>
-          <li>_id: {_id}</li>
-          <li>createdAt: {moment({createdAt}).format('MMMM DD, YYYY')}</li>
-          <li>updatedAt: {moment({updatedAt}).format('MMMM DD, YYYY')}</li>
-          <li>createdByUserId: {createdBy}</li>
-          <li>title: {title}</li>
-          <li>desc: {desc}</li>
-          <li>monthlyPrice: {monthlyPrice}</li>
-          <li>setupPrice: {setupPrice}</li>
-          <li>maxProjects: {maxProjects}</li>
-          <li>maxItems: {maxItems}</li>
-          <li>freeTrialDays: {freeTrialDays}</li>
-          <li>teamsUsingItCount: {teamsUsingItCount}</li>
-          <li>currAvail: {currAvail ? 'yes' : 'no'} <input type="checkbox" checked={!!currAvail} name='currAvail' onChange={this.onCheckedChanged}/></li>
-          <li>custom: {custom ? 'yes' : 'no'} <input type="checkbox" checked={!!custom} name='custom' onChange={this.onCheckedChanged}/></li>
-          <li>isDeleted: {isDeleted ? 'yes' : 'no'} <input type="checkbox" checked={!!isDeleted} name='isDeleted' onChange={this.onCheckedChanged}/></li>
-        </ul>
+      <div className={styles.wrapper}>
+        <PlanItem plan={plan} />
+        <div className={styles.otherFields}>
+          <h3 className={styles.subTitle}>More details</h3>
+          <ul className={styles.listGroup}>
+            <li>Plan ID: {_id}</li>
+            <li>Number of Teams on this Plan: {teamsUsingItCount}</li>
+          </ul>
+          <h3 className={styles.subTitle}>Editable</h3>
+          <ul className={styles.listGroup}>
+            <li>Currently Available to Teams: {currAvail ? 'yes' : 'no'} <input type="checkbox" checked={!!currAvail} name='currAvail' onChange={this.onCheckedChanged}/></li>
+            <li>Custom Plan? (not public): {custom ? 'yes' : 'no'} <input type="checkbox" checked={!!custom} name='custom' onChange={this.onCheckedChanged}/></li>
+            <li>isDeleted (soft delete accessible for Super Admins): {isDeleted ? 'yes' : 'no'} <input type="checkbox" checked={!!isDeleted} name='isDeleted' onChange={this.onCheckedChanged}/></li>
+          </ul>
+        </div>
       </div>
     );
   }
