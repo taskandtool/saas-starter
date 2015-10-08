@@ -35,8 +35,7 @@ export var handleForms = ComposedComponent => class extends Component {
     } else {
       value = event.target.value;
     }
-    console.log(value);
-
+    
     //this is to merge state rather than replace it with setstate.
     //can also be done with react addons or an immutability package I believe.
     let newValue = _.extend({}, this.state.values);
