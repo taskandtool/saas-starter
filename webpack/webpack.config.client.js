@@ -26,12 +26,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'style-loader!css-loader?modules!postcss-loader'
       },
     ],
   },
   plugins: [
     new webpack.PrefetchPlugin("react"),
     new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
+  ],
+
+  postcss: [
+    require('postcss-cssnext'),
+    require('lost')
   ]
 };

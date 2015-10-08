@@ -1,0 +1,169 @@
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+  line-height: 1.61111em;
+  overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: hsl(0,0%,26%);
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* All block elements get one rhythm of bottom margin. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+ul,
+ol,
+dl,
+dd,
+p,
+figure,
+pre,
+table,
+fieldset,
+blockquote,
+form,
+noscript,
+iframe,
+img,
+hr {
+  margin: 0;
+  margin-bottom: 1.61111rem;
+  padding: 0;
+}
+
+blockquote {
+  margin: 1.61111rem 4.02778rem;
+}
+
+b,
+strong {
+  font-weight: 700
+}
+
+hr {
+  background: hsl(0,0%,80%);
+  border: none;
+  height: 1px;
+  margin-bottom: calc(1.61111rem - 1px);
+}
+
+ol,
+ul {
+  list-style-position: outside;
+  margin-left: 1.61111rem;
+}
+
+ul li,
+ol li {
+  padding-left: 0;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-size: 0.85rem;
+  line-height: 1.61111rem;
+}
+
+table {
+  font-size: 1rem;
+  line-height: 2.41667rem;
+  text-align: left;
+  display: block;
+  overflow: scroll; /* Scrollbar are always visible */
+  overflow: auto;   /* Scrollbar is displayed as it's needed */
+}
+
+thead {
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+tbody {
+  white-space: nowrap;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(0,0%,21%);
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.82843rem;
+  line-height: 3.22222rem;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 2.41667rem;
+}
+
+h3 {
+  font-size: 1.41421rem;
+  line-height: 2.41667rem;
+}
+
+h4 {
+  font-size: 1.25992rem;
+  line-height: 1.61111rem;
+}
+
+h5 {
+  font-size: 1.12246rem;
+  line-height: 1.61111rem;
+}
+
+h6 {
+  font-size: 1rem;
+  line-height: 1.61111rem;
+}@media only screen and (max-width: 768px) {
+h1 {
+  font-size: 1.728rem;
+  line-height: 2.41667rem;
+}
+
+h2 {
+  font-size: 1.44rem;
+  line-height: 2.41667rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  line-height: 1.61111rem;
+}
+
+h4 {
+  font-size: 1.12924rem;
+  line-height: 1.61111rem;
+}
+
+h5 {
+  font-size: 1.06266rem;
+  line-height: 1.61111rem;
+}
+
+h6 {
+  font-size: 1rem;
+  line-height: 1.61111rem;
+}}

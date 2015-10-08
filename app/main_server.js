@@ -1,14 +1,49 @@
-import {Posts} from './collections';
-import {createPosts, createUsers} from './fixtures';
-// we don't call this so we're just importing to initialize file
-import './method_example';
+import {Teams, Users} from './collections';
 
-// these will only run on the sever since we only 'import' them in main_server.js
+import './methods/teams.js';
+import './methods/users.js';
+import './methods/plans.js';
 
-if (!Posts.find().fetch().length) {
-  createPosts();
-  createUsers();
-}
+import './publications/publications.js';
+
+import './lib/EmailTemplates.js';
+import './lib/CreateUser.js';
+import './lib/ImageUploadPermissions.js';
+import './lib/ImageUploads.js';
+
+Meteor.startup(function () {
+
+  ServiceConfiguration.configurations.upsert(
+    { service: "google" },
+    {
+      $set: {
+        clientId: Meteor.settings.googleClientID,
+        loginStyle: "popup",
+        secret: Meteor.settings.googleSecret
+      }
+    }
+  );
+  ServiceConfiguration.configurations.upsert(
+    { service: "facebook" },
+    {
+      $set: {
+        appId: Meteor.settings.facebookClientID,
+        loginStyle: "popup",
+        secret: Meteor.settings.facebookSecret
+      }
+    }
+  );
+  ServiceConfiguration.configurations.upsert(
+    { service: "twitter" },
+    {
+      $set: {
+        consumerKey: Meteor.settings.twitterClientID,
+        loginStyle: "popup",
+        secret: Meteor.settings.twitterSecret
+      }
+    }
+  );
+});
 
 // smoke test that these are present
 Npm.require;
@@ -16,4 +51,3 @@ Assets;
 require('fs').readFile.call;
 
 console.log('\n\nRunning on server only');
-console.log('There are # posts:', Posts.find().fetch().length);

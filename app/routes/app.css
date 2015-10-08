@@ -1,0 +1,9 @@
+@media all and (min-width: 35em) {
+  .sidebarShowing {
+    margin-left: 12em;
+  }
+}
+
+.app {
+  margin-top: 3.3em;
+}

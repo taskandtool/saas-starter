@@ -1,0 +1,11 @@
+@import './normalize.css';
+@import './buttons.css';
+@import './forms.css';
+@import './typography.css';
+
+html {
+    height:100%;
+}
+body {
+    min-height:100%;
+}
