@@ -3,5 +3,12 @@
     "env": "DEVEL",
     "foo": "bar"
   },
-  "secret": "golf1234"
+  "googleSecret": "0e0sglzPiq56Lf15hRjOoDAS",
+  "googleClientID": "382737577331-9plji9o4hhvnb9vkh2h4scvi3ldpem2i.apps.googleusercontent.com",
+  "twitterSecret": "GxSWkk5MCMfbemykUeen3FgTdjstnc1RUUDww4KrhxXLFyD0Mo",
+  "twitterClientID": "hghrX8IUrnmYYlyUm048cuiKs",
+  "facebookSecret": "8c58bef6e7d954b3656086afba4142f1",
+  "facebookClientID": "446309738738517",
+  "AWSAccessKeyId": "AKIAJSSL5WPWCJW53N3Q",
+  "AWSSecretAccessKey": "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"
 }

@@ -1,0 +1,32 @@
+.btn {
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .2em;
+  width: 100%;
+}
+
+.joinBox {
+  lost-center: 400px;
+  padding: 1em;
+}
+
+.title {
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom:.2em;
+  margin-top:.6em;
+  text-align: center;
+}
+
+.form input, .form label{
+  display: block;
+  margin: 0.25em 0;
+  z-index: 3;
+}
+
+.fieldset {
+  text-align: left;
+}

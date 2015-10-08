@@ -1,0 +1,6 @@
+/* glitch makes it so I can't import mixins...although according to CSS next I should be able to.
+Can import everything else. Until then, copy/paste the variables into each file I need them */
+
+:root {
+  --mainColor: color(blue alpha(-20%));
+}

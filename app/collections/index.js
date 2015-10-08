@@ -1,3 +1,5 @@
 /* global Mongo, Meteor */
+
 export const Users = Meteor.users;
-export const Posts = new Mongo.Collection('posts');
+export const Teams = new Mongo.Collection('teams');
+export const Plans = new Mongo.Collection('plans');
