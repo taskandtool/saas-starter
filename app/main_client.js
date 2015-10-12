@@ -7,5 +7,3 @@ import './methods/plans.js';
 import './lib/ImageUploadPermissions.js';
 
 import {Routes} from './routes';
-
-console.log('Running on client only');

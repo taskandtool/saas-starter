@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Router, Route, Link, NotFoundRoute } from 'react-router';
 import createHistory from 'react-router/node_modules/history/lib/createBrowserHistory';
 
@@ -10,7 +11,7 @@ import * as Users from './Users';
 
 var history = createHistory();
 
-React.render(
+ReactDOM.render(
   <Router history={history}>
     <Route component={App}>
       <Route path="/" component={Home} />
