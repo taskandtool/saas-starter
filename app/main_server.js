@@ -1,4 +1,6 @@
 import {Teams, Users} from './collections';
+//import React from 'react';
+//import App from './components/App.jsx';
 
 import './methods/teams.js';
 import './methods/users.js';
@@ -51,3 +53,4 @@ Assets;
 require('fs').readFile.call;
 
 console.log('\n\nRunning on server only');
+//console.log('React SSR:', React.renderToString(<App/>));
