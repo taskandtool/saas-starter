@@ -48,7 +48,7 @@ var config = module.exports = _.assign(_.clone(config), {
       },
       {
         test: /\.css$/,
-        loader: 'style!css',
+        loader: 'style!css-loader?modules!postcss-loader',
         exclude: /node_modules|lib/,
       },
     ],

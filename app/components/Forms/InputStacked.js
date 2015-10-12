@@ -14,7 +14,8 @@ export default class InputStacked extends React.Component {
   }
 
   static defaultProps = {
-    type: 'text'
+    type: 'text',
+    showError: true
   };
 
   constructor() {
@@ -33,6 +34,10 @@ export default class InputStacked extends React.Component {
       message = {__html: ' <i class="fa fa-check"></i>'};
     }
 
+  if (!this.props.showError) {
+    message = {__html: ''};
+  }
+
     return (
       <div>
         <label htmlFor={ this.props.name } title={ this.props.label }>
@@ -40,11 +45,11 @@ export default class InputStacked extends React.Component {
         </label>
         <input
           className={styles.input}
-          type={ this.props.type }
-          name={ this.props.name }
+          type={this.props.type}
+          name={this.props.name}
           onChange={this.props.handleChange}
           value={this.props.value}
-          placeholder={ this.props.label }
+          placeholder={this.props.label}
           data-validateby={this.props.validateBy}
           required={this.props.required}
           />
