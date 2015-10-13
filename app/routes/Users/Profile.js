@@ -14,7 +14,8 @@ export default class UserProfileRoute extends Component {
     super();
     this.state = {
       errors: {},
-      uploadingMsg: "Upload a new profile image"
+      uploadingMsg: "Upload a new profile image",
+      showSpinner: false
     };
     this.handleUpload = this.handleUpload.bind(this);
     this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
@@ -33,16 +34,25 @@ export default class UserProfileRoute extends Component {
   }
 
   handleUpload() {
-    this.setState({uploadingMsg: "Uploading"})
+    this.setState({
+      uploadingMsg: "Uploading...",
+      showSpinner: true
+    });
     const uploader = new Slingshot.Upload("userImages");
     uploader.send(React.findDOMNode(this.refs.userProfile.refs.fileInput).files[0], (error, downloadUrl) => {
       if (error) {
         console.error('Error uploading', error);
-        this.setState({uploadingMsg: "Sorry, there was an error. Please try again later"});
+        this.setState({
+          uploadingMsg: "Sorry, there was an error. Please try again later",
+          showSpinner: false
+        });
       }
       else {
         Meteor.call('storeUserProfileImage', downloadUrl);
-        this.setState({uploadingMsg: "Success!"});
+        this.setState({
+          uploadingMsg: "Success!",
+          showSpinner: false
+        });
       }
     });
   }
@@ -51,7 +61,7 @@ export default class UserProfileRoute extends Component {
 
     if (this.data.loading) {
       return (
-        <p>Loading</p>
+        <div>Loading</div>
       );
     }
 
@@ -60,7 +70,8 @@ export default class UserProfileRoute extends Component {
                   ref="userProfile"
                   user={this.data.user}
                   handleUpload={this.handleUpload}
-                  uploadingMsg={this.state.uploadingMsg} />
+                  uploadingMsg={this.state.uploadingMsg}
+                  showSpinner={this.state.showSpinner} />
     );
   }
 }

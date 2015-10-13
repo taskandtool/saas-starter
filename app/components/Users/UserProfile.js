@@ -1,10 +1,8 @@
-//import styles from './styles.styl';
-
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-//import CSSModules from 'react-css-modules';
+import styles from './userProfile.css';
 
-//@CSSModules(styles)
+
 export default class UserProfile extends React.Component {
   static propTypes = {
     user: PropTypes.object,
@@ -26,10 +24,11 @@ export default class UserProfile extends React.Component {
       <div styleName="wrapper">
         <img src={user.profile.avatar} width="100px" />
         <form id="upload">
-          <p>
+          <div>
             <p>{this.props.uploadingMsg}</p>
+            <div className={(this.props.showSpinner) ? styles.spinner : ''}></div>
             <input type="file" ref="fileInput" onChange={this.props.handleUpload} />
-          </p>
+          </div>
         </form>
         <p>Click an image below to set a different profile image</p>
         {otherImages}
