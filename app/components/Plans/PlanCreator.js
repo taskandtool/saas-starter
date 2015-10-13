@@ -4,7 +4,7 @@ import {handleForms} from '../../components/Forms/FormDecorator';
 import {History, Link} from 'react-router';
 import reactMixin from 'react-mixin';
 import PlanItem from './PlanItem.js';
-
+import ReactDOM from 'react-dom';
 import styles from './PlanCreator.css';
 
 @handleForms
@@ -19,6 +19,7 @@ export default class PlanCreator extends React.Component {
   render() {
     let values = this.props.formState.values;
     let errors = this.props.formState.errors;
+    let success = this.props.formState.success;
 
     return (
       <div className={styles.section}>
@@ -33,8 +34,7 @@ export default class PlanCreator extends React.Component {
               errorMsg={errors.title}
               label="Plan Title"
               handleChange={this.props.handleChange}
-              validateBy="required"
-              required="true" />
+              success={success.title} />
 
             <InputStacked
               type="number"
@@ -44,7 +44,7 @@ export default class PlanCreator extends React.Component {
               errorMsg={errors.monthlyPrice}
               handleChange={this.props.handleChange}
               validateBy="isNumber"
-              required="true" />
+              success={success.monthlyPrice} />
 
             <InputStacked
               type="number"
@@ -53,8 +53,9 @@ export default class PlanCreator extends React.Component {
               value={values.setupPrice}
               errorMsg={errors.setupPrice}
               handleChange={this.props.handleChange}
+              success={success.setupPrice}
               validateBy="isNumber"
-              required="true" />
+              />
 
             <InputStacked
               type="text"
@@ -63,8 +64,8 @@ export default class PlanCreator extends React.Component {
               value={values.desc}
               errorMsg={errors.desc}
               handleChange={this.props.handleChange}
-              validateBy="required"
-              required="true" />
+              success={success.desc}
+              />
 
             <InputStacked
               type="number"
@@ -74,7 +75,8 @@ export default class PlanCreator extends React.Component {
               errorMsg={errors.maxProjects}
               handleChange={this.props.handleChange}
               validateBy="isNumber"
-              required="true" />
+              success={success.maxProjects}
+              />
 
             <InputStacked
               type="number"
@@ -84,7 +86,8 @@ export default class PlanCreator extends React.Component {
               errorMsg={errors.maxItems}
               handleChange={this.props.handleChange}
               validateBy="isNumber"
-              required="true" />
+              success={success.maxItems}
+              />
 
             <InputStacked
               type="number"
@@ -93,7 +96,9 @@ export default class PlanCreator extends React.Component {
               value={values.freeTrialDays}
               errorMsg={errors.freeTrialDays}
               handleChange={this.props.handleChange}
-              validateBy="isNumber" />
+              validateBy="isNumber"
+              required={false}
+              success={success.freeTrialDays} />
 
             <InputStacked
               type="checkbox"
@@ -102,7 +107,8 @@ export default class PlanCreator extends React.Component {
               value={values.currAvail}
               errorMsg={errors.currAvail}
               handleChange={this.props.handleChange}
-              validateBy="required" />
+              required={false}
+              />
 
             <InputStacked
               type="checkbox"
@@ -111,10 +117,13 @@ export default class PlanCreator extends React.Component {
               value={values.custom}
               errorMsg={errors.custom}
               handleChange={this.props.handleChange}
-              validateBy="required" />
+              required={false}
+              />
 
             <div>
-              <button className={styles.btn} type="submit">
+              <button className={styles.btn}
+                      type="submit"
+                      disabled={(Object.keys(errors).length) ? true : false} >
                 Create Plan
               </button>
             </div>
@@ -143,9 +152,9 @@ export default class PlanCreator extends React.Component {
       custom: !!custom
     }, (error) => {
       if (error) {
-        this.setState({
-          errors: { 'none': error.reason }
-        });
+        console.log(error.reason);
+        console.log(styles);
+        //Apply red styling to inputs with 'required' by using []required
         return;
       }
 
