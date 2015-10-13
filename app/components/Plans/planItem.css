@@ -9,7 +9,7 @@
   }
 }
 
-@media all and (max-width: 40em) {
+@media all and (max-width: 35em) {
   .column {
     lost-waffle: 1;
   }

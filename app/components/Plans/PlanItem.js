@@ -16,7 +16,10 @@ export default class PlanList extends React.Component {
     let plan = this.props.plan;
 
     return (
-      <div key={plan._id} className={styles.column} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/plan/${plan._id}`) : ''}>
+      <div key={plan._id}
+        className={styles.column}
+        onClick={this.props.makeClickable ? () => this.history.pushState(null, `/plan/${plan._id}`) : ''}
+        >
         <img src="https://unsplash.it/500/150/?random" className={styles.bannerImg} />
         <div className={styles.info}>
           <h2 className={styles.planTitle}>{plan.title}</h2>

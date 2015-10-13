@@ -9,7 +9,7 @@ export default class PlanListRoute extends Component {
   getMeteorData() {
     let handle = Meteor.subscribe("plans");
     return {
-      plans: Plans.find({}, {sort: {createdAt: -1}}),
+      plans: Plans.find({}, {sort: {createdAt: -1}}).fetch(),
       loading: !handle.ready()
     };
   }

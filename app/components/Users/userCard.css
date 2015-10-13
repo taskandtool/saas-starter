@@ -9,7 +9,7 @@
   }
 }
 
-@media all and (max-width: 35em) {
+@media all and (max-width: 40em) {
   .column {
     lost-waffle: 1;
   }
@@ -34,7 +34,8 @@
 .avatar {
   border-radius: 50%;
   margin-bottom: -5px;
-  width: 100px;
+  height: 4.6em;
+  width: 4.6em;
   padding: .3em;
   background-color: #fff;
 }
@@ -73,4 +74,5 @@
 .icon {
   display: inline-block;
   width: 1.2em;
+  text-align: center;
 }
