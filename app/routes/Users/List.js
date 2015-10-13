@@ -9,7 +9,7 @@ export default class UserListRoute extends React.Component {
   getMeteorData() {
     let handle = Meteor.subscribe("users");
     return {
-      users: Meteor.users.find().fetch(),
+      users: Meteor.users.find({}, {sort: {createdAt: -1}}).fetch(),
       loading: !handle.ready()
     };
   }

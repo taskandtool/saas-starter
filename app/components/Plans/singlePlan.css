@@ -32,3 +32,8 @@
 .subTitle {
   margin-bottom: 1em;
 }
+
+.title {
+  padding-bottom: .4em;
+  border-bottom: 1px solid #ddd;
+}

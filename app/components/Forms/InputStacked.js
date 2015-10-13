@@ -29,11 +29,10 @@ export default class InputStacked extends React.Component {
     if (this.props.errorMsg) {
       style = styles.messageError;
       message = {__html: '- ' + this.props.errorMsg};
-    } else if (this.props.success) {
+    } else if (this.props.errorMsg === '') {
       style = styles.messageSuccess;
       message = {__html: ' <i class="fa fa-check"></i>'};
     }
-    let req = 'required'
 
     return (
       <div>

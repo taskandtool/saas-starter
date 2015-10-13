@@ -1,20 +1,30 @@
-//import styles from './styles.styl';
-
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-//import CSSModules from 'react-css-modules';
+import UserCard from './UserCard.js';
+import styles from './userProfile.css';
 
-//@CSSModules(styles)
+
 export default class UserProfile extends React.Component {
   static propTypes = {
     user: PropTypes.object,
     handleUpload: React.PropTypes.func.isRequired
   }
 
+  displayOtherImages(otherImages) {
+    if (otherImages.length > 1) {
+      return (
+        <h3>Click an image below to set a different profile image</h3>
+      );
+    } else {
+      return ''
+    }
+  }
+
   render() {
     const { user } = this.props;
     if (!user) return null;
-    const { _id, createdAt } = user;
+    let createdAt = user.createdAt;
+    let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
 
     let otherImages = user.profile.images.map((image, i) => {
       return (
@@ -22,22 +32,30 @@ export default class UserProfile extends React.Component {
       );
     })
 
+    let displayOtherImages = this.displayOtherImages(otherImages);
+
     return (
-      <div styleName="wrapper">
-        <img src={user.profile.avatar} width="100px" />
-        <form id="upload">
-          <p>
-            <p>{this.props.uploadingMsg}</p>
-            <input type="file" ref="fileInput" onChange={this.props.handleUpload} />
-          </p>
-        </form>
-        <p>Click an image below to set a different profile image</p>
-        {otherImages}
-        <ul>
-          <li>Joined: {moment({createdAt}).format('MMMM DD, YYYY')}</li>
-          <li>Name: {user.profile.name}</li>
-          <li>Email: {user.emails && user.emails[0].address ? user.emails[0].address : 'No email'}</li>
-        </ul>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Hi, {user.profile.name}</h1>
+        <div className={styles.column}>
+          {displayOtherImages}
+          {otherImages}
+          <div>Joined: {moment({createdAt}).format('MMMM DD, YYYY')}</div>
+          <div>Name: {user.profile.name}</div>
+          <div>Email: {user.emails && user.emails[0].address ? user.emails[0].address : 'No email'}</div>
+          <form id="upload">
+            <div>
+              <div>{this.props.uploadingMsg}</div>
+              <div className={(this.props.showSpinner) ? styles.spinner : ''}></div>
+              <input type="file" ref="fileInput" onChange={this.props.handleUpload} />
+            </div>
+          </form>
+        </div>
+        <UserCard user={user}
+                  name={user.profile.name}
+                  avatar={user.profile.avatar}
+                  createdAt={user.createdAt}
+                  email={email} />
       </div>
     );
   }
