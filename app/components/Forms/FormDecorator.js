@@ -7,7 +7,8 @@ export var handleForms = ComposedComponent => class extends Component {
     super();
     this.state = {
       errors: {},
-      values: {}
+      values: {},
+      success: {}
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -35,7 +36,7 @@ export var handleForms = ComposedComponent => class extends Component {
     } else {
       value = event.target.value;
     }
-    
+
     //this is to merge state rather than replace it with setstate.
     //can also be done with react addons or an immutability package I believe.
     let newValue = _.extend({}, this.state.values);
@@ -44,20 +45,27 @@ export var handleForms = ComposedComponent => class extends Component {
 
     let validateType = event.target.getAttribute('data-validateby'); //this returns something like 'password' or 'email' or whatever you passed
     if (validateType) {
-      let error = this[validateType](value);
+      let error = this[validateType](value); //Calls appropriate validator and passes the form input value
+
       let newError = _.extend({}, this.state.errors);
-      newError[name] = error;
-      if (this.state.errors.confirm == "Success!"){ //If there's also a confirm password input field
-        newError.confirm = ''//And that confirm input value used to successfully match the old password value
-      }//Remove 'Success' msg on confirm field (because it no longer matches)
-      this.throttledSetErrorState(newError)
+      newError[name] = error; //Merges new error with existing error state
+
+      if (!error) {
+        newError = _.omit(newError, name); //Makes existing error state null.
+        let newSuccessState = _.extend({}, this.state.success);
+        newSuccessState[name] = true;
+        this.setState({ success: newSuccessState});
+      }
+
+      this.throttledSetErrorState(newError);
     }
   }
 
-  throttledSetErrorState(newError) {
+  throttledSetErrorState(newError) { //so errors don't appear instantly and annoy users
     this.setState({ errors: newError });
   }
 
+  //validators below
   password(value) {
     if (value.length < 6) {
       return ('Password must be at least 6 digits');
@@ -68,35 +76,34 @@ export var handleForms = ComposedComponent => class extends Component {
     if (value.search(/[0-9]/) < 0) {
       return ('Your password must contain at least 1 number');
     }
-    return ('Success!');
+    return null;
   }
 
-  //this isn't working super well.
   confirmPassword(value) {
       if (value !== this.state.values.password) {
         return ('Passwords must match');
       }
-      return ('Success!');
+      return null;
   }
 
   required(value) {
     if (value.length < 1) {
       return ('Can\'t be blank');
     }
-    return ('Success!');
+    return null;
   }
 
   isNumber(value) {
     if (isNaN(value) || !value) {
       return ('Must be a number');
     }
-    return ('Success!');
+    return null;
   }
 
   email(value) {
     if (value.search(/[^\s@]+@[^\s@]+\.[^\s@]+/) < 0) {
       return ('Doesn\'t look like a valid email');
     }
-    return ('Success!');
+    return null;
   }
 };

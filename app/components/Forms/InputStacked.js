@@ -15,7 +15,8 @@ export default class InputStacked extends React.Component {
 
   static defaultProps = {
     type: 'text',
-    showError: true
+    required: true,
+    validateBy: 'required'
   };
 
   constructor() {
@@ -28,15 +29,11 @@ export default class InputStacked extends React.Component {
     if (this.props.errorMsg) {
       style = styles.messageError;
       message = {__html: '- ' + this.props.errorMsg};
-    }
-    if (this.props.errorMsg === 'Success!') {
+    } else if (this.props.success) {
       style = styles.messageSuccess;
       message = {__html: ' <i class="fa fa-check"></i>'};
     }
-
-  if (!this.props.showError) {
-    message = {__html: ''};
-  }
+    let req = 'required'
 
     return (
       <div>

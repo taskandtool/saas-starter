@@ -62,7 +62,7 @@ MIT licence.
 ### Installing
 
 ```
-git clone git@github.com:gdub01/mwr-boilerplate.git
+git clone git@github.com:taskandtool/saas-starter.git
 npm install
 add keys to devel.json in settings folder
 type 'node dev.js' in your console to start it up.
