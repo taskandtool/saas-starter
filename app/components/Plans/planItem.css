@@ -1,9 +1,6 @@
 .column {
   lost-waffle: 1/3;
-  background-color: #607D8B;
-  color: #fff;
-  padding: 1em;
-  border-radius: .5em;
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
 }
 
 @media all and (max-width: 60em) {
@@ -18,13 +15,21 @@
   }
 }
 
+.info {
+  padding: 1em;
+  padding-top:0em;
+}
+
+.bannerImg {
+  height: 150px;
+  max-width: 100%;
+}
 .planTitle {
-  color:white;
   margin-bottom: 0;
 }
 
 .date {
-  color: #f7f7f7;
+  color: #4C4C4C;
   font-size: 80%;
   margin-bottom: .2em;
 }

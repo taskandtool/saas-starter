@@ -1,43 +1,38 @@
-//import styles from './styles.styl';
-
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import {Link} from 'react-router';
-//import CSSModules from 'react-css-modules';
+import {Link, History} from 'react-router';
+import UserCard from './UserCard.js';
+import reactMixin from 'react-mixin';
 
-//@CSSModules(styles)
+import styles from './userList.css';
+
 export default class UserList extends React.Component {
   static propTypes = {
-    users: PropTypes.array
   }
 
   render() {
     let users = this.props.users.map((user) => {
+      let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
       return (
-        <tr key={user._id}>
-          <th><Link to={`/user/${user._id}`}>{user._id}</Link></th>
-          <th>{moment(user.createdAt).format('MMMM DD, YYYY')}</th>
-          <th>{user.profile && user.profile.name ? user.profile.name : ''}</th>
-        </tr>
+          <UserCard key={user._id}
+                  _id={user._id}
+                  name={user.profile.name}
+                  avatar={user.profile.avatar}
+                  createdAt={user.createdAt}
+                  email={email}
+                  makeClickable={true}
+                  />
+
       );
     })
 
     //const { _id, createdAt, createdBy, title, monthlyPrice, setupPrice } = user;
     return (
-      <div styleName="wrapper">
-        <h1>User list - {this.props.users.length} Total</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>Created At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users}
-          </tbody>
-        </table>
-
+      <div className={styles.wrapper}>
+        <h1>{users.length} Users</h1>
+        <div className={styles.grid}>
+          {users}
+        </div>
       </div>
     );
   }

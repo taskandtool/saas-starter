@@ -14,7 +14,7 @@ export default class UserProfileRoute extends Component {
     super();
     this.state = {
       errors: {},
-      uploadingMsg: "Upload a new profile image",
+      uploadingMsg: "Upload a new profile image:",
       showSpinner: false
     };
     this.handleUpload = this.handleUpload.bind(this);

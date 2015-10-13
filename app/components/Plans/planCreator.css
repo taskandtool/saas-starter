@@ -1,13 +1,5 @@
-.btn {
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .8em;
-  margin-top: .2em;
-  width: 100%;
-}
-
-.section {
-  padding: 1em;
+.wrapper {
+  margin: 4em 1em;
 }
 
 .formBox {
@@ -26,8 +18,12 @@
   }
 }
 
-.title {
-  text-align: center;
+.btn {
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .2em;
+  width: 100%;
 }
 
 .subtitle {

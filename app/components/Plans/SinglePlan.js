@@ -4,6 +4,7 @@ import PlanItem from './PlanItem.js';
 
 import styles from './singlePlan.css';
 
+@reactMixin.decorate(History)
 export default class SinglePlan extends React.Component {
   static propTypes = {
     plan: PropTypes.object
@@ -24,20 +25,36 @@ export default class SinglePlan extends React.Component {
 
     return (
       <div className={styles.wrapper}>
-        <PlanItem plan={plan} />
+        <h1 className={styles.title}>{title}</h1>
         <div className={styles.otherFields}>
           <h3 className={styles.subTitle}>More details</h3>
           <ul className={styles.listGroup}>
             <li>Plan ID: {_id}</li>
-            <li>Number of Teams on this Plan: {teamsUsingItCount}</li>
+            <li>There are {teamsUsingItCount} teams on this plan</li>
           </ul>
-          <h3 className={styles.subTitle}>Editable</h3>
+          <h3 className={styles.subTitle}>Things you can edit:</h3>
           <ul className={styles.listGroup}>
-            <li>Currently Available to Teams: {currAvail ? 'yes' : 'no'} <input type="checkbox" checked={!!currAvail} name='currAvail' onChange={this.onCheckedChanged}/></li>
-            <li>Custom Plan? (not public): {custom ? 'yes' : 'no'} <input type="checkbox" checked={!!custom} name='custom' onChange={this.onCheckedChanged}/></li>
-            <li>isDeleted (soft delete accessible for Super Admins): {isDeleted ? 'yes' : 'no'} <input type="checkbox" checked={!!isDeleted} name='isDeleted' onChange={this.onCheckedChanged}/></li>
+            <li>
+              <input type="checkbox"
+                      checked={!!currAvail}
+                      name='currAvail'
+                      onChange={this.onCheckedChanged}/> Currently Available to Teams?
+            </li>
+            <li>
+              <input type="checkbox"
+                      checked={!!custom}
+                      name='custom'
+                      onChange={this.onCheckedChanged}/> Custom Plan?
+            </li>
+            <li>
+              <input type="checkbox"
+                checked={!!isDeleted}
+                name='isDeleted'
+                onChange={this.onCheckedChanged}/> Is Soft-Deleted?
+            </li>
           </ul>
         </div>
+        <PlanItem plan={plan} />
       </div>
     );
   }

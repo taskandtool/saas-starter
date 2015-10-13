@@ -17,16 +17,16 @@ export default class PlanList extends React.Component {
 
     let plans = this.props.plans.map((plan) => {
       return (
-          <PlanItem key={plan._id} plan={plan} />
+          <PlanItem key={plan._id} plan={plan} makeClickable={true} />
       );
     })
 
     return (
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>{this.props.plans.length} Plans</h1>
+        <h1 className={styles.title}>{plans.length} Plans</h1>
         {createPlanButton}
         <div className={styles.container} >
-        {plans}
+          {plans}
         </div>
       </div>
     );

@@ -21,9 +21,9 @@ export default class PlanCreator extends React.Component {
     let errors = this.props.formState.errors;
 
     return (
-      <div className={styles.section}>
+      <div className={styles.wrapper}>
         <div className={styles.formBox}>
-          <h2 className={styles.title}>Add a New Plan</h2>
+          <h1>Add a New Plan</h1>
           <form id="form" className={styles.form} onSubmit={() => this.handleSubmit(event, errors, values)}>
             <fieldset>
             <InputStacked
