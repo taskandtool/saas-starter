@@ -2,6 +2,7 @@ import React, {Component, CSSTransitionGroup} from 'react';
 import Nav from '../components/Header/Nav';
 import Sidebar from '../components/Sidebar/Sidebar';
 import reactMixin from 'react-mixin';
+import Helmet from "react-helmet";
 
 import global from '../styles/global.css';
 import styles from './app.css';
@@ -37,6 +38,13 @@ export default class App extends Component {
 
     return (
       <div className={styles.app}>
+        <Helmet
+          title="My SaaS App"
+          titleTemplate="%s - TaskandTool.com"
+          meta={[
+              {"name": "description", "content": "SaaS App Starter Kit"}
+          ]}
+        />
         <Nav user={this.data.user}
             showDropDown={this.state.showDropDown}
             showSidebar={this.state.showSidebar}

@@ -6,6 +6,7 @@ import createHistory from 'react-router/node_modules/history/lib/createBrowserHi
 import App from './App';
 import Home from './Home';
 import Dashboard from './Dashboard';
+import Search from './Search';
 import * as Plans from './Plans';
 import * as Users from './Users';
 //import Dashboard from './Dashboard.jsx';
@@ -16,6 +17,7 @@ ReactDOM.render(
   <Router history={history}>
     <Route component={App}>
       <Route path="/" component={Home} />
+      <Route path="/search" component={Search} />
       <Route path="/join" component={Users.Join} />
       <Route path="/signin" component={Users.SignIn} />
       <Route path="/forgot-password" component={Users.ForgotPassword} />

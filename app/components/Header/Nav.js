@@ -3,7 +3,6 @@ import {Link, History} from 'react-router';
 import reactMixin from 'react-mixin';
 import styles from './nav.css';
 
-
 export default class Nav extends React.Component {
   render() {
     const user = this.props.user;
@@ -16,7 +15,9 @@ export default class Nav extends React.Component {
 
       rightSide = (
         <ul className={styles.navbarListRight}>
-          <li className={styles.item}><i className="fa fa-search"></i></li>
+          <li className={styles.item}>
+            <Link to="/search" className={styles.link}><i className="fa fa-search"></i></Link>
+          </li>
           <li className={styles.item}>
             <a href="#" onClick={this.props.handleDropDownClick} className={styles.link} ><i className="fa fa-ellipsis-v"></i></a>
           </li>
@@ -30,7 +31,9 @@ export default class Nav extends React.Component {
       rightSide = (
         <ul className={styles.navbarListRight}>
           <li className={styles.divider}></li>
-          <li className={styles.item}><i className="fa fa-search"></i></li>
+          <li className={styles.item}>
+            <Link to="/search" className={styles.link}><i className="fa fa-search"></i></Link>
+          </li>
           <li className={styles.item}><Link to="/signin" className={styles.link}>Sign in</Link></li>
           <li className={styles.item}><Link to="/join" className={styles.link}>Join</Link></li>
         </ul>
