@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import {Link, History} from 'react-router';
 import UserCard from './UserCard.js';
-import reactMixin from 'react-mixin';
 
 import styles from './userList.css';
 

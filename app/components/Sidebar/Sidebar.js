@@ -18,6 +18,7 @@ export default class Sidebar extends React.Component {
       content = (
           <ul className={styles.sidebarList}>
             <li className={styles.item}><Link to={`/user/${user._id}`} className={styles.link}>{user.profile.name}'s Widgets</Link></li>
+            <li className={styles.item}><Link to="/super-global-dashboard" className={styles.link}>Dashboard</Link></li>
           </ul>
       );
     } else {
@@ -39,6 +40,7 @@ export default class Sidebar extends React.Component {
           <li className={styles.item}><Link to="/" className={styles.link}>Home</Link></li>
           <li className={styles.item}><Link to="/plans" className={styles.link}>Plans</Link></li>
           <li className={styles.item}><Link to="/users" className={styles.link}>Users</Link></li>
+
         </ul>
         { content }
       </div>

@@ -50,7 +50,7 @@
   font-size: 1em;
   height: 3.3em;
   padding: 0 0;
-  margin: 0 .3em;
+  margin: 0 .7em;
   display: inline-block;
   *display: inline;
   zoom: 1;
@@ -62,7 +62,7 @@
   display: block;
   text-decoration: none;
   white-space: nowrap;
-  padding: 0em 1em;
+  padding: 0em .8em;
 }
 
 .active > .link,
@@ -93,7 +93,7 @@
 
 .avatar {
   border-radius: 50%;
-  margin: .25em 1em 0em 0em;
+  margin: .25em 1em 0em .6em;
   height: 2.95em;
   width: 2.95em;
 }
