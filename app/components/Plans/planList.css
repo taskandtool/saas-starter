@@ -8,6 +8,7 @@
   padding: .7em;
   margin-top: .2em;
   margin-bottom: 1em;
+  float:right;
 }
 
 @media all and (max-width: 38em) {
@@ -16,6 +17,7 @@
     color: #fff;
     padding: .4em;
     margin-bottom: 1em;
+
   }
 }
 
@@ -27,4 +29,5 @@
 
 .title {
   margin-bottom: .2em;
+  float:left;
 }

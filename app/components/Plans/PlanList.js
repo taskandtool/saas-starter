@@ -23,8 +23,10 @@ export default class PlanList extends React.Component {
 
     return (
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>{plans.length} Plans</h1>
-        {createPlanButton}
+        <div className={styles.holder} >
+          <h1 className={styles.title}>{plans.length} Plans</h1>
+          {createPlanButton}
+        </div>
         <div className={styles.container} >
           {plans}
         </div>
