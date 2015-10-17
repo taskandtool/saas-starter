@@ -5,7 +5,6 @@ import UserProfile from '../../components/Users/UserProfile';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserProfileRoute extends Component {
-
   static propTypes = {
     params: PropTypes.object
   }
@@ -65,13 +64,16 @@ export default class UserProfileRoute extends Component {
       );
     }
 
+    let ownsProfile = this.data.user._id == Meteor.user()._id
+
     return (
       <UserProfile handleSetProfilePic={this.handleSetProfilePic}
                   ref="userProfile"
                   user={this.data.user}
                   handleUpload={this.handleUpload}
                   uploadingMsg={this.state.uploadingMsg}
-                  showSpinner={this.state.showSpinner} />
+                  showSpinner={this.state.showSpinner}
+                  ownsProfile={ownsProfile} />
     );
   }
 }

@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.joinBox {
+.wrapper {
   lost-center: 400px;
   padding: 1em;
 }
@@ -24,9 +24,16 @@
 .form input, .form label{
   display: block;
   margin: 0.25em 0;
+  margin-bottom: 0em;
   z-index: 3;
 }
 
-.fieldset {
-  text-align: left;
+.links {
+  font-size: .8em;
+  margin-right: .8em;
+  text-align: center;
+}
+
+.error {
+  color: red;
 }

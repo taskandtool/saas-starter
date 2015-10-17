@@ -23,6 +23,7 @@
 .imgWrapper {
   height: 179px;
   width: 100.2%;
+  z-index: -1;
   lost-align: bottom;
 }
 

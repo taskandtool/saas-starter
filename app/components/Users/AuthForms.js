@@ -5,6 +5,7 @@ import InputStacked from '../../components/Forms/InputStacked';
 export default class ResetPassword extends Component {
   static propTypes = {
     formState: React.PropTypes.object,
+    messages: React.PropTypes.object,
     handleSubmit: React.PropTypes.func,
     handleChange: React.PropTypes.func
   }
@@ -12,12 +13,13 @@ export default class ResetPassword extends Component {
   render() {
     let values = this.props.formState.values;
     let errors = this.props.formState.errors;
+    let {title, subtitle, buttonText} = this.props.messages;
 
     return (
       <div className={styles.wrapper}>
-        <h2 className={styles.title}>Reset your Password</h2>
+        <h2 className={styles.title}>{title}</h2>
         <form ref="form" className={styles.form}>
-          <h6 className={styles.subtitle}>Please enter your new password</h6>
+          <h6 className={styles.subtitle}>{subtitle}</h6>
           <fieldset>
 
             <InputStacked
@@ -45,7 +47,7 @@ export default class ResetPassword extends Component {
         <div className={styles.error}>{this.props.formFail}</div>
         <div className={styles.success}>{this.props.successMessage}</div>
         <button type="submit" className={styles.btn} onClick={() => this.props.handleSubmit(event, errors, values, this.props.token)}>
-          Reset My Password
+          {buttonText}
         </button>
       </div>
     )

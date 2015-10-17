@@ -1,4 +1,4 @@
-import React, {Component, CSSTransitionGroup} from 'react';
+import React, {Component, CSSTransitionGroup, PropTypes} from 'react';
 import Nav from '../components/Header/Nav';
 import Sidebar from '../components/Sidebar/Sidebar';
 import reactMixin from 'react-mixin';
@@ -7,9 +7,12 @@ import Helmet from "react-helmet";
 import global from '../styles/global.css';
 import styles from './app.css';
 
-
 @reactMixin.decorate(ReactMeteorData)
 export default class App extends Component {
+  static propTypes = {
+    params: PropTypes.object
+  }
+
   constructor() {
     super();
     this.dropdownClick = this.dropdownClick.bind(this);
@@ -35,7 +38,6 @@ export default class App extends Component {
   }
 
   render() {
-
     return (
       <div className={styles.app}>
         <Helmet
@@ -49,7 +51,10 @@ export default class App extends Component {
             showDropDown={this.state.showDropDown}
             showSidebar={this.state.showSidebar}
             handleMenuClick={this.showSidebarClick}
-            handleDropDownClick={this.dropdownClick}  />
+            handleDropDownClick={this.dropdownClick}
+            name={this.props.routes[1].name}
+            back={this.props.routes[1].back || null}
+              />
         { this.state.showSidebar ?
           <div>
             <Sidebar user={this.data.user}
