@@ -24,7 +24,6 @@ export default class PlanList extends React.Component {
         <div className={styles.info}>
           <h2 className={styles.planTitle}>{plan.title}</h2>
           <p className={styles.date}>Created: {moment(plan.createdAt).format('MMMM DD, YYYY')}</p>
-          <p className={styles.date}>Updated: {moment(plan.createdAt).format('MMMM DD, YYYY')}</p>
           <p className={styles.features}>{plan.desc}</p>
           <p className={styles.features}>${plan.monthlyPrice} /MO</p>
           <p className={styles.features}>Setup Fee: ${plan.setupPrice}</p>
