@@ -1,4 +1,4 @@
-import {Teams, Users} from './schemas';
+import {Teams, Plans, Users} from './schemas';
 
 import './schemas/teams.js';
 import './schemas/users.js';

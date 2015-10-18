@@ -4,6 +4,7 @@ import styles from './userOwnsProfile.css';
 
 export default class UserProfile extends React.Component {
   static propTypes = {
+    handleUpload: React.PropTypes.func.isRequired
   }
 
   constructor() {

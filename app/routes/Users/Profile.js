@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import reactMixin from 'react-mixin';
 import {Users} from '../../schemas';
 import UserProfile from '../../components/Users/UserProfile';
@@ -28,36 +29,7 @@ export default class UserProfileRoute extends Component {
     };
   }
 
-  handleSetProfilePic(image) {
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": image }});
-  }
-
-  handleUpload() {
-    this.setState({
-      uploadingMsg: "Uploading...",
-      showSpinner: true
-    });
-    const uploader = new Slingshot.Upload("userImages");
-    uploader.send(React.findDOMNode(this.refs.userProfile.refs.fileInput).files[0], (error, downloadUrl) => {
-      if (error) {
-        console.error('Error uploading', error);
-        this.setState({
-          uploadingMsg: "Sorry, there was an error. Please try again later",
-          showSpinner: false
-        });
-      }
-      else {
-        Meteor.call('storeUserProfileImage', downloadUrl);
-        this.setState({
-          uploadingMsg: "Success!",
-          showSpinner: false
-        });
-      }
-    });
-  }
-
   render() {
-
     if (this.data.loading) {
       return (
         <div>Loading</div>
@@ -75,5 +47,33 @@ export default class UserProfileRoute extends Component {
                   showSpinner={this.state.showSpinner}
                   ownsProfile={ownsProfile} />
     );
+  }
+
+  handleSetProfilePic(image) {
+    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": image }});
+  }
+
+  handleUpload() {
+    this.setState({
+      uploadingMsg: "Uploading...",
+      showSpinner: true
+    });
+    const uploader = new Slingshot.Upload("userImages");
+
+    uploader.send(this.refs.userProfile.refs.userOwnsProfile.refs.fileInput.files[0], (error, downloadUrl) => {
+      if (error) {
+        console.error('Error uploading', error);
+        this.setState({
+          uploadingMsg: "Sorry, there was an error. Please try again later",
+          showSpinner: false
+        });
+      } else {
+        Meteor.call('storeUserProfileImage', downloadUrl);
+        this.setState({
+          uploadingMsg: "Success!",
+          showSpinner: false
+        });
+      }
+    });
   }
 }
