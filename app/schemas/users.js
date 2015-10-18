@@ -1,4 +1,4 @@
-import {Users} from '../collections';
+import {Users} from '../schemas';
 
 // User 'model' namespace
 // allows your code to read a bit nicer with a

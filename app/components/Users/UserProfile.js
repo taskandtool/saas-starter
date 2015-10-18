@@ -7,7 +7,7 @@ import styles from './userProfile.css';
 
 export default class UserProfile extends React.Component {
   static propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     handleUpload: React.PropTypes.func.isRequired
   }
 
@@ -30,7 +30,17 @@ export default class UserProfile extends React.Component {
         <div className={styles.grid}>
           <div className={styles.column}>
 
-            {this.props.ownsProfile ? <UserOwnsProfile otherImages={otherImages} /> : null}
+            //if user is viewing their own profile, allow them to modify profile image
+            {this.props.ownsProfile ?
+              <UserOwnsProfile
+                    otherImages={otherImages}
+                    handleUpload={this.props.handleUpload}
+                    uploadingMsg={this.props.uploadingMsg}
+                    showSpinner={this.props.showSpinner}
+                    ref="userOwnsProfile" />
+              :
+              null
+            }
 
             <h5>More Details</h5>
             <div>Joined: {moment({createdAt}).format('MMMM DD, YYYY')}</div>
@@ -41,7 +51,8 @@ export default class UserProfile extends React.Component {
                     name={user.profile.name}
                     avatar={user.profile.avatar}
                     createdAt={user.createdAt}
-                    email={email} />
+                    email={email}
+                     />
         </div>
       </div>
     );

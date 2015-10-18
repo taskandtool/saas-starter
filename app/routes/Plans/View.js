@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
-import {Plans} from '../../collections';
+import {Plans} from '../../schemas';
 import SinglePlan from '../../components/Plans/SinglePlan';
 
 @reactMixin.decorate(ReactMeteorData)

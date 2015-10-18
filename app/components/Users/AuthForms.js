@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import styles from './authForms.css';
 
 export default class AuthForms extends Component {
-  static propTypes = {
+  static PropTypes = {
     inputState: React.PropTypes.object,
     inputsToUse: React.PropTypes.array,
     formError: React.PropTypes.string,
@@ -16,6 +16,11 @@ export default class AuthForms extends Component {
     handleSubmit: React.PropTypes.func,
     handleChange: React.PropTypes.func
   }
+
+  static defaultProps = {
+    includeSocialAuth: false,
+    socialAuthType: 'Join'
+  };
 
   constructor() {
     super();

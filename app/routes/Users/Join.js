@@ -7,7 +7,7 @@ import md5 from 'blueimp-md5';
 
 @handleForms
 @reactMixin.decorate(History)
-export default class JoinComponent extends React.Component {
+export default class JoinRoute extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,6 @@ export default class JoinComponent extends React.Component {
         handleSubmit={this.handleSubmit}
         handleChange={this.props.handleChange}
         includeSocialAuth={true}
-        socialAuthType="Join"
         inputState={this.props.inputState}
         inputsToUse={inputsToUse}
         linksToUse={linksToUse}

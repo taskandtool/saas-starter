@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import PlanCreator from '../../components/Plans/PlanCreator';
-import {Plans} from '../../collections';
+import {Plans} from '../../schemas';
 import Helmet from 'react-helmet';
 
 export default class PlanCreateRoute extends React.Component {

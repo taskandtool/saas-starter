@@ -31,7 +31,6 @@ export default class ForgotPasswordRoute extends React.Component {
         formSuccess={this.state.formSuccess}
         handleSubmit={this.handleSubmit}
         handleChange={this.props.handleChange}
-        includeSocialAuth={false}
         inputState={this.props.inputState}
         inputsToUse={inputsToUse}
         linksToUse={linksToUse}
