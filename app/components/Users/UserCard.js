@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
 import Mailto from 'react-mailto';
 import reactMixin from 'react-mixin';
@@ -6,8 +6,11 @@ import {History} from 'react-router';
 import styles from './userCard.css';
 
 @reactMixin.decorate(History)
-export default class UserProfile extends React.Component {
+export default class UserProfile extends Component {
   static propTypes = {
+    makeClickable: PropTypes.func,
+    name: PropTypes.string,
+    email: PropTypes.string,
   }
 
   render() {

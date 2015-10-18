@@ -7,7 +7,7 @@ import styles from './userProfile.css';
 
 export default class UserProfile extends React.Component {
   static propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     handleUpload: React.PropTypes.func.isRequired
   }
 
@@ -30,6 +30,7 @@ export default class UserProfile extends React.Component {
         <div className={styles.grid}>
           <div className={styles.column}>
 
+            //if user is viewing their own profile, allow them to modify profile image
             {this.props.ownsProfile ?
               <UserOwnsProfile
                     otherImages={otherImages}

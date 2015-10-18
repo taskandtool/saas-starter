@@ -36,7 +36,6 @@ export default class JoinRoute extends React.Component {
         handleSubmit={this.handleSubmit}
         handleChange={this.props.handleChange}
         includeSocialAuth={true}
-        socialAuthType="Join"
         inputState={this.props.inputState}
         inputsToUse={inputsToUse}
         linksToUse={linksToUse}

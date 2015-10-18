@@ -37,8 +37,6 @@ export default class ResetPasswordRoute extends Component {
         formSuccess={this.state.formSuccess}
         handleSubmit={this.handleSubmit}
         handleChange={this.props.handleChange}
-        includeSocialAuth={false}
-        socialAuthType="Login"
         inputState={this.props.inputState}
         inputsToUse={inputsToUse}
         linksToUse={linksToUse}

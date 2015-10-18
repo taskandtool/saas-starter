@@ -1,4 +1,4 @@
-import React, {propTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {History} from 'react-router';
 import reactMixin from 'react-mixin';
 
@@ -6,6 +6,12 @@ import styles from './SocialAuth.css'
 
 @reactMixin.decorate(History)
 export default class SocialAuth extends React.Component {
+  static PropTypes = {
+    handleUpload: React.PropTypes.func.isRequired,
+    uploadingMsg: React.PropTypes.string,
+    type: React.PropTypes.string
+  }
+
   constructor() {
     super();
     this.handleGoogle = this.handleGoogle.bind(this);
