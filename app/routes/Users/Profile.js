@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
-import {Users} from '../../collections';
+import {Users} from '../../schemas';
 import UserProfile from '../../components/Users/UserProfile';
 
 @reactMixin.decorate(ReactMeteorData)

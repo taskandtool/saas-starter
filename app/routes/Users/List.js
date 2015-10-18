@@ -1,7 +1,7 @@
 import React from 'react';
 import UserList from '../../components/Users/UserList';
 import reactMixin from 'react-mixin';
-import {Users} from '../../collections';
+import {Users} from '../../schemas';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserListRoute extends React.Component {

@@ -1,4 +1,4 @@
-import {Teams} from '../collections';
+import {Teams} from '../schemas';
 
 var schema = {
   _id: String,

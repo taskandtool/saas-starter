@@ -1,8 +1,8 @@
-import {Teams, Users} from './collections';
+import {Teams, Users} from './schemas';
 
-import './methods/teams.js';
-import './methods/users.js';
-import './methods/plans.js';
+import './schemas/teams.js';
+import './schemas/users.js';
+import './schemas/plans.js';
 
 import './publications/publications.js';
 

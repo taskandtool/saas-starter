@@ -1,4 +1,4 @@
-import {Plans} from '../collections';
+import {Plans} from '../schemas';
 
 var schema = {
   _id: String,
