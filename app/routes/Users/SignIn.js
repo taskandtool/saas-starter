@@ -1,28 +1,72 @@
-import React from 'react';
-import SignIn from '../../components/Users/SignIn';
+import React, { Component } from 'react';
+import {History} from 'react-router';
+import reactMixin from 'react-mixin';
+import {handleForms} from '../../components/Forms/FormDecorator';
+import AuthForms from '../../components/Users/AuthForms.js';
 
-export default class SignInRoute extends React.Component {
+@handleForms
+@reactMixin.decorate(History)
+export default class SignInRoute extends Component {
   constructor() {
     super();
-    this.logout = this.logout.bind(this);
-  }
-
-  logout() {
-    Meteor.logout();
-    this.history.pushState(null, `/`);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      formSuccess: "",
+      formError: ""
+    };
   }
 
   render() {
-    if (Meteor.user()) {
-      return (
-        <div>
-          <p>You're currently signed in as {Meteor.user().profile.name}.</p>
-          <button onClick={ this.logout } >Logout</button>
-        </div>
-      )
+
+    const messages = {
+      title: "Get Started!",
+      subtitle: "- Or -",
+      buttonText: "Login",
     }
+
+    const inputsToUse = ["email", "password"];
+    const linksToUse = ["join", "forgot"];
+
     return (
-      <SignIn />
+        <AuthForms
+          messages={messages}
+          formError={this.state.formError}
+          formSuccess={this.state.formSuccess}
+          handleSubmit={this.handleSubmit}
+          handleChange={this.props.handleChange}
+          includeSocialAuth={true}
+          socialAuthType="Login"
+          inputState={this.props.inputState}
+          inputsToUse={inputsToUse}
+          linksToUse={linksToUse}
+          />
     )
+  }
+
+  handleSubmit(event, errors, values) {
+    event.preventDefault();
+    const {email, password} = values;
+
+    if (errors.password || errors.email) {
+      return false;
+    }
+
+    Meteor.loginWithPassword(email, password, (error) => {
+      if (error) {
+        console.log (error.reason);
+        this.setState({
+          formError: error.reason
+        });
+        return;
+      } else {
+        this.setState ({
+          formError: "",
+          formSuccess: 'Success!'
+        });
+        window.setTimeout(() => {
+          this.history.pushState(null, `/`);
+        }, 1000);
+      }
+    });
   }
 }
