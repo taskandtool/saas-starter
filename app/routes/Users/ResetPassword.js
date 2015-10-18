@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import ResetPassword from '../../components/Users/ResetPassword';
+import {History} from 'react-router';
 import reactMixin from 'react-mixin';
-import {Link, History} from 'react-router';
+import {handleForms} from '../../components/Forms/FormDecorator';
+import AuthForms from '../../components/Users/AuthForms.js';
 
+@handleForms
 @reactMixin.decorate(History)
 export default class ResetPasswordRoute extends Component {
   static propTypes = {
@@ -11,53 +13,63 @@ export default class ResetPasswordRoute extends Component {
 
   constructor() {
     super();
-    this.state = {errors: {}};
-    this.onSubmit = this.onSubmit.bind(this);
-    Accounts.resetPassword = Accounts.resetPassword.bind(this);
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-
-    const password = event.target.password.value;
-    const confirm = event.target.confirm.value;
-    const token = this.props.token;
-    const errors = {};
-
-    if (! password) {
-      errors.password = 'Password required';
-    }
-
-    if (confirm !== password) {
-      errors.confirm = 'Please confirm your password';
-    }
-
-    this.setState({
-      errors: errors
-    });
-
-    if (! _.isEmpty(errors)) {
-      // Form errors found, do not log in
-      return;
-    }
-
-    Accounts.resetPassword(this.props.params.token, password, (error) => {
-      if (error) {
-        this.setState({
-          errors: { 'none': error.reason }
-        });
-        return;
-      }
-      this.setState ({
-        successMessage: 'Password reset successfully! Redirecting to home...'
-      });
-      setTimeout(this.history.pushState(null, `/`), 7000);
-    });
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      formSuccess: "",
+      formError: ""
+    };
   }
 
   render() {
+    const messages = {
+      title: "Reset your Password",
+      subtitle: "Enter your new password",
+      buttonText: "Reset my Password",
+    }
+
+    const inputsToUse = ["password", "confirm"];
+    const linksToUse = [];
+
     return (
-      <ResetPassword token={this.props.params.token} errors={this.state.errors} onSubmit={this.onSubmit} successMessage={this.state.successMessage} />
+      <AuthForms
+        messages={messages}
+        formError={this.state.formError}
+        formSuccess={this.state.formSuccess}
+        handleSubmit={this.handleSubmit}
+        handleChange={this.props.handleChange}
+        includeSocialAuth={false}
+        socialAuthType="Login"
+        inputState={this.props.inputState}
+        inputsToUse={inputsToUse}
+        linksToUse={linksToUse}
+        token={this.props.params.token}
+        />
     )
+  }
+
+  handleSubmit(event, errors, values, token) {
+    event.preventDefault();
+    const {password, confirm} = values;
+
+    if (errors.password || errors.confim) {
+      return false;
+    }
+
+    Accounts.resetPassword(token, password, (error) => {
+      if (error) {
+        this.setState({
+          formError: error.reason
+        });
+        return;
+      } else {
+        this.setState ({
+          formError: "",
+          formSuccess: 'Success! Your password has been reset. Redirecting...'
+        });
+        window.setTimeout(() => {
+          this.history.pushState(null, `/`);
+        }, 1000);
+      }
+    });
   }
 }

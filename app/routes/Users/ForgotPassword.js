@@ -1,55 +1,64 @@
-import React from 'react';
-import ForgotPassword from '../../components/Users/ForgotPassword';
+import React, { Component } from 'react';
+import reactMixin from 'react-mixin';
+import {handleForms} from '../../components/Forms/FormDecorator';
+import AuthForms from '../../components/Users/AuthForms.js';
 
-
+@handleForms
 export default class ForgotPasswordRoute extends React.Component {
-
   constructor() {
     super();
-    this.state = {errors: {}};
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      formSuccess: "",
+      formError: ""
+    };
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-
-    const email = event.target.email.value;
-    const errors = {};
-
-    if (! email) {
-      errors.email = 'Email required';
+  render() {
+    const messages = {
+      title: "Recover your Password",
+      subtitle: "Enter your email",
+      buttonText: "Reset my Password",
     }
 
-    this.setState({
-      errors: errors
-    });
+    const inputsToUse = ["email"];
+    const linksToUse = [];
 
-    if (! _.isEmpty(errors)) {
-      // Form errors found, do not log in
-      return;
+    return (
+      <AuthForms
+        messages={messages}
+        formError={this.state.formError}
+        formSuccess={this.state.formSuccess}
+        handleSubmit={this.handleSubmit}
+        handleChange={this.props.handleChange}
+        includeSocialAuth={false}
+        inputState={this.props.inputState}
+        inputsToUse={inputsToUse}
+        linksToUse={linksToUse}
+        />
+    )
+  }
+
+  handleSubmit(event, errors, values) {
+    event.preventDefault();
+    const {email, password, confirm} = values;
+
+    if (errors.password || errors.email || errors.confirm) {
+      return false;
     }
 
     Accounts.forgotPassword({email: email}, (error) => {
       if (error) {
         this.setState({
-          errors: { 'none': error.reason }
+          formError: error.reason
         });
         return;
+      } else {
+        this.setState ({
+          formError: "",
+          formSuccess: 'Success! An email with the option to reset your password has been sent! Please check your inbox.'
+        });
       }
-      this.setState ({
-        successMessage: 'Success: An email with the option to reset your password has been sent! Please check your inbox.'
-      });
     });
-  }
-
-  logout() {
-    Meteor.logout();
-    // this.history.pushState(null, `/`); *Waiting for react-router decorators in 1.x
-  }
-
-  render() {
-    return (
-      <ForgotPassword onSubmit={this.onSubmit} errors={this.state.errors} successMessage={this.state.successMessage} />
-    )
   }
 }

@@ -4,6 +4,7 @@ import reactMixin from 'react-mixin';
 import styles from './nav.css';
 
 export default class Nav extends React.Component {
+
   render() {
     const user = this.props.user;
     let rightSide;
@@ -21,7 +22,7 @@ export default class Nav extends React.Component {
           <li className={styles.item}>
             <a href="#" onClick={this.props.handleDropDownClick} className={styles.link} ><i className="fa fa-ellipsis-v"></i></a>
           </li>
-          { this.props.showDropDown ? <DropDown user={user} /> : null }
+          { this.props.showDropDown ? <DropDown user={user} handleDropDownClick={this.props.handleDropDownClick} /> : null }
           <li className={styles.item}><a href="#" onClick={this.props.handleDropDownClick} ><img src={user.profile.avatar} className={styles.avatar} /></a></li>
 
         </ul>
@@ -32,10 +33,10 @@ export default class Nav extends React.Component {
         <ul className={styles.navbarListRight}>
           <li className={styles.divider}></li>
           <li className={styles.item}>
-            <Link to="/search" className={styles.link}><i className="fa fa-search"></i></Link>
+            <Link to="/search" className={styles.link} activeClassName="active"><i className="fa fa-search"></i></Link>
           </li>
-          <li className={styles.item}><Link to="/signin" className={styles.link}>Sign in</Link></li>
-          <li className={styles.item}><Link to="/join" className={styles.link}>Join</Link></li>
+          <li className={styles.item}><Link to="/signin" className={styles.link}  activeClassName="active">Sign in</Link></li>
+          <li className={styles.item}><Link to="/join" className={styles.link}  activeClassName="active">Join</Link></li>
         </ul>
       );
     }
@@ -51,13 +52,17 @@ export default class Nav extends React.Component {
             </a>
           </li>
           <li className={styles.divider}></li>
-          <li className={styles.item}>
-            <Link to="/" style={(this.props.showSidebar) ? style : {}} className={styles.link}>
-              <i className="fa fa-angle-left fa-2x"></i>
-            </Link>
-          </li>
-          <li className={styles.item}>
-           Page Title
+          {this.props.back ?
+            <li className={styles.item} style={(this.props.showSidebar) ? style : {}}>
+              <Link to={this.props.back} className={styles.link}>
+                <i className="fa fa-angle-left fa-2x"></i>
+              </Link>
+            </li>
+            :
+            null
+          }
+          <li className={styles.item} style={(this.props.showSidebar && !this.props.back) ? style : {}} ref="pageTitle">
+            {this.props.name}
           </li>
         </ul>
         { rightSide }
@@ -81,7 +86,7 @@ class DropDown extends React.Component {
 
   render() {
     return (
-      <ul className={styles.children}>
+      <ul className={styles.children} onClick={this.props.handleDropDownClick}>
         <li className={styles.item}><Link to={`/user/${this.props.user._id}`} className={styles.link}><i className="fa fa-user"></i> Profile</Link></li>
         <li className={styles.item}><a href="#" onClick={this.logout} className={styles.link}><i className="fa fa-sign-out"></i> Logout</a></li>
       </ul>

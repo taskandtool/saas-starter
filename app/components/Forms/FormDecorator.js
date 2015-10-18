@@ -16,9 +16,11 @@ export var handleForms = ComposedComponent => class extends Component {
   render() {
     return (
       <ComposedComponent
+        inputState={this.state}
         formState={this.state}
         handleChange={this.handleChange}
-        formValidateRequired={this.formValidateRequired} />
+        formValidateRequired={this.formValidateRequired}
+        {...this.props} />
     )
   }
 

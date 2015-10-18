@@ -1,71 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {History} from 'react-router';
 import reactMixin from 'react-mixin';
-import {Link, History} from 'react-router';
-import SignIn from '../../components/Users/SignIn';
+import {handleForms} from '../../components/Forms/FormDecorator';
+import AuthForms from '../../components/Users/AuthForms.js';
 
+@handleForms
 @reactMixin.decorate(History)
-export default class SignInRoute extends React.Component {
+export default class SignInRoute extends Component {
   constructor() {
     super();
-    this.state = {errors: {}};
-    this.onSubmit = this.onSubmit.bind(this);
-    this.logout = this.logout.bind(this);
-    Meteor.loginWithPassword = Meteor.loginWithPassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      formSuccess: "",
+      formError: ""
+    };
   }
 
-  onSubmit(event) {
+  render() {
+
+    const messages = {
+      title: "Get Started!",
+      subtitle: "- Or -",
+      buttonText: "Login",
+    }
+
+    const inputsToUse = ["email", "password"];
+    const linksToUse = ["join", "forgot"];
+
+    return (
+        <AuthForms
+          messages={messages}
+          formError={this.state.formError}
+          formSuccess={this.state.formSuccess}
+          handleSubmit={this.handleSubmit}
+          handleChange={this.props.handleChange}
+          includeSocialAuth={true}
+          socialAuthType="Login"
+          inputState={this.props.inputState}
+          inputsToUse={inputsToUse}
+          linksToUse={linksToUse}
+          />
+    )
+  }
+
+  handleSubmit(event, errors, values) {
     event.preventDefault();
+    const {email, password} = values;
 
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-
-    const errors = {};
-
-    if (! email) {
-      errors.email = 'Email required';
-    }
-
-    if (! password) {
-      errors.password = 'Password required';
-    }
-
-    this.setState({
-      errors: errors
-    });
-
-    if (! _.isEmpty(errors)) {
-      // Form errors found, do not log in
-      return;
+    if (errors.password || errors.email) {
+      return false;
     }
 
     Meteor.loginWithPassword(email, password, (error) => {
       if (error) {
+        console.log (error.reason);
         this.setState({
-          errors: { 'none': error.reason }
+          formError: error.reason
         });
-
         return;
+      } else {
+        this.setState ({
+          formError: "",
+          formSuccess: 'Success!'
+        });
+        window.setTimeout(() => {
+          this.history.pushState(null, `/`);
+        }, 1000);
       }
-      this.history.pushState(null, `/`);
     });
-  }
-
-  logout() {
-    Meteor.logout();
-    this.history.pushState(null, `/`);
-  }
-
-  render() {
-    if (Meteor.user()) {
-      return (
-        <div>
-          <p>You're currently signed in.</p>
-          <button onClick={ this.logout } >Logout</button>
-        </div>
-      )
-    }
-    return (
-      <SignIn onSubmit={this.onSubmit} errors={this.state.errors} />
-    )
   }
 }

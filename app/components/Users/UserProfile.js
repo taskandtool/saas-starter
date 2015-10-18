@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import UserCard from './UserCard.js';
+import UserOwnsProfile from './UserOwnsProfile';
 import styles from './userProfile.css';
 
 
@@ -10,21 +11,12 @@ export default class UserProfile extends React.Component {
     handleUpload: React.PropTypes.func.isRequired
   }
 
-  displayOtherImages(otherImages) {
-    if (otherImages.length > 1) {
-      return (
-        <h5>Click an image below to set a different profile image</h5>
-      );
-    } else {
-      return ''
-    }
-  }
-
   render() {
     const { user } = this.props;
     if (!user) return null;
     let createdAt = user.createdAt;
     let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
+
 
     let otherImages = user.profile.images.map((image, i) => {
       return (
@@ -32,30 +24,18 @@ export default class UserProfile extends React.Component {
       );
     })
 
-    let displayOtherImages = this.displayOtherImages(otherImages);
-
     return (
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{user.profile.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
-            {displayOtherImages}
-            {otherImages}
-            <form id="upload">
-              <div>
-                <h5>{this.props.uploadingMsg}</h5>
-                <div className={(this.props.showSpinner) ? styles.spinner : ''}></div>
-                <div className={styles.button}>
-                    <span>Upload New Image</span>
-                    <input type="file" className={styles.upload} ref="fileInput" onChange={this.props.handleUpload} />
-                </div>
-              </div>
-            </form>
+
+            {this.props.ownsProfile ? <UserOwnsProfile otherImages={otherImages} /> : null}
+
             <h5>More Details</h5>
             <div>Joined: {moment({createdAt}).format('MMMM DD, YYYY')}</div>
             <div>Name: {user.profile.name}</div>
             <div>Email: {user.emails && user.emails[0].address ? user.emails[0].address : 'No email'}</div>
-
           </div>
           <UserCard user={user}
                     name={user.profile.name}
