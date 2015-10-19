@@ -35,8 +35,12 @@ export default class UserProfileRoute extends Component {
         <div>Loading</div>
       );
     }
+    let ownsProfile = false;
+    
+    if (Meteor.user()){
+      let ownsProfile = this.data.user._id == Meteor.user()._id
+    }
 
-    let ownsProfile = this.data.user._id == Meteor.user()._id
 
     return (
       <UserProfile handleSetProfilePic={this.handleSetProfilePic}

@@ -16,6 +16,7 @@
   padding: 0;
   display: inline-block;
   float:left;
+  position: relative;
 }
 
 .navbarListRight {
@@ -23,12 +24,8 @@
   float:right;
 }
 
-.navbarList,
 .item {
   position: relative;
-}
-
-.item {
   padding: 0;
   margin: 0;
   height: 100%;

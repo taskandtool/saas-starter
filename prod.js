@@ -41,7 +41,7 @@ serverCompiler.watch(serverConfig.watchOptions || {}, function(err, stats) {
     serverBundleReady = true;
     ln('-sf', serverBundlePath, serverBundleLink);
     compileClient();
-  }  
+  }
 });
 
 function compileClient() {
@@ -52,7 +52,7 @@ function compileClient() {
       clientBundleReady = true;
       ln('-sf', clientBundlePath, clientBundleLink);
       runMeteor();
-    }  
+    }
   });
 }
 
