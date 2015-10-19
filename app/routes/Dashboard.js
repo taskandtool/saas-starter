@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Sparkline from '../components/Charts/Sparkline.js';
+import Pie from '../components/Charts/Pie.js';
 import reactMixin from 'react-mixin';
 import styles from './dashboard.css';
 import UserList from '../components/Users/UserList';
@@ -33,6 +34,21 @@ function randomData(n = 30) {
 
 const sampleData = randomData(30);
 const sampleData100 = randomData(100);
+
+const pieChartData1 = [
+  { label: 'Facebook', value: 100, color: '#3b5998' },
+  { label: 'Twitter', value: 60, color: '#00aced' },
+  { label: 'Google Plus', value: 30, color: '#dd4b39' },
+  { label: 'Pinterest', value: 20, color: '#cb2027' },
+  { label: 'Linked In', value: 10, color: '#007bb6' },
+]
+const pieChartData2 = [
+  { label: 'Facebook', value: 10, color: '#3b5998' },
+  { label: 'Twitter', value: 20, color: '#00aced' },
+  { label: 'Google Plus', value: 60, color: '#dd4b39' },
+  { label: 'Pinterest', value: 40, color: '#cb2027' },
+  { label: 'Linked In', value: 80, color: '#007bb6' },
+]
 //end of sample data ... delete when we use real data
 
 @reactMixin.decorate(ReactMeteorData)
@@ -44,7 +60,7 @@ export default class Dashboard extends Component {
       halfColWidth: 200
     };
     this.resize = this.resize.bind(this);
-    //replace with real data
+    //replace with real data eventually (this code also doesn't unmount! Error will leave when we replace real data)
     setInterval(() =>
         this.setState({
             data: this.state.data.concat([boxMullerRandom()])
@@ -114,13 +130,31 @@ export default class Dashboard extends Component {
           </div>
         </div>
 
+        <h3 className={styles.subtitle}>Social Data</h3>
+        <div className={styles.grid} >
+          <div className={styles.halfColumn} >
+            <Pie
+              data={pieChartData1}
+              chartName="Shares today"
+              />
+          </div>
+          <div className={styles.halfColumn} >
+            <Pie
+              data={pieChartData2}
+              chartName="Shares (Past 30 Days)"
+              />
+          </div>
+        </div>
+
         <h3 className={styles.subtitle}>Latest 3 Users</h3>
         <UserList users={this.data.users} />
         <Link to="/users" className={styles.buttonLink} ><button>See all users</button></Link>
+
       </div>
     );
   }
 
+  //to resize sparkline charts
   resize = _.throttle(() => {
     if (this.refs.halfcol) {
       this.setState({

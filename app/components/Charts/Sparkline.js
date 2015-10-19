@@ -24,7 +24,7 @@ export default class Sparkline extends Component {
   render() {
 
     return (
-      <div className={styles.wrapper} ref="root" >
+      <div className={styles.wrapper} >
         <h4>{this.props.chartName}</h4>
         <Sparklines data={this.props.data}
                     limit={this.props.limit}
