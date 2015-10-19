@@ -26,7 +26,7 @@ var loadClientBundleHtml = path.join(dirs.webpack, 'loadClientBundle.html');
 var loadClientBundleLink = path.join(dirs.meteor, 'client/loadClientBundle.html');
 var requireServerBundleJs = path.join(dirs.meteor, 'server/require.server.bundle.js');
 
-require('./core-js-custom-build');
+exec('node core-js-custom-build.js');
 
 if (fs.existsSync(loadClientBundleLink)) rm(loadClientBundleLink);
 if (fs.existsSync(requireServerBundleJs)) rm(requireServerBundleJs);
