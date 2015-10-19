@@ -10,7 +10,6 @@
 }
 
 .messageError {
-  composes: message;
   color:red;
 }
 

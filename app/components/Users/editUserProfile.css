@@ -4,21 +4,11 @@
 }
 
 .column {
-  lost-waffle: 1/3;
-}
-
-@media all and (max-width: 60em) {
-  .column {
-    lost-waffle: 1/2;
-  }
+  lost-waffle: 1/2;
 }
 
 @media all and (max-width: 40em) {
   .column {
     lost-waffle: 1;
   }
-}
-
-.link a{
-  text-decoration: none;
 }

@@ -13,19 +13,19 @@ export default class UserList extends React.Component {
     let users = this.props.users.map((user) => {
       let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
       return (
-          <UserCard key={user._id}
-                  _id={user._id}
-                  name={user.profile.name}
-                  avatar={user.profile.avatar}
-                  createdAt={user.createdAt}
-                  email={email}
-                  makeClickable={true}
-                  />
-
+        <div className={styles.column} key={user._id}>
+          <UserCard
+              _id={user._id}
+              name={user.profile.name}
+              avatar={user.profile.avatar}
+              createdAt={user.createdAt}
+              email={email}
+              makeClickable={true}
+              />
+        </div>
       );
     })
 
-    //const { _id, createdAt, createdBy, title, monthlyPrice, setupPrice } = user;
     return (
         <div className={styles.grid}>
           {users}
