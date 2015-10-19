@@ -12,12 +12,12 @@ function renderComponent(comp, props) {
 
 function simulateClickOn(selector) {
   var button = this.$el.find(selector)[0];
-  Simulate.click(button);
+  React.addons.TestUtils.Simulate.click(button);
 }
 
 describe('AuthForms', () => {
-  it('renders form errors', () => {
+  it('renders form errors correctly', () => {
     let comp = renderComponent(AuthForms, {formError: "An Error"});
-    expect(comp.props.formError).toEqual('An Error');
+    expect(comp.props.formError).toEqual("An Error");
   });
 });

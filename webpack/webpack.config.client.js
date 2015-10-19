@@ -22,6 +22,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel',
+        query: {stage: 0},
         exclude: /node_modules|lib/,
       },
       {
@@ -30,13 +31,12 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.PrefetchPlugin("react"),
-    new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
-  ],
-
   postcss: [
     require('postcss-cssnext'),
     require('lost')
+  ],
+  plugins: [
+    new webpack.PrefetchPlugin("react"),
+    new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
   ]
 };
