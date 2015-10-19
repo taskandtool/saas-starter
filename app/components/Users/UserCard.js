@@ -8,7 +8,7 @@ import styles from './userCard.css';
 @reactMixin.decorate(History)
 export default class UserProfile extends Component {
   static propTypes = {
-    makeClickable: PropTypes.func,
+    makeClickable: PropTypes.bool,
     name: PropTypes.string,
     email: PropTypes.string,
   }

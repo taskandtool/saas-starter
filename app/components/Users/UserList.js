@@ -27,12 +27,9 @@ export default class UserList extends React.Component {
 
     //const { _id, createdAt, createdBy, title, monthlyPrice, setupPrice } = user;
     return (
-      <div className={styles.wrapper}>
-        <h1>{users.length} Users</h1>
         <div className={styles.grid}>
           {users}
         </div>
-      </div>
     );
   }
 }

@@ -1,10 +1,6 @@
-.wrapper {
-  margin: 4em 1em;
-}
-
 .grid {
-  height:100%;
-  width: 100%;
+  lost-utility: clearfix;
+  margin-bottom: 1em;
 }
 
 .link a{
