@@ -1,11 +1,23 @@
 import {Users} from '../schemas';
 
-// User 'model' namespace
-// allows your code to read a bit nicer with a
-// few convenience methods and abstracts away the db
-// in case we ever switch dbs in the future
+const optional = Match.Optional;
+let count;
 
-/*global User:true */
+const schema = {
+  _id: String,
+  createdAt: Date,
+  emails: {
+    address: String,
+    verified: optional(Boolean)
+  },
+  profile: {
+    name: optional(String),
+    avatar: optional(String),
+    role: optional(String),
+    images: optional([String]),
+    isDeleted: optional(Boolean) //soft delete
+  }
+};
 
 Meteor.methods({
   storeUserProfileImage: function( url ) {
@@ -17,5 +29,43 @@ Meteor.methods({
     } catch( exception ) {
       return exception;
     }
-  }
+  },
+
+  "User.updateEmail": function(docId, data) {
+
+    check(docId, String);
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+    if (this.userId !== docId) throw new Meteor.Error(401, "You don't have permission to edit this Profile");
+
+    // whitelist what can be updated
+    check(data, {
+      "emails": optional(schema.emails),
+    });
+
+    count = Meteor.users.update(docId, {$push: data});
+
+    console.log("[User.update]", count, docId);
+    return count;
+  },
+
+  "User.updateProfile": function(docId, data) {
+
+    check(docId, String);
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+    if (this.userId !== docId) throw new Meteor.Error(401, "You don't have permission to edit this Profile");
+
+    // whitelist what can be updated
+    check(data, {
+      "profile.name": optional(schema.profile.name),
+      "profile.avatar": optional(schema.profile.avatar),
+      "profile.role": optional(schema.profile.role),
+      "profile.images": optional(schema.profile.images),
+      "profile.isDeleted": optional(schema.profile.isDeleted),
+    });
+
+    count = Meteor.users.update(docId, {$set: data});
+
+    console.log("[User.update]", count, docId);
+    return count;
+  },
 });

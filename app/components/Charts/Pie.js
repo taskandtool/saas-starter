@@ -5,7 +5,9 @@ import styles from './pie.css';
 export default class Pie extends Component {
   constructor() {
     super()
-
+    //this isn't a route yet it holds state. While that's a pattern I'd like to avoid normally,
+    //this component is really pretty self-contained, just wanting data. I can't imagine a use-case
+    //at the moment where the parent needs to know its state. So leaving it to control its own state for now.
     this.state = {
       expandedSector: null,
     }

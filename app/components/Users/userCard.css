@@ -1,25 +1,3 @@
-.column {
-  lost-waffle: 1/3;
-  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
-}
-
-@media all and (max-width: 60em) {
-  .column {
-    lost-waffle: 1/2;
-  }
-}
-
-@media all and (max-width: 40em) {
-  .column {
-    lost-waffle: 1;
-  }
-}
-
-.wrapper {
-  width: 100%;
-  height: 100%;
-}
-
 .imgWrapper {
   height: 179px;
   width: 100.2%;

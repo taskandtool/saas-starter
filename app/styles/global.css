@@ -2,6 +2,7 @@
 @import './buttons.css';
 @import './forms.css';
 @import './typography.css';
+@import './utilities.css';
 
 html {
     height:100%;

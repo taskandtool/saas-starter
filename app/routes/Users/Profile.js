@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import reactMixin from 'react-mixin';
 import {Users} from '../../schemas';
-import UserProfile from '../../components/Users/UserProfile';
+import EditUserProfile from '../../components/Users/EditUserProfile';
+import UserCard from '../../components/Users/UserCard';
+import styles from './profile.css';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserProfileRoute extends Component {
@@ -35,22 +37,66 @@ export default class UserProfileRoute extends Component {
         <div>Loading</div>
       );
     }
-    let ownsProfile = false;
-    
+
+    const user = this.data.user;
+    const createdAt = user.createdAt;
+    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
+    const otherImages = user.profile.images.map((image, i) => {
+      return (
+        <img key={i} src={image} className={styles.imageList} onClick={() => this.props.handleSetProfilePic(image)} width="100px" />
+      );
+    })
+
+    let canEdit = false;
     if (Meteor.user()){
-      let ownsProfile = this.data.user._id == Meteor.user()._id
+      canEdit = this.data.user._id == Meteor.user()._id
     }
 
-
     return (
-      <UserProfile handleSetProfilePic={this.handleSetProfilePic}
-                  ref="userProfile"
-                  user={this.data.user}
-                  handleUpload={this.handleUpload}
-                  uploadingMsg={this.state.uploadingMsg}
-                  showSpinner={this.state.showSpinner}
-                  ownsProfile={ownsProfile} />
+      <div className="wrapper">
+        <h1 className="title">{user.profile.name}</h1>
+        <div className={styles.grid}>
+          <div className={styles.column}>
+            <UserCard
+              user={user}
+              name={user.profile.name}
+              avatar={user.profile.avatar}
+              createdAt={user.createdAt}
+              email={email}
+               />
+           </div>
+           <div className={styles.column}>
+             <h1>More details</h1>
+             <p>ie. Member of these teams:</p>
+           </div>
+         </div>
+
+          {canEdit ?
+            <EditUserProfile
+              ref="EditUserProfile"
+              otherImages={otherImages}
+              handleUpload={this.handleUpload}
+              uploadingMsg={this.uploadingMsg}
+              showSpinner={this.state.showSpinner}
+              email={email}
+              name={user.profile.name}
+              handleEmailChanged={this.handleEmailChanged}
+              handleNameChanged={this.handleNameChanged}
+              ref="userOwnsProfile" />
+            :
+            null
+          }
+
+      </div>
     );
+  }
+
+  handleEmailChanged = (e) => {
+    Meteor.call('User.updateEmail', Meteor.user()._id, {"emails": {address : e.target.value, verified: false}});
+  }
+
+  handleNameChanged = (e) => {
+    Meteor.call('User.updateProfile', Meteor.user()._id, {"profile.name": e.target.value});
   }
 
   handleSetProfilePic(image) {
@@ -64,7 +110,7 @@ export default class UserProfileRoute extends Component {
     });
     const uploader = new Slingshot.Upload("userImages");
 
-    uploader.send(this.refs.userProfile.refs.userOwnsProfile.refs.fileInput.files[0], (error, downloadUrl) => {
+    uploader.send(this.refs.EditUserProfile.refs.ImageUpload.refs.fileInput.files[0], (error, downloadUrl) => {
       if (error) {
         console.error('Error uploading', error);
         this.setState({
