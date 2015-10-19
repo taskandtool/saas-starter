@@ -2,6 +2,7 @@ import React from 'react';
 import UserList from '../../components/Users/UserList';
 import reactMixin from 'react-mixin';
 import {Users} from '../../schemas';
+import styles from './list.css';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserListRoute extends React.Component {
@@ -19,7 +20,10 @@ export default class UserListRoute extends React.Component {
       return (<p>'loading'</p>);
     }
     return (
-      <UserList users={this.data.users} />
+      <div className={styles.wrapper}>
+        <h1>{this.data.users.length} Users</h1>
+        <UserList users={this.data.users} />
+      </div>
     )
   }
 }
