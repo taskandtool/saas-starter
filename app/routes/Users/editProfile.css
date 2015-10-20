@@ -1,0 +1,57 @@
+.grid {
+  lost-utility: clearfix;
+  max-width: 960px;
+  margin-bottom: 3em;
+}
+
+
+.column {
+  lost-waffle: 1/2;
+}
+
+@media all and (max-width: 40em) {
+  .column {
+    lost-waffle: 1;
+  }
+}
+
+.btn {
+  margin-top: .2em;
+  margin-bottom: 3em;
+  width: 100%;
+}
+
+.btnProfile {
+  composes: btn;
+  background-color: #03A9F4;
+  color: #fff;
+}
+
+.imageList {
+  margin-right: .5em;
+}
+
+.card {
+  margin-bottom: 3em;
+}
+
+.form input, .form label{
+  display: block;
+  margin: 0.25em 0;
+  margin-bottom: 0em;
+  z-index: 3;
+}
+
+.links {
+  font-size: .8em;
+  margin-right: .8em;
+  text-align: center;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

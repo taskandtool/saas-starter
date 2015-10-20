@@ -12,6 +12,6 @@
 }
 
 :global .subtitle {
-  margin: 2em 0 .2em 0;
+  margin-bottom: .2em;
   color: #aaa;
 }

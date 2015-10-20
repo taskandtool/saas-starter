@@ -10,7 +10,8 @@ export var handleForms = ComposedComponent => class extends Component {
       values: {}
     };
     this.handleChange = this.handleChange.bind(this);
-    this.formValidateRequired = this.formValidateRequired.bind(this);;
+    this.formValidateRequired = this.formValidateRequired.bind(this);
+    this.setDefaultValues = this.setDefaultValues.bind(this);
   }
 
   render() {
@@ -20,8 +21,14 @@ export var handleForms = ComposedComponent => class extends Component {
         formState={this.state}
         handleChange={this.handleChange}
         formValidateRequired={this.formValidateRequired}
+        setDefaultValues={this.setDefaultValues}
         {...this.props} />
     )
+  }
+
+  setDefaultValues(data) {
+    //optional. ideally call on componentDidMount
+    this.setState({ values: data });
   }
 
   //throttles errors from showing up too fast when typing.

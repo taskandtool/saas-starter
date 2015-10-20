@@ -66,7 +66,7 @@ function compileClient() {
 
 function runMeteor() {
   cd(dirs.meteor);
-  exec('meteor --settings ../settings/devel.json', {async: true});
+  exec('meteor run --settings ../settings/devel.json', {async: true});
 }
 
 function updateRequireServerBundleJs(stats) {
