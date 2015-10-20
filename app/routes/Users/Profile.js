@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import reactMixin from 'react-mixin';
 import {Users} from '../../schemas';
-import EditUserProfile from '../../components/Users/EditUserProfile';
+import EditUserImages from '../../components/Users/EditUserImages';
+import EditUserInfo from '../../components/Users/EditUserInfo';
 import UserCard from '../../components/Users/UserCard';
 import styles from './profile.css';
+import {Link} from 'react-router'
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserProfileRoute extends Component {
@@ -14,13 +15,6 @@ export default class UserProfileRoute extends Component {
 
   constructor() {
     super();
-    this.state = {
-      errors: {},
-      uploadingMsg: "Upload a new profile image:",
-      showSpinner: false
-    };
-    this.handleUpload = this.handleUpload.bind(this);
-    this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
   }
 
   getMeteorData() {
@@ -41,11 +35,7 @@ export default class UserProfileRoute extends Component {
     const user = this.data.user;
     const createdAt = user.createdAt;
     const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
-    const otherImages = user.profile.images.map((image, i) => {
-      return (
-        <img key={i} src={image} className={styles.imageList} onClick={() => this.props.handleSetProfilePic(image)} width="100px" />
-      );
-    })
+
 
     let canEdit = false;
     if (Meteor.user()){
@@ -71,59 +61,9 @@ export default class UserProfileRoute extends Component {
            </div>
          </div>
 
-          {canEdit ?
-            <EditUserProfile
-              ref="EditUserProfile"
-              otherImages={otherImages}
-              handleUpload={this.handleUpload}
-              uploadingMsg={this.uploadingMsg}
-              showSpinner={this.state.showSpinner}
-              email={email}
-              name={user.profile.name}
-              handleEmailChanged={this.handleEmailChanged}
-              handleNameChanged={this.handleNameChanged}
-              ref="userOwnsProfile" />
-            :
-            null
-          }
+        {canEdit ? <Link to={`/user/${this.props.params.id}/edit`} ><button>Edit Profile</button></Link> : null }
 
       </div>
     );
-  }
-
-  handleEmailChanged = (e) => {
-    Meteor.call('User.updateEmail', Meteor.user()._id, {"emails": {address : e.target.value, verified: false}});
-  }
-
-  handleNameChanged = (e) => {
-    Meteor.call('User.updateProfile', Meteor.user()._id, {"profile.name": e.target.value});
-  }
-
-  handleSetProfilePic(image) {
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": image }});
-  }
-
-  handleUpload() {
-    this.setState({
-      uploadingMsg: "Uploading...",
-      showSpinner: true
-    });
-    const uploader = new Slingshot.Upload("userImages");
-
-    uploader.send(this.refs.EditUserProfile.refs.ImageUpload.refs.fileInput.files[0], (error, downloadUrl) => {
-      if (error) {
-        console.error('Error uploading', error);
-        this.setState({
-          uploadingMsg: "Sorry, there was an error. Please try again later",
-          showSpinner: false
-        });
-      } else {
-        Meteor.call('storeUserProfileImage', downloadUrl);
-        this.setState({
-          uploadingMsg: "Success!",
-          showSpinner: false
-        });
-      }
-    });
   }
 }

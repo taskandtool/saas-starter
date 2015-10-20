@@ -24,7 +24,10 @@ export default class UserProfile extends Component {
         </div>
         <div className={styles.info} >
           <h2 className={styles.name}>{this.props.name}</h2>
-          <div className={styles.role}>Developer</div>
+          <div className={styles.role}>{this.props.role}</div>
+          <p className={styles.items}><span className={styles.icon}><i className="fa fa-comment"></i></span>
+            <em>{this.props.bio}</em>
+          </p>
           <p className={styles.items}><span className={styles.icon}><i className="fa fa-user"></i></span>
             Joined {moment({createdAt}).format('MMMM DD, YYYY')}
           </p>

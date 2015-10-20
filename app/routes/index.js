@@ -25,6 +25,7 @@ ReactDOM.render(
       <Route path="/plan/:id" component={Plans.View} name="Plan Details" back="/plans" />
       <Route path="/users" component={Users.List} name="Users" />
       <Route path="/user/:id" component={Users.Profile} name="User Profile" back="/users" />
+      <Route path="/user/:id/edit" component={Users.EditProfile} name="Edit Profile" back="/users" />
       <Route path="/super-global-dashboard" component={Dashboard} name="Dashboard" />
       <Route path="/super-global-dashboard/plan/add" component={Plans.Create} name="Create New Plan" back="/plans" />
     </Route>

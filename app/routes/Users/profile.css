@@ -1,20 +1,12 @@
 .grid {
   lost-utility: clearfix;
+  max-width: 960px;
   margin-bottom: 1em;
 }
 
-.imageList {
-  margin-right: .5em;
-}
 
 .column {
-  lost-waffle: 1/3;
-}
-
-@media all and (max-width: 70em) {
-  .column {
-    lost-waffle: 1/2;
-  }
+  lost-waffle: 1/2;
 }
 
 @media all and (max-width: 40em) {

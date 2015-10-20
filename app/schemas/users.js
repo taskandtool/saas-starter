@@ -14,6 +14,7 @@ const schema = {
     name: optional(String),
     avatar: optional(String),
     role: optional(String),
+    bio: optional(String),
     images: optional([String]),
     isDeleted: optional(Boolean) //soft delete
   }
@@ -59,6 +60,7 @@ Meteor.methods({
       "profile.name": optional(schema.profile.name),
       "profile.avatar": optional(schema.profile.avatar),
       "profile.role": optional(schema.profile.role),
+      "profile.bio": optional(schema.profile.role),
       "profile.images": optional(schema.profile.images),
       "profile.isDeleted": optional(schema.profile.isDeleted),
     });

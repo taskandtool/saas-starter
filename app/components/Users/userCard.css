@@ -35,6 +35,12 @@
   margin-bottom: .4em;
 }
 
+.quote {
+  color: #333;
+  font-size:1.1em;
+  margin-bottom: .8em;
+}
+
 .items {
   color: #4C4C4C;
   font-size: 90%;
