@@ -1,17 +1,3 @@
-.wrapper {
-  margin: 4em 1em;
-}
-
-.title {
-  padding-bottom: .4em;
-  border-bottom: 1px solid #ddd;
-}
-
-.subtitle {
-  margin: 2em 0 .2em 0;
-  color: #aaa;
-}
-
 .grid {
   lost-utility: clearfix;
   margin-bottom: 1em;
