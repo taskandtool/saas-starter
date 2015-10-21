@@ -5,12 +5,19 @@
 }
 
 .grid {
-  padding: 3em;
-  lost-utility: clearfix;
+  display: flex;
+  font-size: .9em;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .column {
-  lost-column: 1/3;
+  width: 200px;
+  height: 100px;
+  padding-top: 40px;
+  margin: auto;
   text-align: center;
 }
 
