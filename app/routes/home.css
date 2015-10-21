@@ -1,0 +1,88 @@
+.section1 {
+  background-color: #333333;
+}
+
+.heroGrid {
+  lost-align: center;
+  height: 400px;
+}
+
+.heroColumn {
+  width: 100%;
+  text-align: center;
+}
+
+.primary {
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .2em;
+}
+
+.white {
+  color: #fff;
+}
+
+
+.section2 {
+  max-width: 960px;
+  margin: 6em auto;
+}
+
+@media all and (max-width: 65em) {
+  .section2 {
+    margin: 2em 2em;
+  }
+}
+
+.listGrid {
+  lost-utility: clearfix;
+}
+
+.listColumn {
+  lost-waffle: 1/2;
+}
+
+@media all and (max-width: 40em) {
+  .listColumn {
+    lost-waffle: 1;
+  }
+}
+
+.listUl {
+  margin-left:0;
+}
+
+.list {
+  list-style: none;
+}
+
+.iconList {
+  float: left;
+  color: green;
+  margin-right: .3em;
+  margin-left: -1.3em;
+}
+
+.icon {
+  float: left;
+  color: green;
+  font-size:1.2em;
+  margin-right: .3em;
+  margin-left: -1.3em;
+  margin-top: -.1em;
+}
+
+.iconBlue {
+  composes: icon;
+  color: #03A9F4;
+}
+
+.section3 {
+  background-color: #03A9F4;
+}
+
+.secondary {
+  composes: primary;
+  background-color: #777;
+}

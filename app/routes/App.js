@@ -1,5 +1,6 @@
 import React, {Component, CSSTransitionGroup, PropTypes} from 'react';
 import Nav from '../components/Header/Nav';
+import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
 import reactMixin from 'react-mixin';
 import Helmet from "react-helmet";
@@ -62,6 +63,7 @@ export default class App extends Component {
             <div className={styles.sidebarShowing} >{this.props.children}</div>
           </div>
         : this.props.children }
+        <Footer />
       </div>
     );
   }
