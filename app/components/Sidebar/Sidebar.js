@@ -17,15 +17,19 @@ export default class Sidebar extends React.Component {
     if (user) {
       content = (
           <ul className={styles.sidebarList}>
-            <li className={styles.item}><Link to={`/user/${user._id}`} className={styles.link}>{user.profile.name}'s Widgets</Link></li>
-            <li className={styles.item}><Link to="/super-global-dashboard" className={styles.link}>Dashboard</Link></li>
+            <li className={styles.item}>
+              <Link to={`/user/${user._id}`} className={styles.link} activeClassName={styles.active} >{user.profile.name}'s Widgets</Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Dashboard</Link>
+            </li>
           </ul>
       );
     } else {
       content = (
             <ul className={styles.sidebarList}>
-              <li className={styles.item}><Link to="/" className={styles.link}>Browse</Link></li>
-              <li className={styles.item}><Link to="/join" className={styles.link}>Get Started</Link></li>
+              <li className={styles.item}><Link to="/" className={styles.link} activeClassName={styles.active}>Browse</Link></li>
+              <li className={styles.item}><Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link></li>
             </ul>
       );
     }
@@ -37,9 +41,8 @@ export default class Sidebar extends React.Component {
             <span className={styles.menu} onClick={this.handleBrandClick}> BRAND NAME</span>
           </span>
         <ul className={styles.sidebarList}>
-          <li className={styles.item}><Link to="/" className={styles.link}>Home</Link></li>
-          <li className={styles.item}><Link to="/plans" className={styles.link}>Plans</Link></li>
-          <li className={styles.item}><Link to="/users" className={styles.link}>Users</Link></li>
+          <li className={styles.item}><Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link></li>
+          <li className={styles.item}><Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link></li>
 
         </ul>
         { content }

@@ -31,8 +31,8 @@ module.exports = {
     ],
   },
   postcss: [
-    require('postcss-cssnext'),
-    require('lost')
+    require('lost'),
+    require('postcss-cssnext')
   ],
   plugins: [
     new webpack.PrefetchPlugin("react"),

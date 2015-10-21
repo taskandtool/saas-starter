@@ -34,7 +34,7 @@ export default class UserProfileRoute extends Component {
 
     const user = this.data.user;
     const createdAt = user.createdAt;
-    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
+    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
 
     let canEdit = false;
@@ -51,6 +51,8 @@ export default class UserProfileRoute extends Component {
               user={user}
               name={user.profile.name}
               avatar={user.profile.avatar}
+              role={user.profile.role}
+              bio={user.profile.bio}
               createdAt={user.createdAt}
               email={email}
                />

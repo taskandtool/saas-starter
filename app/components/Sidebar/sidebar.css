@@ -43,7 +43,7 @@
   padding: 0em 1em;
 }
 
-.active > .link,
+.active,
 .link:hover,
 .link:focus {
   color: #BBDEFB;

@@ -3,6 +3,9 @@ Slingshot.createDirective("userImages", Slingshot.S3Storage, {
 
   acl: "public-read",
 
+  AWSAccessKeyId: Meteor.settings.AWSAccessKeyId,
+  AWSSecretAccessKey: Meteor.settings.AWSSecretAccessKey,
+
   authorize: function () {
     var user = Meteor.users.findOne(this.userId);
     if (!this.userId) {

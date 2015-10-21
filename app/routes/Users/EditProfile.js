@@ -57,7 +57,7 @@ export default class EditProfileRoute extends React.Component {
     //for the user card
     const user = this.data.user;
     const createdAt = user.createdAt;
-    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None';
+    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
     //for editing user's other images
     const otherImages = user.profile.images.map((image, i) => {

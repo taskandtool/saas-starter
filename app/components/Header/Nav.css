@@ -4,66 +4,51 @@
   height: 3.3em;
   color: #fff;
   width: 100%;
-  white-space: nowrap;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   top:0;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  lost-utility: clearfix;
 }
 
 .navbarList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
   float:left;
-  position: relative;
+  margin:0;
+  max-height: 100%;
+  margin-top: .65em;
 }
 
 .navbarListRight {
   composes: navbarList;
   float:right;
+  margin-top: .55em;
 }
 
 .item {
-  position: relative;
-  padding: 0;
-  margin: 0;
-  height: 100%;
+  margin-top:.2em;
   display: inline-block;
-  *display: inline;
-  zoom: 1;
-  vertical-align: middle;
-  font-size: .9em;
+}
+
+.navbarList .item {
+  float: left;
+}
+
+.navbarListRight .item {
+  float: right;
 }
 
 .itemHiddenOnSmall {
   composes: item
 }
 
-.divider {
-  composes: item;
-  background-color: #ccc;
-  width: 1px;
-  font-size: 1em;
-  height: 3.3em;
-  padding: 0 0;
-  margin: 0 .7em;
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
+.link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0em .8em;
   vertical-align: middle;
 }
 
-.link {
-  color: #fff;
-  display: block;
-  text-decoration: none;
-  white-space: nowrap;
-  padding: 0em .8em;
-}
-
-.active > .link,
+.active,
 .link:hover,
 .link:focus {
   color: #BBDEFB;
@@ -77,11 +62,9 @@
   padding-bottom:.2em;
   z-index: 3;
   display: block;
-  right: .7em;
-  top: auto;
-  width: 9em;
-  -webkit-box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
-  -moz-box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  right: .3em;
+  top: 3.3em;
+  width: 7em;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
 }
 
@@ -91,13 +74,26 @@
 
 .avatar {
   border-radius: 50%;
-  margin: .25em 1em 0em .6em;
-  height: 2.95em;
-  width: 2.95em;
+  margin: -.25em .5em 0em .3em;
+  padding: 0;
+  height: 2.45em;
+  width: 2.45em;
 }
 
 @media all and (max-width: 38em) {
   .itemHiddenOnSmall, .menu {
+    display: none;
+  }
+}
+
+.icon {
+  composes: item;
+  margin: 0;
+}
+
+@media all and (max-width: 38em) {
+  .iconHiddenOnSmall {
+    composes: icon;
     display: none;
   }
 }

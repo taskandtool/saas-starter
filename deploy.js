@@ -26,7 +26,7 @@ function deploy() {
 
   case 'meteor.com':
     cd(dirs.meteor);
-    exec('meteor deploy ' + projectName + '.meteor.com', {async: true});
+    exec('meteor deploy ' + projectName + '.meteor.com' + ' --settings ../settings/prod.json', {async: true});
     break;
 
   case 'modulus':
