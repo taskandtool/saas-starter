@@ -16,19 +16,19 @@ export default class App extends Component {
 
   constructor() {
     super();
-    this.dropdownClick = this.dropdownClick.bind(this);
-    this.showSidebarClick = this.showSidebarClick.bind(this);
+    this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
+    this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
     this.state = {
       showDropDown: false,
       showSidebar: false
     };
   }
 
-  dropdownClick() {
+  handleToggleDropDown() {
     this.setState({showDropDown: !this.state.showDropDown})
   }
 
-  showSidebarClick() {
+  handleToggleSidebar() {
     this.setState({showSidebar: !this.state.showSidebar})
   }
 
@@ -40,7 +40,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className={styles.app}>
+      <div className={this.state.showSidebar ? styles.darken : null}>
         <Helmet
           title="My SaaS App"
           titleTemplate="%s - TaskandTool.com"
@@ -48,30 +48,30 @@ export default class App extends Component {
               {"name": "description", "content": "SaaS App Starter Kit"}
           ]}
         />
-        <Nav user={this.data.user}
-            showDropDown={this.state.showDropDown}
-            showSidebar={this.state.showSidebar}
-            handleMenuClick={this.showSidebarClick}
-            handleDropDownClick={this.dropdownClick}
-            name={this.props.routes[1].name}
-            back={this.props.routes[1].back || null}
-              />
         { this.state.showSidebar ?
-          <div>
-            <Sidebar user={this.data.user}
-                      handleMenuClick={this.showSidebarClick}/>
-            <div className={styles.sidebarShowing} >
-              {this.props.children}
-              <Footer />
-            </div>
-          </div>
-        :
-        <div>
-          {this.props.children}
-          <Footer />
-        </div>
+          <Sidebar
+            user={this.data.user}
+            handleToggleSidebar={this.handleToggleSidebar}/>
+          : null
+
         }
 
+        <div onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >
+          <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null} >
+            <Nav
+              user={this.data.user}
+              showDropDown={this.state.showDropDown}
+              showSidebar={this.state.showSidebar}
+              handleToggleSidebar={this.handleToggleSidebar}
+              handleToggleDropDown={this.handleToggleDropDown}
+              name={this.props.routes[1].name}
+              back={this.props.routes[1].back || null} />
+
+            {this.props.children}
+
+            <Footer />
+          </div>
+        </div>
       </div>
     );
   }

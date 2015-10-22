@@ -1,10 +1,9 @@
 /* misc default styling */
 .navbar {
   background-color: #1976D2;
-  height: 3.3em;
   color: #fff;
   width: 100%;
-  padding: 0 .8em;
+  padding: 0 .8em 0 .4em;
   position: fixed;
   z-index: 1;
   top:0;
@@ -13,6 +12,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   font-size: .9em;
+  height: 3.3em;
 }
 
 .left {
@@ -33,15 +33,25 @@
   margin-top: .7em;
 }
 
-.item {
-  margin-top:.3em;
-  margin-left:.3em;
+.rightLinks {
+  composes: right;
+  margin-bottom: .7em;
+  list-style: none;
 }
 
+.item {
+  margin-top:.3em;
+  margin-left:.8em;
+}
 
 .icon {
   composes: item;
   margin-top: .1em;
+}
+
+.iconClickable {
+  composes: icon;
+  cursor: pointer;
 }
 
 .itemHiddenOnSmall {
@@ -94,7 +104,7 @@
 
 .avatar {
   border-radius: 50%;
-  margin: -.45em .5em 0em .3em;
+  margin: -.45em 0 0em .3em;
   padding: 0;
   height: 2.45em;
   width: 2.45em;

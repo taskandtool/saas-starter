@@ -60,7 +60,10 @@ export default class Icon extends React.Component {
         return (
           <g><path d="M15.5 14h-.79l-.28-.27c.98-1.14 1.57-2.62 1.57-4.23 0-3.59-2.91-6.5-6.5-6.5s-6.5 2.91-6.5 6.5 2.91 6.5 6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99 1.49-1.49-4.99-5zm-6 0c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"></path></g>
         );
-      // Add more icons here
+      case 'arrow-drop-down':
+        return (
+          <g><path d="M7 10l5 5 5-5z"></path></g>
+        );
     }
   }
 
@@ -68,12 +71,11 @@ export default class Icon extends React.Component {
     let styles = {
       fill: this.props.color,
       verticalAlign: "middle",
-      // Use CSS instead of the width prop to support non-pixel units (eg: rem)
       width: this.props.size,
       height: this.props.size
     };
     return (
-      <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" fit
+      <svg onClick={this.props.onClick} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" fit
         style={styles}>
           {this.renderGraphic()}
       </svg>

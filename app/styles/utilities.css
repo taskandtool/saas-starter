@@ -3,7 +3,7 @@
 }
 
 :global .wrapper {
-  margin: 4em 1em;
+  padding: 4em 1em;
 }
 
 :global .title {
