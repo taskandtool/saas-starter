@@ -53,7 +53,6 @@ export default class App extends Component {
             user={this.data.user}
             handleToggleSidebar={this.handleToggleSidebar}/>
           : null
-
         }
 
         <div onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >

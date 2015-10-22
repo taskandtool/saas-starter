@@ -9,13 +9,14 @@
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
   z-index: 2;
   animation: sk-scaleout .5s 1 ease-in-out;
+  animation-fill-mode: both;
 }
 
 
 @keyframes sk-scaleout {
-  0% {
+  0%, 100% {
     transform: translate(-100%);
-  } 100% {
+  } 50% {
     transform: translate(0);
   }
 }

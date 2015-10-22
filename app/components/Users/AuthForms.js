@@ -118,7 +118,7 @@ export default class AuthForms extends Component {
         </form>
         <div className={styles.error}>{this.props.formError}</div>
         <div className={styles.success}>{this.props.formSuccess}</div>
-        <button type="submit" className={styles.btn} onClick={() => this.props.handleSubmit(event, errors, values, this.props.token)}>
+        <button type="submit" className={this.props.shakeBtn ? styles.btnShake : styles.btn} onClick={() => this.props.handleSubmit(event, errors, values, this.props.token)}>
           {buttonText}
         </button>
         {linksToUse}

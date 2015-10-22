@@ -16,7 +16,7 @@ export default class PlanListRoute extends Component {
   }
 
   render() {
-    if (!this.data.loading) {
+    if (this.data.loading) {
       return (<div className="wrapper"><Spinner /></div>);
     }
 

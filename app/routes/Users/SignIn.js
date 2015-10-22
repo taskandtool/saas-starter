@@ -12,7 +12,8 @@ export default class SignInRoute extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       formSuccess: "",
-      formError: ""
+      formError: "",
+      shakeBtn: false
     };
   }
 
@@ -39,6 +40,7 @@ export default class SignInRoute extends Component {
           inputState={this.props.inputState}
           inputsToUse={inputsToUse}
           linksToUse={linksToUse}
+          shakeBtn={this.state.shakeBtn}
           />
     )
   }
@@ -48,15 +50,28 @@ export default class SignInRoute extends Component {
     const {email, password} = values;
 
     if (errors.password || errors.email) {
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 3000);
       return false;
     }
 
     Meteor.loginWithPassword(email, password, (error) => {
       if (error) {
-        console.log (error.reason);
         this.setState({
-          formError: error.reason
+          formError: error.reason,
+          shakeBtn: true
         });
+        window.setTimeout(() => {
+          this.setState({
+            shakeBtn: false
+          });
+        }, 3000);
         return;
       } else {
         this.setState ({
