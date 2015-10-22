@@ -60,10 +60,18 @@ export default class App extends Component {
           <div>
             <Sidebar user={this.data.user}
                       handleMenuClick={this.showSidebarClick}/>
-            <div className={styles.sidebarShowing} >{this.props.children}</div>
+            <div className={styles.sidebarShowing} >
+              {this.props.children}
+              <Footer />
+            </div>
           </div>
-        : this.props.children }
-        <Footer />
+        :
+        <div>
+          {this.props.children}
+          <Footer />
+        </div>
+        }
+
       </div>
     );
   }

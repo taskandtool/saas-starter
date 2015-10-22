@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, History} from 'react-router';
 import reactMixin from 'react-mixin';
 import styles from './nav.css';
+import Icon from '../Icons/Icon.js';
 
 export default class Nav extends React.Component {
 
@@ -15,25 +16,24 @@ export default class Nav extends React.Component {
     if (user) {
 
       rightSide = (
-        <ul className={styles.navbarListRight}>
-          <li className={styles.item}>
-            <Link to="/search" className={styles.link}><i className="fa fa-search"></i></Link>
-          </li>
-          <li className={styles.item}>
-            <a href="#" onClick={this.props.handleDropDownClick} className={styles.link} ><i className="fa fa-ellipsis-v"></i></a>
-          </li>
-          { this.props.showDropDown ? <DropDown user={user} handleDropDownClick={this.props.handleDropDownClick} /> : null }
-          <li className={styles.item}><a href="#" onClick={this.props.handleDropDownClick} ><img src={user.profile.avatar} className={styles.avatar} /></a></li>
+        <div className={styles.right}>
+          <div className={styles.icon}>
+            <Link to="/search" className={styles.link} activeClassName={styles.active}><Icon size="1.7em" icon="search" /></Link>
+          </div>
+          <div className={styles.itemHiddenOnSmall}>
+            <Link to="/search" className={styles.link} activeClassName={styles.active}>{user.profile.name}</Link>
+          </div>
+          { this.props.showDropDown ? <div styles={{float:"left"}}><DropDown user={user} handleDropDownClick={this.props.handleDropDownClick} /></div> : null }
+          <div className={styles.item}><a href="#" onClick={this.props.handleDropDownClick} ><img src={user.profile.avatar} className={styles.avatar} /></a></div>
 
-        </ul>
+        </div>
       );
 
     } else {
       rightSide = (
         <ul className={styles.navbarListRight}>
-          <li className={styles.divider}></li>
-          <li className={styles.item}>
-            <Link to="/search" className={styles.link} activeClassName="active"><i className="fa fa-search"></i></Link>
+          <li className={styles.icon}>
+            <Link to="/search" className={styles.link} activeClassName="active"><Icon size="1.7em" icon="search" /></Link>
           </li>
           <li className={styles.item}><Link to="/signin" className={styles.link}  activeClassName="active">Sign in</Link></li>
           <li className={styles.item}><Link to="/join" className={styles.link}  activeClassName="active">Join</Link></li>
@@ -43,28 +43,25 @@ export default class Nav extends React.Component {
 
     return (
       <div className={styles.navbar}>
-        <ul className={styles.navbarList}>
-          <li className={styles.item}>
-            <a href="#" onClick={this.props.handleMenuClick}
-                        className={styles.link}>
-              <i className="fa fa-bars"></i>
-              <span className={styles.menu}> Menu</span>
-            </a>
-          </li>
-          <li className={styles.divider}></li>
+        <div className={styles.left}>
           {this.props.back ?
-            <li className={styles.item} style={(this.props.showSidebar) ? style : {}}>
+            <div className={styles.icon} style={(this.props.showSidebar) ? style : {}}>
               <Link to={this.props.back} className={styles.link}>
-                <i className="fa fa-angle-left fa-2x"></i>
+                <Icon size="2em" icon="chevron-left" color="#fff" />
               </Link>
-            </li>
+            </div>
             :
-            null
+            <div className={styles.icon}>
+              <a href="#" onClick={this.props.handleMenuClick}
+                          className={styles.link}>
+                <Icon size="2em" icon="menu" color="#fff" />
+              </a>
+            </div>
           }
-          <li className={styles.item} style={(this.props.showSidebar && !this.props.back) ? style : {}} ref="pageTitle">
+          <div className={styles.item} style={(this.props.showSidebar && !this.props.back) ? style : {}}>
             {this.props.name}
-          </li>
-        </ul>
+          </div>
+        </div>
         { rightSide }
       </div>
 
@@ -86,10 +83,10 @@ class DropDown extends React.Component {
 
   render() {
     return (
-      <ul className={styles.children} onClick={this.props.handleDropDownClick}>
-        <li className={styles.item}><Link to={`/user/${this.props.user._id}`} className={styles.link}><i className="fa fa-user"></i> Profile</Link></li>
-        <li className={styles.item}><a href="#" onClick={this.logout} className={styles.link}><i className="fa fa-sign-out"></i> Logout</a></li>
-      </ul>
+      <div className={styles.children} onClick={this.props.handleDropDownClick}>
+        <div className={styles.itemChild}><Link to={`/user/${this.props.user._id}`} className={styles.link}><Icon size="1.2em" icon="person" color="#fff" /> Profile</Link></div>
+        <div className={styles.itemChild}><a href="#" onClick={this.logout} className={styles.link}><Icon size="1.2em" icon="arrow-back" color="#fff" /> Logout</a></div>
+      </div>
     );
   }
 }

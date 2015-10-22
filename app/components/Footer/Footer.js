@@ -11,13 +11,7 @@ export default class Footer extends React.Component {
       <div className={styles.footer}>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <Link to='/' className={styles.link}>Example link to home</Link>
-          </div>
-          <div className={styles.column}>
-            <Link to='https://github.com/taskandtool/saas-starter' className={styles.link}>Github</Link>
-          </div>
-          <div className={styles.column}>
-            <p>Email me</p>
+            Made with Coffee
           </div>
         </div>
       </div>

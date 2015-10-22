@@ -32,7 +32,10 @@
 .role {
   text-align: center;
   color: #aaa;
-  margin-bottom: .4em;
+}
+
+.middle {
+  margin-bottom: .6em;
 }
 
 .quote {

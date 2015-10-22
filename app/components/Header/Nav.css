@@ -4,66 +4,70 @@
   height: 3.3em;
   color: #fff;
   width: 100%;
-  white-space: nowrap;
+  padding: 0 .8em;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   top:0;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: .9em;
 }
 
-.navbarList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  float:left;
-  position: relative;
+.left {
+  align-self: flex-start;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: .5em;
 }
 
-.navbarListRight {
-  composes: navbarList;
-  float:right;
+.right {
+  align-self: flex-end;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: .7em;
 }
 
 .item {
-  position: relative;
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
-  vertical-align: middle;
-  font-size: .9em;
+  margin-top:.3em;
+  margin-left:.3em;
+}
+
+
+.icon {
+  composes: item;
+  margin-top: .1em;
 }
 
 .itemHiddenOnSmall {
   composes: item
 }
 
-.divider {
-  composes: item;
-  background-color: #ccc;
-  width: 1px;
-  font-size: 1em;
-  height: 3.3em;
-  padding: 0 0;
-  margin: 0 .7em;
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
-  vertical-align: middle;
+@media all and (max-width: 38em) {
+  .itemHiddenOnSmall {
+    composes: item;
+    display: none;
+  }
+}
+
+@media all and (max-width: 38em) {
+  .iconHiddenOnSmall {
+    composes: icon;
+    display: none;
+  }
 }
 
 .link {
   color: #fff;
-  display: block;
   text-decoration: none;
-  white-space: nowrap;
-  padding: 0em .8em;
 }
 
-.active > .link,
+.active,
 .link:hover,
 .link:focus {
   color: #BBDEFB;
@@ -77,11 +81,10 @@
   padding-bottom:.2em;
   z-index: 3;
   display: block;
-  right: .7em;
-  top: auto;
-  width: 9em;
-  -webkit-box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
-  -moz-box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  right: .3em;
+  top: 3.3em;
+  width: 7em;
+  padding-left: .4em;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
 }
 
@@ -91,13 +94,8 @@
 
 .avatar {
   border-radius: 50%;
-  margin: .25em 1em 0em .6em;
-  height: 2.95em;
-  width: 2.95em;
-}
-
-@media all and (max-width: 38em) {
-  .itemHiddenOnSmall, .menu {
-    display: none;
-  }
+  margin: -.45em .5em 0em .3em;
+  padding: 0;
+  height: 2.45em;
+  width: 2.45em;
 }

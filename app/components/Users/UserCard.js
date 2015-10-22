@@ -23,17 +23,25 @@ export default class UserProfile extends Component {
           <img src={this.props.avatar} className={styles.avatar} />
         </div>
         <div className={styles.info} >
-          <h2 className={styles.name}>{this.props.name}</h2>
-          <div className={styles.role}>{this.props.role}</div>
-          <p className={styles.items}><span className={styles.icon}><i className="fa fa-comment"></i></span>
-            <em>{this.props.bio}</em>
-          </p>
+          <div className={styles.middle}>
+            <h2 className={styles.name}>{this.props.name}</h2>
+            {this.props.role ? <div className={styles.role}>{this.props.role}</div> : null }
+          </div>
+          {this.props.bio ?
+            <p className={styles.items}><span className={styles.icon}><i className="fa fa-comment"></i></span>
+              <em>{this.props.bio}</em>
+            </p>
+            : null
+          }
           <p className={styles.items}><span className={styles.icon}><i className="fa fa-user"></i></span>
             Joined {moment({createdAt}).format('MMMM DD, YYYY')}
           </p>
-          <p className={styles.items}><span className={styles.icon}><i className="fa fa-envelope"></i></span>
-            <Mailto email={this.props.email} obfuscate={true}>Email {this.props.name}</Mailto>
-          </p>
+          {this.props.email !== "None@none.com" ?
+            <p className={styles.items}><span className={styles.icon}><i className="fa fa-envelope"></i></span>
+               <Mailto email={this.props.email} obfuscate={true}>Email {this.props.name}</Mailto>
+            </p>
+            : null
+          }
         </div>
       </div>
     );
