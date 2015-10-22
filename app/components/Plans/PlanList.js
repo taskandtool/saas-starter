@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import {Link} from 'react-router';
-import PlanItem from './PlanItem.js';
-
+import PlanCard from './PlanCard.js';
 import styles from './planList.css';
 
 export default class PlanList extends React.Component {
@@ -17,16 +16,16 @@ export default class PlanList extends React.Component {
 
     let plans = this.props.plans.map((plan) => {
       return (
-          <PlanItem key={plan._id} plan={plan} makeClickable={true} />
+        <div key={plan._id} className={styles.column} >
+          <PlanCard plan={plan} makeClickable={true} />
+        </div>
       );
     })
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.holder} >
-          <h1 className={styles.title}>{plans.length} Plans</h1>
-          {createPlanButton}
-        </div>
+      <div className="wrapper">
+        <h1 className="title">{plans.length} Plans</h1>
+        {createPlanButton}
         <div className={styles.container} >
           {plans}
         </div>

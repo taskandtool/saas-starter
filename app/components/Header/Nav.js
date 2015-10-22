@@ -30,7 +30,7 @@ export default class Nav extends React.Component {
       rightSide = (
         <div className={styles.rightLinks}>
           <div className={styles.icon}>
-            <Link to="/search" className={styles.link} activeClassName={styles.active}><Icon size="1.7em" icon="search" /></Link>
+            <Link to="/search" className={styles.link} activeClassName={styles.active}><Icon size="1.4em" icon="search" /></Link>
           </div>
           <div className={styles.item}>
             <Link to="/signin" className={styles.link}  activeClassName="active">Login</Link>

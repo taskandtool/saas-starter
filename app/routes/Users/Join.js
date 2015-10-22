@@ -47,7 +47,7 @@ export default class JoinRoute extends React.Component {
     event.preventDefault();
     const {email, password, confirm} = values;
 
-    if (errors.password || errors.email || errors.confirm) {
+    if (errors.password || errors.email || errors.confirm || !confirm) {
       return false;
     }
 

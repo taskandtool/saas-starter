@@ -3,7 +3,7 @@ import InputStacked from '../Forms/InputStacked';
 import {handleForms} from '../../components/Forms/FormDecorator';
 import {History, Link} from 'react-router';
 import reactMixin from 'react-mixin';
-import PlanItem from './PlanItem.js';
+import PlanCard from './PlanCard.js';
 import ReactDOM from 'react-dom';
 import styles from './PlanCreator.css';
 
@@ -21,113 +21,129 @@ export default class PlanCreator extends React.Component {
     let errors = this.props.formState.errors;
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.formBox}>
-          <h1>Add a New Plan</h1>
-          <form id="form" className={styles.form} onSubmit={() => this.handleSubmit(event, errors, values)}>
-            <fieldset>
-            <InputStacked
-              type="text"
-              name="title"
-              value={values.title}
-              errorMsg={errors.title}
-              label="Plan Title"
-              handleChange={this.props.handleChange}
-              />
+      <div className="wrapper">
+        <h1 className="title">Add a New Plan</h1>
+        <div className={styles.grid}>
+          <div className={styles.column}>
+            <form id="form" className={styles.form} onSubmit={() => this.handleSubmit(event, errors, values)}>
+              <fieldset>
+              <InputStacked
+                type="text"
+                name="title"
+                value={values.title}
+                errorMsg={errors.title}
+                label="Plan Title"
+                handleChange={this.props.handleChange}
+                />
 
-            <InputStacked
-              type="number"
-              name="monthlyPrice"
-              label="Monthly Price"
-              value={values.monthlyPrice}
-              errorMsg={errors.monthlyPrice}
-              handleChange={this.props.handleChange}
-              validateBy="isNumber"
-              />
+              <InputStacked
+                type="number"
+                name="monthlyPrice"
+                label="Monthly Price"
+                value={values.monthlyPrice}
+                errorMsg={errors.monthlyPrice}
+                handleChange={this.props.handleChange}
+                validateBy="isNumber"
+                />
 
-            <InputStacked
-              type="number"
-              name="setupPrice"
-              label="Setup Price"
-              value={values.setupPrice}
-              errorMsg={errors.setupPrice}
-              handleChange={this.props.handleChange}
-              validateBy="isNumber"
-              />
+              <InputStacked
+                type="text"
+                name="desc"
+                label="Description"
+                value={values.desc}
+                errorMsg={errors.desc}
+                handleChange={this.props.handleChange}
+                />
 
-            <InputStacked
-              type="text"
-              name="desc"
-              label="Description"
-              value={values.desc}
-              errorMsg={errors.desc}
-              handleChange={this.props.handleChange}
-              />
+              <InputStacked
+                type="text"
+                name="feature"
+                label="Feature"
+                value={values.feature}
+                errorMsg={errors.feature}
+                handleChange={this.props.handleChange}
+                />
 
-            <InputStacked
-              type="number"
-              name="maxProjects"
-              label="Max Projects (0 for unlimited)"
-              value={values.maxProjects}
-              errorMsg={errors.maxProjects}
-              handleChange={this.props.handleChange}
-              validateBy="isNumber"
-              />
+              <button onClick={this.props.handleAddFeature} className={styles.addFeature}>Add another feature</button>
+              <h3 className="subtitle">More settings</h3>
+              <hr />
 
-            <InputStacked
-              type="number"
-              name="maxItems"
-              label="Max Items (0 for unlimited)"
-              value={values.maxItems}
-              errorMsg={errors.maxItems}
-              handleChange={this.props.handleChange}
-              validateBy="isNumber"
-              />
+              <InputStacked
+                type="number"
+                name="setupPrice"
+                label="Setup Price"
+                value={values.setupPrice}
+                errorMsg={errors.setupPrice}
+                handleChange={this.props.handleChange}
+                validateBy="isNumber"
+                />
 
-            <InputStacked
-              type="number"
-              name="freeTrialDays"
-              label="Free Trial Days"
-              value={values.freeTrialDays}
-              errorMsg={errors.freeTrialDays}
-              handleChange={this.props.handleChange}
-              validateBy="isNumber"
-              required={false}
-              />
+              <InputStacked
+                type="number"
+                name="maxProjects"
+                label="Max Projects (0 for unlimited)"
+                value={values.maxProjects}
+                errorMsg={errors.maxProjects}
+                handleChange={this.props.handleChange}
+                validateBy="isNumber"
+                />
 
-            <InputStacked
-              type="checkbox"
-              name="currAvail"
-              label="Currently Available?"
-              value={values.currAvail}
-              errorMsg={errors.currAvail}
-              handleChange={this.props.handleChange}
-              required={false}
-              validateBy={null}
-              />
+              <InputStacked
+                type="number"
+                name="maxItems"
+                label="Max Items (0 for unlimited)"
+                value={values.maxItems}
+                errorMsg={errors.maxItems}
+                handleChange={this.props.handleChange}
+                validateBy="isNumber"
+                />
 
-            <InputStacked
-              type="checkbox"
-              name="custom"
-              label="Custom Plan?"
-              value={values.custom}
-              errorMsg={errors.custom}
-              handleChange={this.props.handleChange}
-              required={false}
-              validateBy={null}
-              />
+              <InputStacked
+                type="number"
+                name="freeTrialDays"
+                label="Free Trial Days"
+                value={values.freeTrialDays}
+                errorMsg={errors.freeTrialDays}
+                handleChange={this.props.handleChange}
+                validateBy="isNumber"
+                required={false}
+                />
 
-            <div>
-              <button className={styles.btn}
-                      type="submit" >
+              <InputStacked
+                type="checkbox"
+                name="currAvail"
+                label="Currently Available?"
+                value={values.currAvail}
+                errorMsg={errors.currAvail}
+                handleChange={this.props.handleChange}
+                required={false}
+                validateBy={null}
+                />
 
-                Create Plan
-              </button>
-            </div>
-            </fieldset>
-          </form>
+              <InputStacked
+                type="checkbox"
+                name="custom"
+                label="Custom Plan?"
+                value={values.custom}
+                errorMsg={errors.custom}
+                handleChange={this.props.handleChange}
+                required={false}
+                validateBy={null}
+                />
+
+              <div>
+                <button className={styles.btn}
+                        type="submit" >
+                  Create Plan
+                </button>
+              </div>
+              </fieldset>
+            </form>
+          </div>
+          <div className={styles.column}>
+            <PlanCard plan={values} />
+          </div>
         </div>
-        <PlanItem plan={values} />
       </div>
     );
   }

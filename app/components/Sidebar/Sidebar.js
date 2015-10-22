@@ -36,8 +36,6 @@ export default class Sidebar extends React.Component {
       );
     }
 
-
-
     return (
         <div className={styles.sidebar}>
             <span className={styles.heading} onClick={this.props.handleToggleSidebar}>

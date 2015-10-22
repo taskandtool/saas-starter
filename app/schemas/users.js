@@ -49,6 +49,10 @@ Meteor.methods({
     return count;
   },
 
+  "User.setPasswordIfDoesNotExsit": function(userId, newPassword) {
+    Accounts.setPassword(userId, newPassword);
+  },
+
   "User.updateProfile": function(docId, data) {
 
     check(docId, String);

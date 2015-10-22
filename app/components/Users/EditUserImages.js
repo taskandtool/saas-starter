@@ -14,7 +14,8 @@ export default class EditUserImages extends React.Component {
   render() {
     return (
         <div>
-          {this.props.otherImages.length > 1 ?  <h5>Click an image below to set a different profile image</h5> : null}
+          <h4 className="subtitle">Set a different profile image</h4>
+          {this.props.otherImages.length > 1 ?  <p>Click an image below to swap images.</p> : null}
           {this.props.otherImages}
 
           <ImageUpload

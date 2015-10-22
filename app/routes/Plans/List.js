@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
 import {Plans} from '../../schemas';
 import PlanList from '../../components/Plans/PlanList';
+import Spinner from '../../components/Utils/Spinner';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class PlanListRoute extends Component {
@@ -15,8 +16,8 @@ export default class PlanListRoute extends Component {
   }
 
   render() {
-    if (this.data.loading) {
-      return (<p>'loading'</p>);
+    if (!this.data.loading) {
+      return (<div className="wrapper"><Spinner /></div>);
     }
 
     return (

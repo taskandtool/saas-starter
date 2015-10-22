@@ -57,7 +57,9 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       data: [1],
-      halfColWidth: 200
+      halfColWidth: 200,
+      activePoint: null,
+      tooltipTrigger: null,
     };
     this.resize = this.resize.bind(this);
     //replace with real data eventually (this code also doesn't unmount! Error will leave when we replace real data)
@@ -68,11 +70,10 @@ export default class Dashboard extends Component {
     //end of replace with real data
   }
 
-
   getMeteorData() {
     let handle = Meteor.subscribe("users");
     return {
-      users: Meteor.users.find({}, {sort: {createdAt: -1}, limit:3}).fetch(),
+      users: Meteor.users.find({}, {sort: {createdAt: -1}, limit:4}).fetch(),
       loading: !handle.ready()
     };
   }
@@ -146,7 +147,7 @@ export default class Dashboard extends Component {
           </div>
         </div>
 
-        <h3 className="subtitle">Latest 3 Users</h3>
+        <h3 className="subtitle">Latest 4 Users</h3>
         <UserList users={this.data.users} />
         <Link to="/users" className={styles.buttonLink} ><button>See all users</button></Link>
 
@@ -170,5 +171,12 @@ export default class Dashboard extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+  }
+
+  handlePointHover(point, trigger) {
+    this.setState({
+      activePoint: point,
+      tooltipTrigger: trigger,
+    })
   }
 }

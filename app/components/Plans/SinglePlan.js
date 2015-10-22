@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import PlanItem from './PlanItem.js';
+import PlanCard from './PlanCard.js';
 import styles from './singlePlan.css';
 
 export default class SinglePlan extends React.Component {
@@ -53,7 +53,7 @@ export default class SinglePlan extends React.Component {
               </li>
             </ul>
           </div>
-          <PlanItem plan={plan} />
+          <PlanCard plan={plan} />
         </div>
       </div>
     );

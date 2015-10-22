@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './inputStacked.css';
+import Icon from '../Icons/Icon.js';
 
 export default class InputStacked extends React.Component {
   propTypes: {
@@ -29,15 +30,13 @@ export default class InputStacked extends React.Component {
     if (this.props.errorMsg) {
       style = styles.messageError;
       message = {__html: '- ' + this.props.errorMsg};
-    } else if (this.props.errorMsg === '') {
-      style = styles.messageSuccess;
-      message = {__html: ' <i class="fa fa-check"></i>'};
     }
 
     return (
       <div>
         <label htmlFor={ this.props.name } title={ this.props.label }>
           {this.props.label} <span className={style} dangerouslySetInnerHTML={message} />
+          {this.props.errorMsg === '' ? <Icon size="1.2em" icon="check" color='green' /> : null}
         </label>
         <input
           className={styles.input}

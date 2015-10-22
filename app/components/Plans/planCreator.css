@@ -1,9 +1,8 @@
-.wrapper {
-  margin: 4em 1em;
+.grid {
   lost-utility: clearfix;
 }
 
-.formBox {
+.column {
   lost-column: 1/2;
 }
 
@@ -25,6 +24,10 @@
   padding: .8em;
   margin-top: .2em;
   width: 100%;
+}
+
+.addFeature {
+  margin: .5em 0;
 }
 
 .subtitle {

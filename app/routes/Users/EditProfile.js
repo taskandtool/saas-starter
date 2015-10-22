@@ -7,6 +7,7 @@ import styles from './editProfile.css';
 import InputStacked from '../../components/Forms/InputStacked';
 import UserCard from '../../components/Users/UserCard';
 import EditUserImages from '../../components/Users/EditUserImages';
+import Spinner from '../../components/Utils/Spinner';
 
 @handleForms
 @reactMixin.decorate(ReactMeteorData)
@@ -47,7 +48,13 @@ export default class EditProfileRoute extends React.Component {
   render() {
     if (this.data.loading) {
       return (
-        <div>Loading</div>
+        <div className="wrapper"><Spinner /></div>
+      );
+    }
+
+    if (!Meteor.user()._id || Meteor.user()._id !== this.props.params.id) {
+      return (
+        <div className="wrapper">Sorry, you must be logged in as {this.data.user.profile.name} to edit this profile.</div>
       );
     }
 
@@ -85,64 +92,11 @@ export default class EditProfileRoute extends React.Component {
                   makeClickable={true}
                   />
             </div>
-
-            <form ref="form" className={styles.form}>
-              <h6 className="subtitle">Change Password</h6>
-              <fieldset>
-
-                <InputStacked
-                  type="password"
-                  name="oldPassword"
-                  handleChange={this.props.handleChange}
-                  value={values.oldPassword}
-                  errorMsg={errors.oldPassword}
-                  validateBy="password"
-                  label="Current Password"
-                  required="true"  />
-
-                <InputStacked
-                  type="password"
-                  name="newPassword"
-                  handleChange={this.props.handleChange}
-                  value={values.newPassword}
-                  errorMsg={errors.newPassword}
-                  validateBy="password"
-                  label="New Password"
-                  required="true"  />
-
-              </fieldset>
-            </form>
-            <div className={styles.error}>{this.state.passwordFormError}</div>
-            <div className={styles.success}>{this.state.passwordFormSuccess}</div>
-            <button type="submit" className={styles.btn} onClick={() => this.handlePasswordSubmit(event, errors, values)}>
-              Change Password
-            </button>
-
-            <form ref="form" className={styles.form}>
-              <h6 className="subtitle">Change Email Address</h6>
-              <fieldset>
-                <InputStacked
-                  type="email"
-                  name="email"
-                  handleChange={this.props.handleChange}
-                  value={values.email}
-                  errorMsg={errors.email}
-                  validateBy="email"
-                  label="Email Address"
-                  required="true"
-                  />
-              </fieldset>
-            </form>
-            <div className={styles.error}>{this.state.emailFormError}</div>
-            <div className={styles.success}>{this.state.emailFormSuccess}</div>
-            <button type="submit" className={styles.btn} onClick={() => this.handleEmailSubmit(event, errors, values)}>
-              Change email
-            </button>
           </div>
-
           <div className={styles.column}>
+
             <form ref="form" className={styles.form}>
-              <h6 className="subtitle">Update Info</h6>
+              <h4 className="subtitle">Update Info</h4>
               <fieldset>
                 <InputStacked
                   type="text"
@@ -185,6 +139,11 @@ export default class EditProfileRoute extends React.Component {
               Update Profile
             </button>
 
+          </div>
+        </div>
+        <div className={styles.grid}>
+          <div className={styles.column}>
+
             <EditUserImages
               ref="editUserImages"
               otherImages={otherImages}
@@ -193,6 +152,65 @@ export default class EditProfileRoute extends React.Component {
               showSpinner={this.state.showSpinner}
               />
 
+
+          </div>
+          <div className={styles.column}>
+
+            <form ref="form" className={styles.form}>
+              <h4 className="subtitle">Change Email Address</h4>
+              <fieldset>
+                <InputStacked
+                  type="email"
+                  name="email"
+                  handleChange={this.props.handleChange}
+                  value={values.email}
+                  errorMsg={errors.email}
+                  validateBy="email"
+                  label="Email Address"
+                  required="true"
+                  />
+              </fieldset>
+            </form>
+            <div className={styles.error}>{this.state.emailFormError}</div>
+            <div className={styles.success}>{this.state.emailFormSuccess}</div>
+            <button type="submit" className={styles.btn} onClick={() => this.handleEmailSubmit(event, errors, values)}>
+              Change email
+            </button>
+          </div>
+        </div>
+        <div className={styles.grid}>
+          <div className={styles.column}>
+            <form ref="form" className={styles.form}>
+              <h4 className="subtitle">Change Password</h4>
+              <fieldset>
+
+                <InputStacked
+                  type="password"
+                  name="oldPassword"
+                  handleChange={this.props.handleChange}
+                  value={values.oldPassword}
+                  errorMsg={errors.oldPassword}
+                  validateBy="password"
+                  label="Current Password"
+                  required="true"  />
+
+                <InputStacked
+                  type="password"
+                  name="newPassword"
+                  handleChange={this.props.handleChange}
+                  value={values.newPassword}
+                  errorMsg={errors.newPassword}
+                  validateBy="password"
+                  label="New Password"
+                  required="true"  />
+
+              </fieldset>
+            </form>
+            <div className={styles.error}>{this.state.passwordFormError}</div>
+            <div className={styles.success}>{this.state.passwordFormSuccess}</div>
+            <button type="submit" className={styles.btn} onClick={() => this.handlePasswordSubmit(event, errors, values)}>
+              Change Password
+            </button>
           </div>
         </div>
       </div>
@@ -221,9 +239,14 @@ export default class EditProfileRoute extends React.Component {
     }
     Accounts.changePassword(oldPassword, newPassword, (error) => {
       if (error) {
-        this.setState({
-          passwordFormError: error.reason
-        });
+        //If there's no password set (like when user signed up with facebook/twitter), hard set the password
+        if (error.reason == 'User has no password set') {
+          Meteor.call('User.setPasswordIfDoesNotExsit', Meteor.user()._id, newPassword);
+        } else {
+          this.setState({
+            passwordFormError: error.reason
+          });
+        }
       } else {
         this.setState ({
           passwordFormError: "",

@@ -1,10 +1,18 @@
 .section1 {
   background-color: #333333;
+  background-image: url("https://unsplash.it/1600/550?image=826&blur");
+  padding-top: 2em;
+}
+
+@media all and (max-width: 40em) {
+  .section1 {
+    background-image: url("https://unsplash.it/600/550?image=826&blur");
+  }
 }
 
 .heroGrid {
   lost-align: center;
-  height: 400px;
+  height: 500px;
 }
 
 .heroColumn {
