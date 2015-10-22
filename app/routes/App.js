@@ -20,7 +20,8 @@ export default class App extends Component {
     this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
     this.state = {
       showDropDown: false,
-      showSidebar: false
+      showSidebar: false,
+      initialLoad: true
     };
   }
 
@@ -29,7 +30,10 @@ export default class App extends Component {
   }
 
   handleToggleSidebar() {
-    this.setState({showSidebar: !this.state.showSidebar})
+    this.setState({
+      showSidebar: !this.state.showSidebar,
+      initialLoad: false
+    })
   }
 
   getMeteorData() {
@@ -40,7 +44,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className={this.state.showSidebar ? styles.darken : null}>
+      <div>
         <Helmet
           title="My SaaS App"
           titleTemplate="%s - TaskandTool.com"
@@ -48,12 +52,16 @@ export default class App extends Component {
               {"name": "description", "content": "SaaS App Starter Kit"}
           ]}
         />
-        { this.state.showSidebar ?
-          <Sidebar
-            user={this.data.user}
-            handleToggleSidebar={this.handleToggleSidebar}/>
-          : null
-        }
+
+        <Sidebar
+          user={this.data.user}
+          handleToggleSidebar={this.handleToggleSidebar}
+          showSidebar={this.state.showSidebar}
+          initialLoad={this.state.initialLoad} />
+
+      <div
+        className={this.state.showSidebar ? styles.darken : styles.lighten}
+        style={this.state.initialLoad ? {opacity: '1'} : null}>
 
         <div onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >
           <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null} >
@@ -72,6 +80,7 @@ export default class App extends Component {
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }

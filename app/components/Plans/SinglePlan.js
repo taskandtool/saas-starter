@@ -22,16 +22,16 @@ export default class SinglePlan extends React.Component {
               isDeleted } = plan;
 
     return (
-      <div className={styles.wrapper}>
-        <h1 className={styles.title}>{title}</h1>
+      <div className="wrapper">
+        <h1 className="title">{title}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <h3 className={styles.subTitle}>More details</h3>
+            <h3 className="subtitle">More details</h3>
             <ul className={styles.listGroup}>
               <li>Plan ID: {_id}</li>
               <li>There are {teamsUsingItCount} teams on this plan</li>
             </ul>
-            <h3 className={styles.subTitle}>Things you can edit:</h3>
+            <h3 className="subtitle">Things you can edit:</h3>
             <ul className={styles.listGroup}>
               <li>
                 <input type="checkbox"
@@ -53,7 +53,9 @@ export default class SinglePlan extends React.Component {
               </li>
             </ul>
           </div>
-          <PlanCard plan={plan} />
+          <div className={styles.column}>
+            <PlanCard plan={plan} />
+          </div>
         </div>
       </div>
     );
