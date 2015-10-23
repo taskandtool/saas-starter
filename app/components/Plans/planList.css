@@ -1,4 +1,5 @@
 .btn {
+  composes: button from '../../styles/buttons.css';
   background-color: #03A9F4;
   color: #fff;
   padding: .7em;

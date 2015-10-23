@@ -18,7 +18,7 @@ export default class UserItem extends Component {
     const createdAt = this.props.createdAt;
 
     return (
-      <div className="cardShadow" onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props._id}`) : ''}>
+      <div className={styles.shadow} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props._id}`) : ''}>
         <div className={styles.wrapper}>
             <img src={this.props.avatar} className={styles.avatar} />
 
