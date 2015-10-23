@@ -4,6 +4,7 @@ import Mailto from 'react-mailto';
 import reactMixin from 'react-mixin';
 import {History} from 'react-router';
 import styles from './userCard.css';
+import Icon from '../Icons/Icon';
 
 @reactMixin.decorate(History)
 export default class UserProfile extends Component {
@@ -19,7 +20,7 @@ export default class UserProfile extends Component {
     return (
       <div className="cardShadow" onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props._id}`) : ''}>
         <div className={styles.imgWrapper}>
-          <img src="https://unsplash.it/500/150/?random" className={styles.bannerImg} />
+          <img src="https://unsplash.it/500/150/?random" className={styles.bannerImg} ref="bannerImg" />
           <img src={this.props.avatar} className={styles.avatar} />
         </div>
         <div className={styles.info} >
@@ -28,16 +29,16 @@ export default class UserProfile extends Component {
             {this.props.role ? <div className={styles.role}>{this.props.role}</div> : null }
           </div>
           {this.props.bio ?
-            <p className={styles.items}><span className={styles.icon}><i className="fa fa-comment"></i></span>
+            <p className={styles.items}><span className={styles.icon}><Icon size="1.1em" icon="message" /></span>
               <em>{this.props.bio}</em>
             </p>
             : null
           }
-          <p className={styles.items}><span className={styles.icon}><i className="fa fa-user"></i></span>
+          <p className={styles.items}><span className={styles.icon}><Icon size="1.1em" icon="person" /></span>
             Joined {moment({createdAt}).format('MMMM DD, YYYY')}
           </p>
           {this.props.email !== "None@none.com" ?
-            <p className={styles.items}><span className={styles.icon}><i className="fa fa-envelope"></i></span>
+            <p className={styles.items}><span className={styles.icon}><Icon size="1.1em" icon="email" /></span>
                <Mailto email={this.props.email} obfuscate={true}>Email {this.props.name}</Mailto>
             </p>
             : null

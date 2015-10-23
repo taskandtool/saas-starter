@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import {Link, History} from 'react-router';
-import UserCard from './UserCard.js';
+import UserItem from './UserItem.js';
 
 import styles from './userList.css';
 
@@ -14,7 +14,7 @@ export default class UserList extends React.Component {
       let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
       return (
         <div className={styles.column} key={user._id}>
-          <UserCard
+          <UserItem
               _id={user._id}
               name={user.profile.name}
               avatar={user.profile.avatar}

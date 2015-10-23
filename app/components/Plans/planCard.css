@@ -1,0 +1,36 @@
+.header {
+  background-color: #4C4C4C;
+  height: 7em;
+  padding: 1em;
+  margin-bottom: .4em;
+}
+
+.planTitle {
+  margin-bottom: 0;
+  color: #d3d3d3;
+}
+
+.info {
+  padding: 1em;
+  padding-top:0em;
+}
+
+.bannerImg {
+  height: 150px;
+  max-width: 100%;
+}
+
+.money {
+  color: #eee;
+  margin-bottom: .2em;
+}
+
+.mo {
+  composes: money;
+  font-size: .5em;
+}
+
+.features {
+  margin-bottom: .2em;
+  font-size: .9em;
+}

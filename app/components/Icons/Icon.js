@@ -72,7 +72,8 @@ export default class Icon extends React.Component {
       fill: this.props.color,
       verticalAlign: "middle",
       width: this.props.size,
-      height: this.props.size
+      height: this.props.size,
+      paddingBottom: '.1em'
     };
     return (
       <svg onClick={this.props.onClick} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" fit

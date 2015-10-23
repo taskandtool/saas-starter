@@ -1,9 +1,9 @@
-.wrapper {
-  margin: 4em 1em;
+.grid {
   lost-utility: clearfix;
+  max-width: 960px;
 }
 
-.formBox {
+.column {
   lost-column: 1/2;
 }
 
@@ -19,12 +19,23 @@
   }
 }
 
+.btnFeatures {
+  composes: button from '../../styles/buttons.css';
+  margin: .4em 0em;
+  width: 100%;
+}
+
 .btn {
+  composes: button from '../../styles/buttons.css';
   background-color: #03A9F4;
   color: #fff;
   padding: .8em;
   margin-top: .2em;
   width: 100%;
+}
+
+.addFeature {
+  margin: .5em 0;
 }
 
 .subtitle {

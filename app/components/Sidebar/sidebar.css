@@ -3,11 +3,40 @@
   background-color: #1976D2;
   height: 100%;
   color: #fff;
-  white-space: nowrap;
   position: fixed;
   width: 12em;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
   z-index: 2;
+  animation: an-open .5s 1;
+  animation-fill-mode: both;
+}
+
+.sidebarClose {
+  background-color: #1976D2;
+  height: 100%;
+  color: #fff;
+  position: fixed;
+  width: 12em;
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  z-index: 2;
+  animation: an-close .5s 1;
+  animation-fill-mode: both;
+}
+
+@keyframes an-open {
+  0% {
+    transform: translate(-100%);
+  } 100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes an-close {
+  0% {
+    transform: translate(0);
+  } 100% {
+    transform: translate(-100%);
+  }
 }
 
 .sidebarList {

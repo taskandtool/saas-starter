@@ -6,10 +6,10 @@
 
 .messageSuccess {
   composes: message;
-  color:green;
 }
 
 .messageError {
+  composes: message;
   color:red;
 }
 

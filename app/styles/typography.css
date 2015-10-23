@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300);
+
 html {
   box-sizing: border-box;
   font-size: 112.5%;
@@ -105,7 +107,7 @@ h5,
 h6 {
   color: hsl(0,0%,21%);
   font-family: Lato, sans-serif;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 h1 {

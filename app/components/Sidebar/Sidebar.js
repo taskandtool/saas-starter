@@ -36,10 +36,8 @@ export default class Sidebar extends React.Component {
       );
     }
 
-
-
     return (
-        <div className={styles.sidebar}>
+        <div className={this.props.showSidebar ? styles.sidebar : styles.sidebarClose} style={this.props.initialLoad ? {display: 'none'} : null}>
             <span className={styles.heading} onClick={this.props.handleToggleSidebar}>
               <span className={styles.menu} onClick={this.handleBrandClick}> STARTER APP</span>
             </span>
