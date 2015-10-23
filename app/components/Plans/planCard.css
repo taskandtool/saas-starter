@@ -3,6 +3,7 @@
   height: 7em;
   padding: 1em;
   margin-bottom: .4em;
+  font-size: 1.3em;
 }
 
 .planTitle {
@@ -32,5 +33,15 @@
 
 .features {
   margin-bottom: .2em;
-  font-size: .9em;
+}
+
+.desc {
+  margin-bottom: .2em;
+  font-size: 1.1em;
+}
+
+.feature {
+  color: #aaa;
+  margin-bottom: .2em;
+  font-size: 1.1em;
 }

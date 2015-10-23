@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import reactMixin from 'react-mixin';
 import {History} from 'react-router';
-
+import Icon from '../Icons/Icon.js';
 import styles from './planCard.css';
 
 @reactMixin.decorate(History)
@@ -33,9 +33,9 @@ export default class PlanCard extends React.Component {
           <h1 className={styles.money}>${plan.monthlyPrice} <span className={styles.mo}>/MO</span></h1>
         </div>
         <div className={styles.info}>
-          <p className={styles.features}>{plan.desc}</p>
-          <p className={styles.features}>FEATURES:</p>
-          <p className={styles.features}>{plan['1']}</p>
+          <p className={styles.desc}><em>{plan.desc}</em></p>
+          <p className={styles.feature}>FEATURES</p>
+          <p className={styles.features}><Icon size="1.2em" icon="check" color='green' />{plan['1']}</p>
           <p className={styles.features}>{plan['2']}</p>
           <p className={styles.features}>{plan['3']}</p>
           <p className={styles.features}>{plan['4']}</p>

@@ -7,6 +7,7 @@ var schema = {
   createdBy: String, //userID
   title: String,
   desc: String,
+  features: [String],
   monthlyPrice: Number,
   setupPrice: Number,
   maxProjects: Number, // 0 for unlimited
@@ -29,6 +30,7 @@ Meteor.methods({
     data.updatedAt = new Date();
     data.title = data.title;
     data.desc = data.desc;
+    data.features = data.features;
     data.monthlyPrice = data.monthlyPrice;
     data.setupPrice = data.setupPrice;
     data.maxProjects = data.maxProjects;

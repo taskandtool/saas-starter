@@ -22,10 +22,10 @@ export default class PlanCreateRoute extends React.Component {
       features: [<InputStacked
                 key="1"
                 type="text"
-                name="1"
+                name="feature1"
                 label="Feature"
-                value={this.props.formState.values['1']}
-                errorMsg={this.props.formState.errors['1']}
+                value={this.props.formState.values['feature1']}
+                errorMsg={this.props.formState.errors['feature1']}
                 handleChange={this.props.handleChange}
                 />]
     }
@@ -34,6 +34,17 @@ export default class PlanCreateRoute extends React.Component {
   render() {
     let values = this.props.formState.values;
     let errors = this.props.formState.errors;
+
+
+    let features =  _.map(values, (value, key, object) => {
+      if (key.match(/(feature)\w+/g)) {
+        return value
+      }
+    });
+    features = _.compact(features);
+    console.log(features);
+
+
 
 
     return (
@@ -171,13 +182,12 @@ export default class PlanCreateRoute extends React.Component {
     features.push(<InputStacked
               key={count}
               type="text"
-              name={count}
+              name={"feature" + count}
               label={"Feature"}
               value={this.props.formState.values[count]}
               errorMsg={this.props.formState.errors[count]}
               handleChange={this.props.handleChange}
               />);
-
 
     this.setState({
       featureCount: this.state.featureCount + 1,
@@ -224,7 +234,8 @@ export default class PlanCreateRoute extends React.Component {
       return false; //prevent form submission
     }
 
-    const {title, monthlyPrice, features, setupPrice, desc, maxProjects, maxItems, freeTrialDays, currAvail, custom} = values;
+    const {title, monthlyPrice, setupPrice, desc, maxProjects, maxItems, freeTrialDays, currAvail, custom} = values;
+
 
     Meteor.call('Plan.create', {
       title: title,
