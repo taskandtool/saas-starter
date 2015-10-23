@@ -10,9 +10,9 @@ export default class PlanList extends React.Component {
   }
 
   render() {
-    let createPlanButton = <Link to='/super-global-dashboard/plan/add'><button className={styles.btn}>Create new plan</button></Link>;
-
-    if (!this.props.plans) return createPlanButton;
+    if (!this.props.plans) {
+      let plans;
+    }
 
     let plans = this.props.plans.map((plan) => {
       return (
@@ -25,7 +25,9 @@ export default class PlanList extends React.Component {
     return (
       <div className="wrapper">
         <h1 className="title">{plans.length} Plans</h1>
-        {createPlanButton}
+        <Link to='/super-global-dashboard/plan/add'>
+          <button className={styles.btn}>Create new plan</button>
+        </Link>
         <div className={styles.container} >
           {plans}
         </div>

@@ -59,12 +59,16 @@ export default class App extends Component {
           showSidebar={this.state.showSidebar}
           initialLoad={this.state.initialLoad} />
 
-      <div
-        className={this.state.showSidebar ? styles.darken : styles.lighten}
-        style={this.state.initialLoad ? {opacity: '1'} : null}>
 
-        <div onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >
-          <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null} >
+        <div
+            className={
+              this.state.initialLoad ? null : 
+              this.state.showSidebar ? styles.darken : styles.lighten
+            }
+            onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >
+
+          <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null}>
+
             <Nav
               user={this.data.user}
               showDropDown={this.state.showDropDown}
@@ -80,7 +84,6 @@ export default class App extends Component {
           </div>
         </div>
       </div>
-    </div>
     );
   }
 }

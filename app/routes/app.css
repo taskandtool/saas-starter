@@ -1,20 +1,18 @@
 .darken {
-
   animation: an-open .5s 1;
-  animation-fill-mode: both;
+  animation-fill-mode: forwards;
 }
 
 .lighten {
   animation: an-close .5s 1;
-  animation-fill-mode: both;
+  animation-fill-mode: forwards;
 }
 
 @keyframes an-open {
   0% {
-
     opacity: 1;
   } 100% {
-    opacity: 0.5;
+    opacity: 0.7;
     background-color: #000;
   }
 }
@@ -22,7 +20,7 @@
 @keyframes an-close {
   0% {
     background-color: #000;
-    opacity: 0.5;
+    opacity: 0.7;
   } 100% {
     opacity: 1;
   }

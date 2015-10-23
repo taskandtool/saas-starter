@@ -15,6 +15,14 @@ export default class PlanCard extends React.Component {
 
     let plan = this.props.plan;
 
+    let features
+
+    // let features = plan.features.map((feature, i) => {
+    //   return (
+    //     <p className={styles.features}>{plan[i]}</p>
+    //   );
+    // });
+
     return (
       <div key={plan._id}
         className="cardShadow"
@@ -27,7 +35,16 @@ export default class PlanCard extends React.Component {
         <div className={styles.info}>
           <p className={styles.features}>{plan.desc}</p>
           <p className={styles.features}>FEATURES:</p>
-          <p className={styles.features}>{plan.feature}</p>
+          <p className={styles.features}>{plan['1']}</p>
+          <p className={styles.features}>{plan['2']}</p>
+          <p className={styles.features}>{plan['3']}</p>
+          <p className={styles.features}>{plan['4']}</p>
+          <p className={styles.features}>{plan['5']}</p>
+          <p className={styles.features}>{plan['6']}</p>
+          <p className={styles.features}>{plan['7']}</p>
+          <p className={styles.features}>{plan['8']}</p>
+          <p className={styles.features}>{plan['9']}</p>
+
         </div>
       </div>
     );
