@@ -12,15 +12,13 @@
   0% {
     opacity: 1;
   } 100% {
-    opacity: 0.7;
-    background-color: #000;
+    opacity: 0.5;
   }
 }
 
 @keyframes an-close {
   0% {
-    background-color: #000;
-    opacity: 0.7;
+    opacity: 0.5;
   } 100% {
     opacity: 1;
   }

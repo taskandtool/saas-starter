@@ -18,7 +18,7 @@ export default class SinglePlan extends React.Component {
     if (!plan) return null;
 
     const { _id, createdAt, updatedAt, createdBy, title, desc, monthlyPrice, setupPrice,
-              maxProjects, maxItems, freeTrialDays, teamsUsingItCount, currAvail, custom,
+              maxProjects, maxItems, freeTrialDays, teamsUsingItCount, currAvail, displayOnMainSite,
               isDeleted } = plan;
 
     return (
@@ -41,9 +41,9 @@ export default class SinglePlan extends React.Component {
               </li>
               <li>
                 <input type="checkbox"
-                        checked={!!custom}
-                        name='custom'
-                        onChange={this.onCheckedChanged}/> Custom Plan?
+                        checked={!!displayOnMainSite}
+                        name='displayOnMainSite'
+                        onChange={this.onCheckedChanged}/> Display on Plan Page?
               </li>
               <li>
                 <input type="checkbox"

@@ -18,14 +18,16 @@ export default class PlanCreateRoute extends React.Component {
     this.handleAddFeature = this.handleAddFeature.bind(this);
     this.listenForClose = this.listenForClose.bind(this);
     this.state = {
+      shakeBtn: false,
       featureCount: 1,
+      formError: '',
+      formSuccess: '',
       features: [<InputStacked
                 key="1"
                 type="text"
                 name="feature1"
                 label="Feature"
                 value={this.props.formState.values['feature1']}
-                errorMsg={this.props.formState.errors['feature1']}
                 handleChange={this.props.handleChange}
                 />]
     }
@@ -35,17 +37,16 @@ export default class PlanCreateRoute extends React.Component {
     let values = this.props.formState.values;
     let errors = this.props.formState.errors;
 
-
+    //Get values of however many features. Not bothering getting
+    //errors because we're not validating feature field.
     let features =  _.map(values, (value, key, object) => {
       if (key.match(/(feature)\w+/g)) {
         return value
       }
     });
+
+    //gets rid of undefined and empty feature strings
     features = _.compact(features);
-    console.log(features);
-
-
-
 
     return (
       <div className="wrapper">
@@ -59,8 +60,7 @@ export default class PlanCreateRoute extends React.Component {
         <h1 className="title">Add a New Plan</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <form id="form" className={styles.form} onSubmit={() => this.handleSubmit(event, errors, values)}>
-              <fieldset>
+            <form id="form" className={styles.form}>
               <InputStacked
                 type="text"
                 name="title"
@@ -92,6 +92,7 @@ export default class PlanCreateRoute extends React.Component {
               {this.state.features}
 
               <a href="#" className={styles.btnFeatures} onClick={this.handleAddFeature}>Add another feature</a>
+
               <h3 className="subtitle">More settings</h3>
               <hr />
 
@@ -149,26 +150,29 @@ export default class PlanCreateRoute extends React.Component {
 
               <InputStacked
                 type="checkbox"
-                name="custom"
-                label="Custom Plan?"
-                value={values.custom}
-                errorMsg={errors.custom}
+                name="displayOnMainSite"
+                label="Display On Main Site?"
+                value={values.displayOnMainSite}
+                errorMsg={errors.displayOnMainSite}
                 handleChange={this.props.handleChange}
                 required={false}
                 validateBy={null}
                 />
 
-              <div>
-                <button className={styles.btn}
-                        type="submit" >
-                  Create Plan
-                </button>
-              </div>
-              </fieldset>
             </form>
+
+            <div className={styles.error}>{this.state.formError}</div>
+            <div className={styles.success}>{this.state.formSuccess}</div>
+
+            <button
+              type="submit"
+              className={this.state.shakeBtn ? styles.btnShake : styles.btn}
+              onClick={() => this.handleSubmit(event, errors, values, features)} >
+              Create Plan
+            </button>
           </div>
           <div className={styles.column}>
-            <PlanCard plan={values} />
+            <PlanCard plan={values} features={features} />
           </div>
         </div>
       </div>
@@ -185,7 +189,6 @@ export default class PlanCreateRoute extends React.Component {
               name={"feature" + count}
               label={"Feature"}
               value={this.props.formState.values[count]}
-              errorMsg={this.props.formState.errors[count]}
               handleChange={this.props.handleChange}
               />);
 
@@ -209,33 +212,39 @@ export default class PlanCreateRoute extends React.Component {
     }
   }
 
-
-
-  handleSubmit(event, errors, values) {
+  handleSubmit(event, errors, values, features) {
     event.preventDefault();
-
-    //Safari doesn't prevent form submission with required input attr.
-    //this goes through all inputs with required fields and sees if they have values.
-    //if no, an error is set.
-    let thisRef = this;
-    $("#form [required]").each(function(index) {
-      let val = $(this).val();
-      if (!val) {
-        let name = $(this).attr("name");
-        thisRef.props.formValidateRequired(name, val);
-      }
-    });
 
     //don't submit if there's errors showing
     //underscore method to ensure all errors are empty strings
     let errorValues = _.values(errors);
     if (! _.every(errorValues, function(str){ return str === ''; })) {
-      console.log('This should not submit because there\'s errors');
-      return false; //prevent form submission
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 3000);
+      return false;
     }
 
-    const {title, monthlyPrice, setupPrice, desc, maxProjects, maxItems, freeTrialDays, currAvail, custom} = values;
+    const {title, monthlyPrice, setupPrice, desc, maxProjects, maxItems, freeTrialDays, currAvail, displayOnMainSite} = values;
 
+    let requiredValues = [title, monthlyPrice];
+    console.log(requiredValues);
+    if (_.some(requiredValues, function(str){ return str == undefined; })) {
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 3000);
+      return false;
+    }
 
     Meteor.call('Plan.create', {
       title: title,
@@ -247,15 +256,28 @@ export default class PlanCreateRoute extends React.Component {
       maxProjects: parseInt(maxProjects),
       freeTrialDays: parseInt(freeTrialDays),
       currAvail: !!currAvail,
-      custom: !!custom
+      displayOnMainSite: !!displayOnMainSite
     }, (error) => {
       if (error) {
-        console.log(error.reason);
-        this.setState({showRequired: true})
-        return false; //doesn't work in chrome.
+        this.setState({
+          formError: "Missing Required Fields",
+          shakeBtn: true
+        });
+        window.setTimeout(() => {
+          this.setState({
+            shakeBtn: false
+          });
+        }, 3000);
+        return;
+      } else {
+        this.setState({
+          formError: "",
+          formSuccess: "Success! Plan Created!"
+        });
+        window.setTimeout(() => {
+          this.history.pushState(null, `/plans`);
+        }, 1000);
       }
-
-      this.history.pushState(null, `/plans`);
     });
   }
 }

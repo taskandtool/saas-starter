@@ -15,7 +15,7 @@ var schema = {
   freeTrialDays: Number, // 0 for no free trial. Length in days
   teamsUsingItCount: Number,
   currAvail: Boolean, // for allowing grandfathered plans to continue
-  custom: Boolean, // Useful for creating unique plans not normally available
+  displayOnMainSite: Boolean, // Useful for creating unique plans not normally available
   isDeleted: Boolean //Soft delete
 };
 
@@ -38,7 +38,7 @@ Meteor.methods({
     data.freeTrialDays = data.freeTrialDays;
     data.teamsUsingItCount = 0;
     data.currAvail = data.currAvail;
-    data.custom = data.custom;
+    data.displayOnMainSite = data.displayOnMainSite;
     data.isDeleted = false;
 
     // ensure user doesn't send extra/evil data
@@ -63,7 +63,7 @@ Meteor.methods({
     check(data, {
       updatedAt: schema.updatedAt,
       currAvail: optional(schema.currAvail),
-      custom: optional(schema.custom),
+      displayOnMainSite: optional(schema.displayOnMainSite),
       isDeleted: optional(schema.isDeleted)
     });
 
