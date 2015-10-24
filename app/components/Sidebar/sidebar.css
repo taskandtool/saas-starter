@@ -25,17 +25,17 @@
 
 @keyframes an-open {
   0% {
-    transform: translate(-100%);
+    transform: translate3d(-100%,0,0);
   } 100% {
-    transform: translate(0);
+    transform: translate3d(0,0,0);
   }
 }
 
 @keyframes an-close {
   0% {
-    transform: translate(0);
+    transform: translate3d(0,0,0);
   } 100% {
-    transform: translate(-100%);
+    transform: translate3d(-100%,0,0);
   }
 }
 
