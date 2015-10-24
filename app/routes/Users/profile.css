@@ -14,3 +14,10 @@
     lost-waffle: 1;
   }
 }
+
+.btn {
+  composes: button from '../../styles/buttons.css';
+  margin-top: .2em;
+  margin-bottom: 3em;
+  width: 100%;
+}

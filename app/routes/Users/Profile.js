@@ -63,7 +63,7 @@ export default class UserProfileRoute extends Component {
            </div>
          </div>
 
-        {canEdit ? <Link to={`/user/${this.props.params.id}/edit`} ><button>Edit Profile</button></Link> : null }
+        {canEdit ? <Link to={`/user/${this.props.params.id}/edit`} ><button className={styles.btn}>Edit Profile</button></Link> : null }
 
       </div>
     );
