@@ -49,6 +49,7 @@ export default class JoinRoute extends React.Component {
     event.preventDefault();
     const {email, password, confirm} = values;
 
+    //if errors or confirm field is empty
     if (errors.password || errors.email || errors.confirm || !confirm) {
       this.setState({
         shakeBtn: true

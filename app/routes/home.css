@@ -21,6 +21,7 @@
 }
 
 .primary {
+  composes: button from '../styles/buttons.css';
   background-color: #03A9F4;
   color: #fff;
   padding: .8em;
@@ -93,4 +94,5 @@
 .secondary {
   composes: primary;
   background-color: #777;
+  color: #fff;
 }

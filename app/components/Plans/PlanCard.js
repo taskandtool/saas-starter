@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import reactMixin from 'react-mixin';
 import {History} from 'react-router';
-
+import Icon from '../Icons/Icon.js';
 import styles from './planCard.css';
 
 @reactMixin.decorate(History)
@@ -15,13 +15,23 @@ export default class PlanCard extends React.Component {
 
     let plan = this.props.plan;
 
-    let features
+    //Find out if feature props are given when creating plan or displaying existing plan
+    let feats;
+    if (this.props.features) {
+      feats = this.props.features
+    } else if (plan.features) {
+      feats = plan.features
+    }
 
-    // let features = plan.features.map((feature, i) => {
-    //   return (
-    //     <p className={styles.features}>{plan[i]}</p>
-    //   );
-    // });
+    let featureList;
+    //if there are features then display them.
+    if (feats) {
+      featureList = feats.map((feature, i) => {
+        return (
+          <p key={i} className={styles.features}><Icon size="1.2em" icon="check" color='green' />{feature}</p>
+        );
+      })
+    }
 
     return (
       <div key={plan._id}
@@ -33,18 +43,9 @@ export default class PlanCard extends React.Component {
           <h1 className={styles.money}>${plan.monthlyPrice} <span className={styles.mo}>/MO</span></h1>
         </div>
         <div className={styles.info}>
-          <p className={styles.features}>{plan.desc}</p>
-          <p className={styles.features}>FEATURES:</p>
-          <p className={styles.features}>{plan['1']}</p>
-          <p className={styles.features}>{plan['2']}</p>
-          <p className={styles.features}>{plan['3']}</p>
-          <p className={styles.features}>{plan['4']}</p>
-          <p className={styles.features}>{plan['5']}</p>
-          <p className={styles.features}>{plan['6']}</p>
-          <p className={styles.features}>{plan['7']}</p>
-          <p className={styles.features}>{plan['8']}</p>
-          <p className={styles.features}>{plan['9']}</p>
-
+          <p className={styles.desc}><em>{plan.desc}</em></p>
+          <p className={styles.feature}>FEATURES</p>
+          {featureList}
         </div>
       </div>
     );

@@ -16,13 +16,17 @@
 }
 
 .btn {
+  composes: button from '../../styles/buttons.css';
   margin-top: .2em;
   margin-bottom: 3em;
   width: 100%;
 }
 
 .btnProfile {
-  composes: btn;
+  composes: button from '../../styles/buttons.css';
+  margin-top: .2em;
+  margin-bottom: 3em;
+  width: 100%;
   background-color: #03A9F4;
   color: #fff;
 }
