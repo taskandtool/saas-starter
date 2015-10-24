@@ -95,9 +95,9 @@ export default class EditProfileRoute extends React.Component {
           </div>
           <div className={styles.column}>
 
-            <form ref="form" className={styles.form}>
+            <form className={styles.form}>
               <h4 className="subtitle">Update Info</h4>
-              <fieldset>
+
                 <InputStacked
                   type="text"
                   name="name"
@@ -131,7 +131,6 @@ export default class EditProfileRoute extends React.Component {
                   required="true"
                   />
 
-              </fieldset>
             </form>
             <div className={styles.error}>{this.state.profileFormError}</div>
             <div className={styles.success}>{this.state.profileFormSuccess}</div>
@@ -152,13 +151,12 @@ export default class EditProfileRoute extends React.Component {
               showSpinner={this.state.showSpinner}
               />
 
-
           </div>
           <div className={styles.column}>
 
-            <form ref="form" className={styles.form}>
+            <form className={styles.form}>
               <h4 className="subtitle">Change Email Address</h4>
-              <fieldset>
+
                 <InputStacked
                   type="email"
                   name="email"
@@ -169,7 +167,7 @@ export default class EditProfileRoute extends React.Component {
                   label="Email Address"
                   required="true"
                   />
-              </fieldset>
+
             </form>
             <div className={styles.error}>{this.state.emailFormError}</div>
             <div className={styles.success}>{this.state.emailFormSuccess}</div>
@@ -180,9 +178,8 @@ export default class EditProfileRoute extends React.Component {
         </div>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <form ref="form" className={styles.form}>
+            <form className={styles.form}>
               <h4 className="subtitle">Change Password</h4>
-              <fieldset>
 
                 <InputStacked
                   type="password"
@@ -204,7 +201,6 @@ export default class EditProfileRoute extends React.Component {
                   label="New Password"
                   required="true"  />
 
-              </fieldset>
             </form>
             <div className={styles.error}>{this.state.passwordFormError}</div>
             <div className={styles.success}>{this.state.passwordFormSuccess}</div>
@@ -305,11 +301,12 @@ export default class EditProfileRoute extends React.Component {
   }
 
   handleUpload() {
+    console.log('hi');
+
     this.setState({
       uploadingMsg: "Uploading...",
       showSpinner: true
     });
-
     const uploader = new Slingshot.Upload("userImages");
 
     uploader.send(this.refs.editUserImages.refs.imageUpload.refs.fileInput.files[0], (error, downloadUrl) => {

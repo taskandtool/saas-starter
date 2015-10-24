@@ -15,16 +15,16 @@ export default class EditUserProfile extends React.Component {
 
   render() {
     return (
-        <form id="upload">
           <div>
             <h5>{this.props.uploadingMsg}</h5>
             {this.props.showSpinner ? <Spinner /> : null}
             <div className={styles.button}>
-              <span>Add Another Image</span>
+              <div className={styles.container}>
+                <span className={styles.btnText}>Add Another Image</span>
+              </div>
               <input type="file" className={styles.upload} ref="fileInput" onChange={this.props.handleUpload} />
             </div>
           </div>
-        </form>
     );
   }
 }

@@ -149,7 +149,7 @@ export default class Dashboard extends Component {
 
         <h3 className="subtitle">Latest 4 Users</h3>
         <UserList users={this.data.users} />
-        <Link to="/users" className={styles.buttonLink} ><button>See all users</button></Link>
+        <Link to="/users" className={styles.buttonLink} ><button className={styles.btn}>See all users</button></Link>
 
       </div>
     );

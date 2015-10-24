@@ -34,6 +34,16 @@ export default class App extends Component {
       showSidebar: !this.state.showSidebar,
       initialLoad: false
     })
+    //this makes the sidebar's css = display:none when closed.
+    //shouldn't be necessary as the transform animation should work,
+    //but glitches on ipad's safari w/out it.
+    if (this.state.showSidebar) {
+      window.setTimeout(() => {
+        this.setState({
+          initialLoad: true
+        })
+      }, 500);
+    }
   }
 
   getMeteorData() {
@@ -62,7 +72,7 @@ export default class App extends Component {
 
         <div
             className={
-              this.state.initialLoad ? null : 
+              this.state.initialLoad ? null :
               this.state.showSidebar ? styles.darken : styles.lighten
             }
             onClick={this.state.showSidebar ? () => this.handleToggleSidebar() : null} >
