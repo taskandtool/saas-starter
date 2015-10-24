@@ -18,10 +18,6 @@ export default class UserList extends React.Component {
               _id={user._id}
               name={user.profile.name}
               avatar={user.profile.avatar}
-              role={user.profile.role}
-              bio={user.profile.bio}
-              createdAt={user.createdAt}
-              email={email}
               makeClickable={true}
               />
 

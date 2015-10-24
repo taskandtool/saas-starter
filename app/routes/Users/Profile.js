@@ -60,10 +60,10 @@ export default class UserProfileRoute extends Component {
            <div className={styles.column}>
              <h1>More details</h1>
              <p>ie. Member of these teams:</p>
+             {canEdit ? <Link to={`/user/${this.props.params.id}/edit`} ><button className={styles.btn}>Edit Profile</button></Link> : null }
+
            </div>
          </div>
-
-        {canEdit ? <Link to={`/user/${this.props.params.id}/edit`} ><button className={styles.btn}>Edit Profile</button></Link> : null }
 
       </div>
     );

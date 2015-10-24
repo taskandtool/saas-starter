@@ -12,3 +12,9 @@
     lost-waffle: 1;
   }
 }
+
+.btn {
+  composes: button from '../styles/buttons.css';
+  padding: .8em;
+  margin-top: .2em;
+}

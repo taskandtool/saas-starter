@@ -2,12 +2,13 @@
   background-color: #555;
   color: #fff;
   font-size: .9em;
+  height: 7em;
 }
 
 .grid {
   display: flex;
   font-size: .9em;
-  height: 100px;
+  height: 7em;
   width: 100%;
   align-items: center;
   justify-content: center;

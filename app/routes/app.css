@@ -8,6 +8,10 @@
   animation-fill-mode: forwards;
 }
 
+.app {
+  min-height: calc(100vh - 6em);
+}
+
 @keyframes an-open {
   0% {
     opacity: 1;
