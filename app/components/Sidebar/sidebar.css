@@ -1,7 +1,7 @@
 /* misc default styling */
 .sidebar {
   background-color: #1976D2;
-  height: 100%;
+  height: 110%;
   color: #fff;
   position: fixed;
   width: 12em;
@@ -13,7 +13,7 @@
 
 .sidebarClose {
   background-color: #1976D2;
-  height: 100%;
+  height: 110%;
   color: #fff;
   position: fixed;
   width: 12em;

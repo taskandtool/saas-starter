@@ -88,10 +88,12 @@ export default class App extends Component {
               name={this.props.routes[1].name}
               back={this.props.routes[1].back || null} />
 
-            {this.props.children}
-
-            <Footer />
+            <div className={styles.app}>
+              {this.props.children}
+            </div>
+          <Footer />
           </div>
+
         </div>
       </div>
     );
