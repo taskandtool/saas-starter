@@ -7,14 +7,8 @@
   lost-column: 1/2;
 }
 
-@media all and (max-width: 60em) {
-  .formBox {
-    lost-waffle: 1/2;
-  }
-}
-
-@media all and (max-width: 35em) {
-  .formBox {
+@media all and (max-width: 40em) {
+  .column {
     lost-waffle: 1;
   }
 }
@@ -54,20 +48,10 @@
   margin: .5em 0;
 }
 
-.subtitle {
-  margin-bottom:.2em;
-  margin-top:.6em;
-  text-align: center;
-}
-
 .form input, .form label{
   display: block;
   margin: 0.25em 0;
   z-index: 3;
-}
-
-.fieldset {
-  text-align: left;
 }
 
 .error {
