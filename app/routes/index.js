@@ -10,6 +10,8 @@ import Search from './Search';
 import * as Plans from './Plans';
 import * as Users from './Users';
 
+import NotFoundPage from './NotFoundPage';
+
 var history = createHistory();
 
 Meteor.startup(function () {
@@ -29,6 +31,7 @@ Meteor.startup(function () {
         <Route path="/user/:id/edit" component={Users.EditProfile} name="Edit Profile" back="/users" />
         <Route path="/super-global-dashboard" component={Dashboard} name="Dashboard" />
         <Route path="/super-global-dashboard/plan/add" component={Plans.Create} name="Create New Plan" back="/plans" />
+        <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>,
     document.getElementById('root')

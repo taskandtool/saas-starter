@@ -33,6 +33,13 @@ export default class UserProfileRoute extends Component {
     }
 
     const user = this.data.user;
+
+    if (!user) {
+      return (
+        <div className="wrapper">No user found at this address</div>
+      );
+    }
+
     const createdAt = user.createdAt;
     const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
