@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import {History} from 'react-router';
 import reactMixin from 'react-mixin';
 import {handleForms} from '../../components/Forms/FormDecorator';
-import AuthForms from '../../components/Users/AuthForms.js';
+import UserForms from '../../components/Users/UserForms.js';
+import styles from './forgotReset.css';
+
 
 @handleForms
 @reactMixin.decorate(History)
@@ -21,27 +23,25 @@ export default class ResetPasswordRoute extends Component {
   }
 
   render() {
-    const messages = {
-      title: "Reset your Password",
-      subtitle: "Enter your new password",
-      buttonText: "Reset my Password",
-    }
-
     const inputsToUse = ["password", "confirm"];
-    const linksToUse = [];
 
     return (
-      <AuthForms
-        messages={messages}
-        formError={this.state.formError}
-        formSuccess={this.state.formSuccess}
-        handleSubmit={this.handleSubmit}
-        handleChange={this.props.handleChange}
-        inputState={this.props.inputState}
-        inputsToUse={inputsToUse}
-        linksToUse={linksToUse}
-        token={this.props.params.token}
-        />
+      <div className={styles.wrapper}>
+        <h2 className="title">Reset your Password</h2>
+
+        <h6 className="subtitle">Enter your new password</h6>
+
+        <UserForms
+          buttonText="Reset my Password"
+          inputsToUse={inputsToUse}
+          inputState={this.props.inputState}
+          formError={this.state.formError}
+          formSuccess={this.state.formSuccess}
+          shakeBtn={this.state.shakeBtn}
+          handleChange={this.props.handleChange}
+          handleSubmit={this.handleSubmit}
+          token={this.props.params.token} />
+      </div>
     )
   }
 
@@ -49,18 +49,32 @@ export default class ResetPasswordRoute extends Component {
     event.preventDefault();
     const {password, confirm} = values;
 
-    if (errors.password || errors.confim) {
+    if (errors.password || errors.confim || !password || confirm !== password) {
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 3000);
       return false;
     }
 
     Accounts.resetPassword(token, password, (error) => {
       if (error) {
         this.setState({
-          formError: error.reason
+          formError: error.reason,
+          shakeBtn: true
         });
+        window.setTimeout(() => {
+          this.setState({
+            shakeBtn: false
+          });
+        }, 3000);
         return;
       } else {
-        this.setState ({
+        this.setState({
           formError: "",
           formSuccess: 'Success! Your password has been reset. Redirecting...'
         });

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import reactMixin from 'react-mixin';
 import {handleForms} from '../../components/Forms/FormDecorator';
-import AuthForms from '../../components/Users/AuthForms.js';
+import UserForms from '../../components/Users/UserForms.js';
+import styles from './forgotReset.css';
 
 @handleForms
 export default class ForgotPasswordRoute extends React.Component {
@@ -10,52 +11,65 @@ export default class ForgotPasswordRoute extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       formSuccess: "",
-      formError: ""
+      formError: "",
+      shakeBtn: false
     };
   }
 
   render() {
-    const messages = {
-      title: "Recover your Password",
-      subtitle: "Enter your email",
-      buttonText: "Reset my Password",
-    }
-
     const inputsToUse = ["email"];
-    const linksToUse = [];
 
     return (
-      <AuthForms
-        messages={messages}
-        formError={this.state.formError}
-        formSuccess={this.state.formSuccess}
-        handleSubmit={this.handleSubmit}
-        handleChange={this.props.handleChange}
-        inputState={this.props.inputState}
-        inputsToUse={inputsToUse}
-        linksToUse={linksToUse}
-        />
+      <div className={styles.wrapper}>
+        <h2 className="title">Recover your Password</h2>
+
+        <h6 className="subtitle">Enter your email to reset your password</h6>
+
+        <UserForms
+          buttonText="Reset my Password"
+          inputsToUse={inputsToUse}
+          inputState={this.props.inputState}
+          formError={this.state.formError}
+          formSuccess={this.state.formSuccess}
+          shakeBtn={this.state.shakeBtn}
+          handleChange={this.props.handleChange}
+          handleSubmit={this.handleSubmit} />
+      </div>
     )
   }
 
   handleSubmit(event, errors, values) {
     event.preventDefault();
-    const {email, password, confirm} = values;
+    const {email} = values;
 
-    if (errors.password || errors.email || errors.confirm) {
+    if (errors.email || !email) {
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 3000);
       return false;
     }
 
     Accounts.forgotPassword({email: email}, (error) => {
       if (error) {
         this.setState({
-          formError: error.reason
+          formError: error.reason,
+          shakeBtn: true
         });
+        window.setTimeout(() => {
+          this.setState({
+            shakeBtn: false
+          });
+        }, 3000);
         return;
       } else {
-        this.setState ({
+        this.setState({
           formError: "",
-          formSuccess: 'Success! An email with the option to reset your password has been sent! Please check your inbox.'
+          formSuccess: "Success! Please check your inbox for your reset password link!"
         });
       }
     });

@@ -16,7 +16,6 @@ export default class UserItem extends Component {
 
   render() {
     const createdAt = this.props.createdAt;
-console.log(this.props.name);
     return (
       <div className={styles.shadow} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props._id}`) : ''}>
         <div className={styles.wrapper}>

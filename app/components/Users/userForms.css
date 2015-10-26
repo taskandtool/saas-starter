@@ -3,7 +3,7 @@
   background-color: #03A9F4;
   color: #fff;
   padding: .8em;
-  margin-top: .2em;
+  margin-top: .8em;
   width: 100%;
 }
 
@@ -12,7 +12,7 @@
   background-color: #03A9F4;
   color: #fff;
   padding: .8em;
-  margin-top: .2em;
+  margin-top: .8em;
   width: 100%;
   animation: shake .5s 1 ease-in-out;
 }
@@ -23,33 +23,11 @@
     50% {transform: translateX(10px);}
 }
 
-
-.wrapper {
-  lost-center: 400px;
-  padding: 4em 1em;
-}
-
-.title {
-  text-align: center;
-}
-
-.subtitle {
-  margin-bottom:.2em;
-  margin-top:.6em;
-  text-align: center;
-}
-
 .form input, .form label{
   display: block;
   margin: 0.25em 0;
   margin-bottom: 0em;
   z-index: 3;
-}
-
-.links {
-  font-size: .8em;
-  margin-right: .8em;
-  text-align: center;
 }
 
 .error {

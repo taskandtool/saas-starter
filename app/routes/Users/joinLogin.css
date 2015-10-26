@@ -1,0 +1,14 @@
+.wrapper {
+  lost-center: 400px;
+  padding: 4em 1em;
+}
+
+.title {
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom:.2em;
+  margin-top:.6em;
+  text-align: center;
+}

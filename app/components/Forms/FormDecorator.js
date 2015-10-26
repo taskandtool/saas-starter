@@ -84,6 +84,9 @@ export var handleForms = ComposedComponent => class extends Component {
 
   //validators below
   password(value) {
+    if (!value) {
+      return ('Password must be at least 6 digits');
+    }
     if (value.length < 6) {
       return ('Password must be at least 6 digits');
     }

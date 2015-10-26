@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import {History} from 'react-router';
 import reactMixin from 'react-mixin';
 import {handleForms} from '../../components/Forms/FormDecorator';
-import AuthForms from '../../components/Users/AuthForms.js';
+import UserForms from '../../components/Users/UserForms.js';
+import AuthLinks from '../../components/Users/AuthLinks.js';
+import SocialAuth from '../../components/Users/SocialAuth';
+import styles from './joinLogin.css';
+
 
 @handleForms
 @reactMixin.decorate(History)
@@ -18,30 +22,29 @@ export default class SignInRoute extends Component {
   }
 
   render() {
-
-    const messages = {
-      title: "Get Started!",
-      subtitle: "- Or -",
-      buttonText: "Login",
-    }
-
     const inputsToUse = ["email", "password"];
     const linksToUse = ["join", "forgot"];
 
     return (
-        <AuthForms
-          messages={messages}
+      <div className={styles.wrapper}>
+        <h2 className={styles.title}>Get Started!</h2>
+
+        <SocialAuth type="Login" />
+
+        <h6 className={styles.subtitle}>- Or -</h6>
+
+        <UserForms
+          buttonText="Login"
+          inputsToUse={inputsToUse}
+          inputState={this.props.inputState}
           formError={this.state.formError}
           formSuccess={this.state.formSuccess}
-          handleSubmit={this.handleSubmit}
-          handleChange={this.props.handleChange}
-          includeSocialAuth={true}
-          socialAuthType="Login"
-          inputState={this.props.inputState}
-          inputsToUse={inputsToUse}
-          linksToUse={linksToUse}
           shakeBtn={this.state.shakeBtn}
-          />
+          handleChange={this.props.handleChange}
+          handleSubmit={this.handleSubmit} />
+
+        <AuthLinks linksToUse={linksToUse} />
+      </div>
     )
   }
 

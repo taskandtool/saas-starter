@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import AuthForms from './AuthForms.js';
+import AuthLinks from './AuthLinks.js';
 
 const TestUtils = React.addons.TestUtils;
 const Simulate = TestUtils.Simulate;
@@ -15,9 +15,9 @@ function simulateClickOn(selector) {
   React.addons.TestUtils.Simulate.click(button);
 }
 
-describe('AuthForms', () => {
-  it('renders form errors correctly', () => {
-    let comp = renderComponent(AuthForms, {formError: "An Error"});
-    expect(comp.props.formError).toEqual("An Error");
+describe('AuthLinks', () => {
+  it('displays correct links', () => {
+    let comp = renderComponent(AuthLinks, {linksToUse: "name"});
+    expect(comp.props.linksToUse).toEqual("name");
   });
 });
