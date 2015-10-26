@@ -49,7 +49,7 @@ export default class App extends Component {
     //Or by clearing all params/queries
     const { query, pathname } = this.props.location
     const backLink =
-        Object.keys(query).length > 0 ? pathname :
+        !_.isEmpty(query) ? pathname :
         this.props.routes[1].back ? this.props.routes[1].back :
         null
 
