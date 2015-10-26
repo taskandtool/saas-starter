@@ -1,0 +1,32 @@
+.grid {
+  lost-utility: clearfix;
+  max-width: 960px;
+  margin-bottom: 1em;
+}
+
+
+.column {
+  lost-waffle: 1/2;
+}
+
+@media all and (max-width: 40em) {
+  .column {
+    lost-waffle: 1;
+  }
+}
+
+.imageList {
+  margin: .5em .5em .1em 0;
+}
+
+.card {
+  margin-bottom: 3em;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

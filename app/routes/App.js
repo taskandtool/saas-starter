@@ -11,7 +11,8 @@ import styles from './app.css';
 @reactMixin.decorate(ReactMeteorData)
 export default class App extends Component {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    query: PropTypes.object
   }
 
   constructor() {
@@ -33,17 +34,7 @@ export default class App extends Component {
     this.setState({
       showSidebar: !this.state.showSidebar,
       initialLoad: false
-    })
-    //this makes the sidebar's css = display:none when closed.
-    //shouldn't be necessary as the transform animation should work,
-    //but glitches on ipad's safari w/out it.
-    if (this.state.showSidebar) {
-      window.setTimeout(() => {
-        this.setState({
-          initialLoad: true
-        })
-      }, 500);
-    }
+    });
   }
 
   getMeteorData() {
@@ -53,6 +44,16 @@ export default class App extends Component {
   }
 
   render() {
+
+    //Back button in menu works by either grabbing "back" props in Route (see index.js in routes)
+    //Or by clearing all params/queries
+    const { query, pathname } = this.props.location
+    const backLink =
+        Object.keys(query).length > 0 ? pathname :
+        this.props.routes[1].back ? this.props.routes[1].back :
+        null
+
+
     return (
       <div>
         <Helmet
@@ -68,7 +69,6 @@ export default class App extends Component {
           handleToggleSidebar={this.handleToggleSidebar}
           showSidebar={this.state.showSidebar}
           initialLoad={this.state.initialLoad} />
-
 
         <div
             className={
@@ -86,7 +86,7 @@ export default class App extends Component {
               handleToggleSidebar={this.handleToggleSidebar}
               handleToggleDropDown={this.handleToggleDropDown}
               name={this.props.routes[1].name}
-              back={this.props.routes[1].back || null} />
+              back={backLink} />
 
             <div className={styles.app}>
               {this.props.children}
