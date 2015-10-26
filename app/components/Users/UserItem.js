@@ -8,16 +8,25 @@ import Icon from '../Icons/Icon';
 
 @reactMixin.decorate(History)
 export default class UserItem extends Component {
-  static propTypes = {
-    makeClickable: PropTypes.bool,
+  static PropTypes = {
+    clickPreview: PropTypes.bool,
     name: PropTypes.string,
     email: PropTypes.string,
   }
 
+  static defaultProps = {
+    clickPreview: false
+  };
+
   render() {
     const createdAt = this.props.createdAt;
     return (
-      <div className={styles.shadow} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props._id}`) : ''}>
+      <div
+        className={styles.shadow}
+        onClick={this.props.clickPreview ?
+                    () => this.history.pushState(null, `/users?id=${this.props._id}`) :
+                    () => this.history.pushState(null, `/user/${this.props._id}`)}>
+
         <div className={styles.wrapper}>
             <img src={this.props.avatar} className={styles.avatar} />
 

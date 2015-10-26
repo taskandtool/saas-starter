@@ -5,16 +5,8 @@
 }
 
 .shadow {
-  overflow: hidden;
   padding: 0em .7em;
-  border: 1px solid #ddd;
-  margin: -.85em 0em;
-}
-
-@media all and (max-width: 40em) {
-  .shadow {
-    margin: -.85em -1em;
-  }
+  border: solid 1px #ddd;
 }
 
 .avatar {

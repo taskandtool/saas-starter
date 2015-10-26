@@ -1,34 +1,28 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
-import {Link, History} from 'react-router';
 import UserItem from './UserItem.js';
-
-import styles from './userList.css';
 
 export default class UserList extends React.Component {
   static propTypes = {
+    users: React.PropTypes.array
   }
 
   render() {
     let users = this.props.users.map((user) => {
       let email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
       return (
-        <div className={styles.column} key={user._id}>
-          <UserItem
-              _id={user._id}
-              name={user.profile.name}
-              avatar={user.profile.avatar}
-              makeClickable={true}
-              />
-
-        </div>
+        <UserItem
+          key={user._id}
+          _id={user._id}
+          name={user.profile.name}
+          avatar={user.profile.avatar}
+          clickPreview={this.props.clickPreview} />
       );
     })
 
     return (
-        <div className={styles.grid}>
-          {users}
-        </div>
+      <div>
+        {users}
+      </div>
     );
   }
 }

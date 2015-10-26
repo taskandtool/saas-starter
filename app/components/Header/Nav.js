@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link, History} from 'react-router';
 import reactMixin from 'react-mixin';
 import styles from './nav.css';
 import Icon from '../Icons/Icon.js';
 
-export default class Nav extends React.Component {
+export default class Nav extends Component {
+  static PropTypes = {
+  }
 
   render() {
     const user = this.props.user;
+
     let rightSide;
 
     if (user) {

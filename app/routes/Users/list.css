@@ -1,0 +1,78 @@
+.grid {
+  lost-utility: clearfix;
+  margin: 1em 0;
+}
+
+.list {
+  lost-waffle: 1/2;
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+}
+
+.closeList {
+  lost-waffle: 1/2;
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+}
+
+.card {
+  lost-waffle: 1/2;
+  cursor: pointer;
+}
+
+.title {
+  padding-bottom: .4em;
+  border-bottom: 1px solid #ddd;
+}
+
+@media all and (max-width: 40em) {
+  .title {
+    display:none;
+  }
+  .card {
+    lost-waffle: 1;
+    animation: opencard .5s 1;
+    animation-fill-mode: forwards;
+  }
+  .list {
+    lost-waffle: 1;
+    animation: openlist .5s 1;
+    animation-fill-mode: forwards;
+  }
+  .closeList {
+    animation: closelist .5s 1;
+    animation-fill-mode: forwards;
+  }
+}
+
+.link a{
+  text-decoration: none;
+}
+
+@keyframes opencard {
+  0% {
+    transform: translate3d(100%,0,0);
+    height: 200px;
+
+  } 100% {
+    transform: translate3d(0,0,0);
+    height: 200px;
+
+  }
+}
+
+@keyframes openlist {
+  0% {
+    transform: translate3d(-100%,0,0);
+  } 100% {
+    transform: translate3d(0,0,0);
+  }
+}
+
+@keyframes closelist {
+  0% {
+    transform: translate3d(0,0,0);
+  } 100% {
+    transform: translate3d(-130%,0,0);
+    height: 500px;
+    position: absolute;
+  }
+}
