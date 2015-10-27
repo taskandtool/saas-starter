@@ -45,7 +45,7 @@ export default class UserListRoute extends Component {
                 user={user}
                 name={user.profile.name}
                 avatar={user.profile.avatar}
-                role={user.profile.role}
+                title={user.profile.title}
                 bio={user.profile.bio}
                 createdAt={user.createdAt}
                 email={email}

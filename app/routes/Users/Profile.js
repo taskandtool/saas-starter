@@ -39,9 +39,9 @@ export default class UserProfileRoute extends Component {
     //Checks for edit params and permissions
     const { query } = this.props.location
     const edit = query && query.edit == "true"
-    let canEdit = false;
+    let isUser = false;
     if (Meteor.user()){
-      canEdit = id == Meteor.user()._id
+      isUser = id == Meteor.user()._id
     }
 
     if (!user) {
@@ -52,7 +52,7 @@ export default class UserProfileRoute extends Component {
 
     const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
-    if (edit && canEdit) {
+    if (edit && isUser) {
       return (
         <EditProfile user={user} email={email} />
       )
@@ -62,6 +62,18 @@ export default class UserProfileRoute extends Component {
       return (
         <div className="wrapper">You don't have permission to edit {user.profile.name}'s profile.</div>
       )
+    }
+
+    //get roles & teams
+    let roles = Meteor.user().roles;
+    let i = 0
+    let teams = []
+    let teamsRoles = []
+    let team
+    for (team in roles) {
+      i = i + 1
+      teams.push(<div key={i}>{team}</div>);
+      teamsRoles.push(<div key={i}><strong>{team}:</strong> <em>{roles[team]}</em></div>);
     }
 
     return (
@@ -79,12 +91,16 @@ export default class UserProfileRoute extends Component {
               email={email} />
            </div>
            <div className={styles.column}>
-             <h1>More details</h1>
-             <p>ie. Member of these teams:</p>
-             {canEdit ?
-              <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
-                <button className={styles.btn}>Edit Profile</button>
-              </Link>
+             <h3 className="subtitle">Teams</h3>
+             {teams}
+             {isUser ?
+                <div>
+                  <h3 className="subtitle">Roles</h3>
+                  {teamsRoles}
+                  <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
+                    <button className={styles.btn}>Edit Profile</button>
+                  </Link>
+                </div>
               : null }
            </div>
          </div>

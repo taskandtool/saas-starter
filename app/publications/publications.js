@@ -17,3 +17,7 @@ Meteor.publish('plans', function() {
    // return Teams.find({flagged: false, user: user});
  //});
 // Meteor.subscribe('myTeams', 'bob-smith');
+
+Meteor.publish(null, function (){
+  return Meteor.roles.find({})
+})

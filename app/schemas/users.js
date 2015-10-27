@@ -13,7 +13,7 @@ const schema = {
   profile: {
     name: optional(String),
     avatar: optional(String),
-    role: optional(String),
+    title: optional(String),
     bio: optional(String),
     images: optional([String]),
     isDeleted: optional(Boolean) //soft delete
@@ -53,6 +53,10 @@ Meteor.methods({
     Accounts.setPassword(userId, newPassword);
   },
 
+  "User.addRoles": function(userID, roles, team) {
+    Roles.addUsersToRoles(userID, roles, team);
+  },
+
   "User.updateProfile": function(docId, data) {
 
     check(docId, String);
@@ -63,8 +67,8 @@ Meteor.methods({
     check(data, {
       "profile.name": optional(schema.profile.name),
       "profile.avatar": optional(schema.profile.avatar),
-      "profile.role": optional(schema.profile.role),
-      "profile.bio": optional(schema.profile.role),
+      "profile.title": optional(schema.profile.title),
+      "profile.bio": optional(schema.profile.bio),
       "profile.images": optional(schema.profile.images),
       "profile.isDeleted": optional(schema.profile.isDeleted),
     });

@@ -26,7 +26,7 @@ export default class UserProfile extends Component {
         <div className={styles.info} >
           <div className={styles.middle}>
             <h2 className={styles.name}>{this.props.name}</h2>
-            {this.props.role ? <div className={styles.role}>{this.props.role}</div> : null }
+            {this.props.title ? <div className={styles.title}>{this.props.title}</div> : null }
           </div>
           {this.props.bio ?
             <p className={styles.items}><span className={styles.icon}><Icon size="1.1em" icon="message" /></span>

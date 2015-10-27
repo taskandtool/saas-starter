@@ -43,12 +43,12 @@ export default class PlanViewRoute extends Component {
     const edit = query && query.edit == "true"
 
     //Edit permissions?
-    let canEdit = false;
+    let isUser = false;
     if (Meteor.user()) {
-      canEdit = createdBy == Meteor.user()._id
+      isUser = createdBy == Meteor.user()._id
     }
 
-    if (edit && canEdit) {
+    if (edit && isUser) {
       return (
         <EditPlan plan={plan} />
       )
@@ -70,7 +70,7 @@ export default class PlanViewRoute extends Component {
           <div className={styles.column}>
             <h3 className="subtitle">More details</h3>
             <PlanDetails plan={plan} />
-            {canEdit ?
+            {isUser ?
              <Link to={`/plan/${this.props.params.id}`} query={{ edit: true }}  >
                <button className={styles.btn}>Edit Plan</button>
              </Link>
