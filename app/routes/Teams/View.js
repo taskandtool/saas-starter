@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
-import {Plans} from '../../schemas';
+import {Teams} from '../../schemas';
 import Spinner from '../../components/Utils/Spinner';
-import PlanCard from '../../components/Plans/PlanCard.js';
-import PlanDetails from '../../components/Plans/PlanDetails.js';
-import EditPlan from '../../components/Plans/EditPlan.js';
+import TeamCard from '../../components/Teams/TeamCard.js';
+import TeamDetails from '../../components/Teams/TeamDetails.js';
+import EditTeam from '../../components/Teams/EditTeam.js';
 import styles from './view.css';
 import {Link} from 'react-router';
 
 @reactMixin.decorate(ReactMeteorData)
-export default class PlanViewRoute extends Component {
+export default class TeamViewRoute extends Component {
 
   static propTypes = {
     params: PropTypes.object,
@@ -17,9 +17,9 @@ export default class PlanViewRoute extends Component {
   }
 
   getMeteorData() {
-    let handle = Meteor.subscribe("plans");
+    let handle = Meteor.subscribe("teams");
     return {
-      plan: Plans.findOne(this.props.params.id),
+      team: Teams.findOne(this.props.params.id),
       loading: !handle.ready()
     };
   }
@@ -29,36 +29,34 @@ export default class PlanViewRoute extends Component {
       return (<div className="wrapper"><Spinner /></div>);
     }
 
-    const plan = this.data.plan;
-    if (!plan) {
+    const team = this.data.team;
+    if (!team) {
       return (
-        <div className="wrapper">No plan found at this address</div>
+        <div className="wrapper">No team found at this address</div>
       );
     }
 
-    const {title, createdBy} = plan;
+    const {title, ownerId} = team;
 
     //Edit params?
     const { query } = this.props.location
     const edit = query && query.edit == "true"
 
-    //Does user own plan?
+    //Edit permissions?
     let isUser = false;
     if (Meteor.user()) {
-      isUser = createdBy == Meteor.user()._id
+      isUser = ownerId == Meteor.user()._id
     }
 
-    //Wants to edit and owns plan
     if (edit && isUser) {
       return (
-        <EditPlan plan={plan} />
+        <EditTeam team={team} />
       )
     }
 
-    //Wants to edit but doesn't own plan
     if (edit) {
       return (
-        <div className="wrapper">You don't have permission to edit {title} plan.</div>
+        <div className="wrapper">You don't have permission to edit {title} team.</div>
       )
     }
 
@@ -67,14 +65,14 @@ export default class PlanViewRoute extends Component {
         <h1 className="title">{title}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <PlanCard plan={plan} />
+            <TeamCard team={team} />
           </div>
           <div className={styles.column}>
             <h3 className="subtitle">More details</h3>
-            <PlanDetails plan={plan} />
+            <TeamDetails team={team} />
             {isUser ?
-             <Link to={`/plan/${this.props.params.id}`} query={{ edit: true }}  >
-               <button className={styles.btn}>Edit Plan</button>
+             <Link to={`/team/${this.props.params.id}`} query={{ edit: true }}  >
+               <button className={styles.btn}>Edit Team</button>
              </Link>
              : null }
           </div>

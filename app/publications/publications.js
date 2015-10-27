@@ -1,7 +1,16 @@
-import {Plans, Users} from '../schemas';
+import {Plans, Users, Teams} from '../schemas';
 
 Meteor.publish('plans', function() {
   return Plans.find();
+  //if (isAdmin(this.userId)) {
+  //  return Plans.find();
+  //} else {
+  //  return Plans.find({isDeleted: false});
+  //}
+});
+
+Meteor.publish('teams', function() {
+  return Teams.find();
   //if (isAdmin(this.userId)) {
   //  return Plans.find();
   //} else {
