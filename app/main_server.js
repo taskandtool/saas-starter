@@ -11,8 +11,14 @@ import './lib/CreateUser.js';
 import './lib/ImageUploadPermissions.js';
 import './lib/ImageUploads.js';
 
-Meteor.startup(function () {
+//Create fixtures on first time app is launched
+import {createUsers} from './fixtures.js';
+if (!Users.find().fetch().length) {
+  createUsers();
+}
 
+Meteor.startup(function () {
+  //sets up keys for social logins
   ServiceConfiguration.configurations.upsert(
     { service: "google" },
     {

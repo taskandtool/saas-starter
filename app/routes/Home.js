@@ -91,8 +91,8 @@ export default class Home extends Component {
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
-              <h4>Invite team members (soon)</h4>
-              <p>To experience the signup flow</p>
+              <h4>See it on mobile</h4>
+              <p>Could use work with animations/transitions, but it's started.</p>
             </div>
           </div>
         </div>

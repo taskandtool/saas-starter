@@ -98,16 +98,16 @@ export default class UserForms extends Component {
               label="Old Password"
               required="true"  />
           );
-        case 'role':
+        case 'title':
           return (
             <InputStacked
               key={i}
               type="text"
-              name="role"
+              name="title"
               handleChange={this.props.handleChange}
-              value={values.role}
-              errorMsg={errors.role}
-              label="Role (ie. Designer)"
+              value={values.title}
+              errorMsg={errors.title}
+              label="Title (ie. Designer)"
               />
           );
         case 'name':
@@ -132,6 +132,30 @@ export default class UserForms extends Component {
               value={values.bio}
               errorMsg={errors.bio}
               label="Bio"
+              />
+          );
+        case 'role':
+          return (
+            <InputStacked
+              key={i}
+              type="text"
+              name="role"
+              handleChange={this.props.handleChange}
+              value={values.role}
+              errorMsg={errors.role}
+              label="Role"
+              />
+          );
+        case 'team':
+          return (
+            <InputStacked
+              key={i}
+              type="text"
+              name="team"
+              handleChange={this.props.handleChange}
+              value={values.team}
+              errorMsg={errors.team}
+              label="Team"
               />
           );
       }
