@@ -5,11 +5,13 @@ import reactMixin from 'react-mixin';
 import TeamCard from '../../components/Teams/TeamCard.js';
 import Helmet from 'react-helmet';
 import styles from './create.css';
-import {Teams} from '../../schemas';
+import {Teams, Plans} from '../../schemas';
 import TeamForms from '../../components/Teams/TeamForms';
+import {Typeahead} from 'react-typeahead';
 
 @handleForms
 @reactMixin.decorate(History)
+@reactMixin.decorate(ReactMeteorData)
 export default class TeamCreateRoute extends React.Component {
 
   constructor() {
@@ -22,9 +24,22 @@ export default class TeamCreateRoute extends React.Component {
     }
   }
 
+  getMeteorData() {
+    let handle = Meteor.subscribe("plans");
+    return {
+      plans: Plans.find().fetch(),
+      loading: !handle.ready()
+    };
+  }
+
   render() {
     let values = this.props.inputState.values;
     let errors = this.props.inputState.errors;
+
+    //get plans
+    let planTitle = this.data.plans.map((plan) => {
+      return <option key={plan._id} value={plan._id}>{plan.title}</option>
+    });
 
     let inputsToUse = [
       "name",
@@ -41,7 +56,9 @@ export default class TeamCreateRoute extends React.Component {
           ]}
         />
 
+
         <h1 className="title">Add a New Team</h1>
+
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamForms
@@ -53,7 +70,8 @@ export default class TeamCreateRoute extends React.Component {
               shakeBtn={this.state.shakeBtn}
               handleChange={this.props.handleChange}
               handleSubmit={this.handleSubmit}
-              handleAddFeature={this.handleAddFeature} />
+              handleAddFeature={this.handleAddFeature}
+              populate={planTitle} />
           </div>
           <div className={styles.column}>
             <TeamCard team={values}  />

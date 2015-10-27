@@ -74,15 +74,14 @@ export default class TeamForms extends Component {
           );
         case 'planId':
           return (
-            //should be select field
             <InputStacked
               key={i}
-              type="text"
+              type="select"
               name="planId"
-              label="Planid"
+              label="Choose your Plan"
               value={values.planId}
-              errorMsg={errors.planId}
               handleChange={this.props.handleChange}
+              populate={this.props.populate}
               />
           );
         case 'isDeleted':
