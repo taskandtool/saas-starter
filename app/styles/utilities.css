@@ -11,6 +11,12 @@
   border-bottom: 1px solid #ddd;
 }
 
+@media all and (max-width: 40em) {
+  :global .title {
+    display: none;
+  }
+}
+
 :global .subtitle {
   margin-bottom: .2em;
   color: #aaa;

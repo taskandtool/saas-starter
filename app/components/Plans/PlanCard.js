@@ -15,7 +15,7 @@ export default class PlanCard extends React.Component {
 
     let plan = this.props.plan;
 
-    //Find out if feature props are given when creating plan or displaying existing plan
+    //Find out if feature props are given (ie. when creating plan)
     let feats;
     if (this.props.features) {
       feats = this.props.features
