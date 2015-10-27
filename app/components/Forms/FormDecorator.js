@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-export var handleForms = ComposedComponent => class extends Component {
-  static displayName = "handleForms"
+export const handleForms = ComposedComponent => class extends Component {
 
   constructor() {
     super();
@@ -18,7 +17,6 @@ export var handleForms = ComposedComponent => class extends Component {
     return (
       <ComposedComponent
         inputState={this.state}
-        formState={this.state}
         handleChange={this.handleChange}
         formValidateRequired={this.formValidateRequired}
         setDefaultValues={this.setDefaultValues}
@@ -27,7 +25,7 @@ export var handleForms = ComposedComponent => class extends Component {
   }
 
   setDefaultValues(data) {
-    //optional. ideally call on componentDidMount
+    //optional. Useful if editing existing docs. Ideally call on componentDidMount
     this.setState({ values: data });
   }
 

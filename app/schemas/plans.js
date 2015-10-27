@@ -25,7 +25,7 @@ Meteor.methods({
 
     if (!this.userId) throw new Meteor.Error(401, "Login required");
 
-    data.createdBy = this.userId; // XXX cleanup
+    data.createdBy = this.userId;
     data.createdAt = new Date();
     data.updatedAt = new Date();
     data.title = data.title;
@@ -64,7 +64,8 @@ Meteor.methods({
       updatedAt: schema.updatedAt,
       currAvail: optional(schema.currAvail),
       displayOnMainSite: optional(schema.displayOnMainSite),
-      isDeleted: optional(schema.isDeleted)
+      isDeleted: optional(schema.isDeleted),
+      features: optional(schema.features)
     });
 
     // if caller doesn't own doc, update will fail because fields won't match
@@ -72,7 +73,7 @@ Meteor.methods({
 
     count = Plans.update(selector, {$set: data});
 
-    console.log("  [Plan.update]", count, docId);
+    console.log("[Plan.update]", count, docId);
     return count;
   },
 

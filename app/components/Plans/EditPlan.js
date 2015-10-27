@@ -1,16 +1,19 @@
-import React, { PropTypes } from 'react';
-import {handleForms} from '../../components/Forms/FormDecorator';
+import React, { PropTypes, Component } from 'react';
+import {handleForms} from '../Forms/FormDecorator';
 import {History, Link} from 'react-router';
 import reactMixin from 'react-mixin';
-import PlanCard from '../../components/Plans/PlanCard.js';
+import PlanCard from './PlanCard.js';
 import Helmet from 'react-helmet';
-import styles from './create.css';
+import styles from './editPlan.css';
 import {Plans} from '../../schemas';
-import PlanForms from '../../components/Plans/PlanForms';
+import PlanForms from './PlanForms';
 
 @handleForms
 @reactMixin.decorate(History)
-export default class PlanCreateRoute extends React.Component {
+export default class EditPlan extends Component {
+  static propTypes = {
+    plan: React.PropTypes.object
+  }
 
   constructor(props) {
     super(props);
@@ -21,7 +24,7 @@ export default class PlanCreateRoute extends React.Component {
       shakeBtn: false,
       formError: '',
       formSuccess: '',
-      features: ["feature"]
+      features: []
     }
   }
 
@@ -38,37 +41,29 @@ export default class PlanCreateRoute extends React.Component {
     //gets rid of undefined and empty feature string values
     features = _.compact(features);
 
-
-    //Establishes plan inputs to use in the form, including indeterminate amount of features
+    //Establishes plan inputs, including indeterminate amount of features
     let inputsToUse = [
-      "title",
-      "monthlyPrice",
-      "desc",
-      this.state.features,
-      "setupPrice",
-      "maxProjects",
-      "maxItems",
-      "freeTrialDays",
       "currAvail",
-      "displayOnMainSite"
+      "displayOnMainSite",
+      "isDeleted",
+      this.state.features
     ];
-    //flatten array with features
     inputsToUse = [].concat.apply([], inputsToUse);
 
     return (
       <div className="wrapper">
         <Helmet
-          title="Create New Plan"
+          title="Edit Plan"
           meta={[
-              {"name": "description", "content": "Create New Plan"}
+              {"name": "description", "content": "Edit Plan"}
           ]}
         />
 
-        <h1 className="title">Add a New Plan</h1>
+        <h1 className="title">Edit Plan: {this.props.plan.title}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <PlanForms
-              buttonText="Add Plan"
+              buttonText="Update Plan"
               inputsToUse={inputsToUse}
               inputState={this.props.inputState}
               formError={this.state.formError}
@@ -76,10 +71,11 @@ export default class PlanCreateRoute extends React.Component {
               shakeBtn={this.state.shakeBtn}
               handleChange={this.props.handleChange}
               handleSubmit={this.handleSubmit}
-              handleAddFeature={this.handleAddFeature} />
+              handleAddFeature={this.handleAddFeature}
+              plan={this.props.plan} />
           </div>
           <div className={styles.column}>
-            <PlanCard plan={values} features={features}  />
+            <PlanCard plan={this.props.plan} features={features}  />
           </div>
         </div>
       </div>
@@ -88,7 +84,9 @@ export default class PlanCreateRoute extends React.Component {
 
   handleAddFeature(e) {
     let features = this.state.features.slice();
+
     features.push("feature");
+
     this.setState({
       features: features
     });
@@ -98,6 +96,34 @@ export default class PlanCreateRoute extends React.Component {
   }
 
   componentDidMount() {
+    let plan = this.props.plan
+    const {currAvail, displayOnMainSite, isDeleted} = plan
+    let features = plan.features
+
+    let featObj = {}
+    features.map((feature, i) => {
+      //need to increment by 3 because there's three other editable items above
+      let num = i + 3
+      let featState = this.state.features;
+      featState.push("feature");
+      this.setState({
+        features: featState
+      });
+      return (featObj["feature" + num] = feature)
+    })
+    let data = {
+      currAvail: !!currAvail,
+      displayOnMainSite: !!displayOnMainSite,
+      isDeleted: !!isDeleted,
+    }
+
+    //Add features to other editable plan data
+    data = _.extend(data, featObj);
+
+    //sets default values in handle forms decorators
+    this.props.setDefaultValues(data);
+
+    //adds feature form when enter is pressed
     window.onkeydown = this.listenForEnter;
   }
 
@@ -125,10 +151,11 @@ export default class PlanCreateRoute extends React.Component {
       }, 3000);
       return false;
     }
+    const id = this.props.plan._id;
+    const {isDeleted, currAvail, displayOnMainSite} = values;
 
-    const {title, monthlyPrice, setupPrice, desc, maxProjects, maxItems, freeTrialDays, currAvail, displayOnMainSite} = values;
-
-    //Get values of however many features.
+    //Get values of however many features. Not bothering getting
+    //errors because we're not validating feature field.
     let features =  _.map(values, (value, key, object) => {
       if (key.match(/(feature)\w+/g)) {
         return value
@@ -137,32 +164,11 @@ export default class PlanCreateRoute extends React.Component {
     //gets rid of undefined and empty feature string values
     features = _.compact(features);
 
-    //Don't submit if required fields aren't filled out
-    let requiredValues = [title, monthlyPrice];
-    if (_.some(requiredValues, function(str){ return str == undefined; })) {
-      this.setState({
-        formError: "Please fill out title and monthly price",
-        shakeBtn: true
-      });
-      window.setTimeout(() => {
-        this.setState({
-          shakeBtn: false
-        });
-      }, 3000);
-      return false;
-    }
-
-    Meteor.call('Plan.create', {
-      title: title,
-      monthlyPrice: parseInt(monthlyPrice),
-      setupPrice: parseInt(setupPrice),
-      desc: desc,
+    Meteor.call('Plan.update', id, {
       features: features,
-      maxItems: parseInt(maxItems),
-      maxProjects: parseInt(maxProjects),
-      freeTrialDays: parseInt(freeTrialDays),
       currAvail: !!currAvail,
-      displayOnMainSite: !!displayOnMainSite
+      displayOnMainSite: !!displayOnMainSite,
+      isDeleted: !!isDeleted
     }, (error) => {
       if (error) {
         this.setState({
@@ -178,7 +184,7 @@ export default class PlanCreateRoute extends React.Component {
       } else {
         this.setState({
           formError: "",
-          formSuccess: "Success! Plan Created!"
+          formSuccess: "Plan Successfully Changed!"
         });
         window.setTimeout(() => {
           this.history.pushState(null, `/plans`);

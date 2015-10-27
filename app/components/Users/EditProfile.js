@@ -219,7 +219,11 @@ export default class EditProfileRoute extends React.Component {
       return false;
     }
 
-    Meteor.call('User.updateProfile', Meteor.user()._id, {"profile.name": name, "profile.role": role, "profile.bio": bio}, (error,result) => {
+    Meteor.call('User.updateProfile', Meteor.user()._id, {
+      "profile.name": name,
+      "profile.role": role,
+      "profile.bio": bio
+    }, (error,result) => {
       if (error) {
         this.setState({
           profileFormError: error.reason

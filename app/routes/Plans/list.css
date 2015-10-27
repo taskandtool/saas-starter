@@ -7,22 +7,22 @@
   margin-bottom: 1em;
 }
 
-@media all and (max-width: 38em) {
+@media all and (max-width: 40em) {
   .btn {
     background-color: #03A9F4;
     color: #fff;
     padding: .4em;
     margin-bottom: 1em;
-
   }
 }
 
-.container {
+.grid {
   lost-utility: clearfix;
 }
 
 .column {
   lost-waffle: 1/3;
+  cursor:pointer;
 }
 
 @media all and (max-width: 60em) {
