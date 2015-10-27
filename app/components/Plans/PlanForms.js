@@ -193,7 +193,7 @@ export default class PlanForms extends Component {
                 name={"feature" + i}
                 label={"Feature"}
                 value={values.feature ? values.feature[i] : null}
-                defaultValue={this.props.plan.features[featureCount]}
+                defaultValue={this.props.plan ? this.props.plan.features[featureCount] : null}
                 handleChange={this.props.handleChange} />
               <div className={styles.btnHolder}>
                 <a href="#" className={styles.btnFeatures} onClick={this.props.handleAddFeature}>+</a>
