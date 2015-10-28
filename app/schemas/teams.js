@@ -12,7 +12,8 @@ var schema = {
   userCount: Number,
   todoCount: Number,
   isDeleted: Boolean,
-  picture: optional(String),
+  picture: String,
+  images: [String]
 };
 
 Meteor.methods({
@@ -64,6 +65,22 @@ Meteor.methods({
 
     console.log("  [Team.update]", count, docId);
     return count;
+  },
+
+  "Team.storeProfileImage": function( docId, url ) {
+    check( url, String );
+    
+    try {
+      Teams.update(docId, {$push: {"images": url}});
+      Teams.update(docId, {$set: {"picture": url }});
+    } catch( exception ) {
+      return exception;
+    }
+  },
+
+  "Team.setProfileImage": function ( docId, url ) {
+    check( url, String );
+    Teams.update(docId, {$set: {"picture": url }});
   },
 
   "Team.increment": function(docId, fieldName) {

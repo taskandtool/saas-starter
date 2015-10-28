@@ -293,7 +293,7 @@ export default class EditProfileRoute extends React.Component {
   }
 
   handleSetProfilePic(image) {
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": image }});
+    Meteor.call('User.setProfileImage', image);
   }
 
   handleUpload() {
@@ -312,7 +312,7 @@ export default class EditProfileRoute extends React.Component {
           showSpinner: false
         });
       } else {
-        Meteor.call('storeUserProfileImage', downloadUrl);
+        Meteor.call('User.storeProfileImage', downloadUrl);
         this.setState({
           uploadingMsg: "Success!",
           showSpinner: false

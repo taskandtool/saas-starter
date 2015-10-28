@@ -45,6 +45,8 @@ export default class EditTeam extends Component {
       "isDeleted",
     ];
 
+    const team = this.props.team
+
     //gets all profile images belonging to the team
     let otherImages = []
     if (team.images) {
@@ -81,16 +83,19 @@ export default class EditTeam extends Component {
               team={this.props.team} />
           </div>
 
-          <EditUserImages
-            ref="editUserImages"
-            otherImages={otherImages}
-            handleUpload={this.handleUpload}
-            uploadingMsg={this.uploadingMsg}
-            showSpinner={this.state.showSpinner} />
-
-
           <div className={styles.column}>
             <TeamCard team={values}  />
+          </div>
+
+          <div className={styles.column}>
+
+            <EditTeamImages
+              ref="editTeamImages"
+              otherImages={otherImages}
+              handleUpload={this.handleUpload}
+              uploadingMsg={this.uploadingMsg}
+              showSpinner={this.state.showSpinner} />
+
           </div>
         </div>
       </div>
@@ -183,7 +188,7 @@ export default class EditTeam extends Component {
   }
 
   handleSetProfilePic(image) {
-    Team.update(Meteor.userId(), {$set: {"picture": image }});
+    Meteor.call('Team.setProfileImage', this.props.team._id, image);
   }
 
   handleUpload() {
@@ -195,7 +200,7 @@ export default class EditTeam extends Component {
     const metaContext = {teamId: this.props.team._id}
     const uploader = new Slingshot.Upload("teamImages", metaContext);
 
-    uploader.send(this.refs.editUserImages.refs.imageUpload.refs.fileInput.files[0], (error, downloadUrl) => {
+    uploader.send(this.refs.editTeamImages.refs.imageUpload.refs.fileInput.files[0], (error, downloadUrl) => {
       if (error) {
         console.error('Error uploading', error);
         this.setState({
@@ -203,7 +208,7 @@ export default class EditTeam extends Component {
           showSpinner: false
         });
       } else {
-        Meteor.call('storeUserProfileImage', downloadUrl);
+        Meteor.call('Team.storeProfileImage', this.props.team._id, downloadUrl);
         this.setState({
           uploadingMsg: "Success!",
           showSpinner: false

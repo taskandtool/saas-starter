@@ -24,6 +24,8 @@ export default class TeamCard extends Component {
         <div className={styles.info}>
           <h1 className={styles.teamTitle}>{team.name}</h1>
           <p className={styles.desc}><em>{team.desc}</em></p>
+          <img src={team.picture} className={styles.picture} />
+
         </div>
       </div>
     );

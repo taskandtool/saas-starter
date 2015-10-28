@@ -20,7 +20,7 @@ export default class EditUserProfile extends React.Component {
             {this.props.showSpinner ? <Spinner /> : null}
             <div className={styles.button}>
               <div className={styles.container}>
-                <span className={styles.btnText}>Add Another Image</span>
+                <span className={styles.btnText}>Add An Image</span>
               </div>
               <input type="file" className={styles.upload} ref="fileInput" onChange={this.props.handleUpload} />
             </div>

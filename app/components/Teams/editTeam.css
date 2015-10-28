@@ -4,7 +4,7 @@
 }
 
 .column {
-  lost-column: 1/2;
+  lost-waffle: 1/2;
 }
 
 @media all and (max-width: 40em) {
@@ -60,4 +60,8 @@
 
 .success {
   color: green;
+}
+
+.imageList {
+  margin: .5em .5em .1em 0;
 }
