@@ -64,7 +64,7 @@ export default class TeamForms extends Component {
               key={i}
               type="text"
               name="desc"
-              label="Description"
+              label="Brief Description"
               value={values.desc}
               errorMsg={errors.desc}
               handleChange={this.props.handleChange}
@@ -82,6 +82,7 @@ export default class TeamForms extends Component {
               value={values.planId}
               handleChange={this.props.handleChange}
               populate={this.props.populate}
+              validateBy="required"
               />
           );
         case 'isDeleted':

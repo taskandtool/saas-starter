@@ -8,9 +8,11 @@ var schema = {
   name: String,
   desc: String,
   planId: String,
+  planName: String,
   userCount: Number,
   todoCount: Number,
-  isDeleted: Boolean
+  isDeleted: Boolean,
+  picture: optional(String),
 };
 
 Meteor.methods({
@@ -47,10 +49,12 @@ Meteor.methods({
       updatedAt: schema.updatedAt,
       desc: optional(schema.desc),
       planId: optional(schema.planId),
+      planName: optional(schema.planName),
       todoCount: optional(schema.todoCount),
       userCount: optional(schema.userCount),
       name: optional(schema.name),
-      isDeleted: optional(schema.isDeleted)
+      isDeleted: optional(schema.isDeleted),
+      picture: optional(schema.picture),
     });
 
     // if caller doesn't own doc, update will fail because fields won't match

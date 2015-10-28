@@ -1,0 +1,53 @@
+.grid {
+  lost-utility: clearfix;
+  margin: 2em 0;
+  max-width: 960px;
+}
+
+.column {
+  lost-waffle: 1/2;
+}
+
+.columnCard {
+  lost-waffle: 1/2;
+  cursor: pointer;
+}
+
+@media all and (max-width: 40em) {
+  .column {
+    lost-waffle: 1;
+  }
+  .columnCard {
+    lost-waffle: 1;
+    cursor: pointer;
+  }
+}
+
+.typeahead {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5em 0.6em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 4px;
+}
+
+.results {
+  margin: .5em;
+  padding: .5em;
+}
+
+.listItem {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.listItem a {
+  text-decoration: none;
+}

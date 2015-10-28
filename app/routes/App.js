@@ -1,4 +1,4 @@
-import React, {Component, CSSTransitionGroup, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Nav from '../components/Header/Nav';
 import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';

@@ -21,12 +21,9 @@ export default class TeamCard extends Component {
         className="cardShadow"
         onClick={this.props.makeClickable ? () => this.history.pushState(null, `/team/${team._id}`) : ''} >
 
-        <div className={styles.header}>
-          <h1 className={styles.teamTitle}>{team.name}</h1>
-        </div>
         <div className={styles.info}>
+          <h1 className={styles.teamTitle}>{team.name}</h1>
           <p className={styles.desc}><em>{team.desc}</em></p>
-          <Link to={`/plan/${team.planId}`} className={styles.link}><p className={styles.desc}><em>{team.planId}</em></p></Link>
         </div>
       </div>
     );

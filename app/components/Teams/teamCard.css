@@ -1,24 +1,15 @@
-.header {
-  background-color: #4C4C4C;
-  height: 5em;
-  padding: 1em;
-  margin-bottom: .4em;
-  font-size: 1.3em;
-}
-
 .teamTitle {
   margin-bottom: 0;
-  color: #d3d3d3;
 }
 
 .info {
-  padding: 1em;
-  padding-top:0em;
+  padding: 1.5em;
 }
 
 .desc {
   margin-bottom: .2em;
   font-size: 1.1em;
+  color: #d3d3d3;
 }
 
 .link {

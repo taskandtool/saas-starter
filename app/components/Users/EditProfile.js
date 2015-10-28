@@ -297,7 +297,6 @@ export default class EditProfileRoute extends React.Component {
   }
 
   handleUpload() {
-    console.log('hi');
 
     this.setState({
       uploadingMsg: "Uploading...",

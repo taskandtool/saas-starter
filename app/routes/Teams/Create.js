@@ -7,7 +7,8 @@ import Helmet from 'react-helmet';
 import styles from './create.css';
 import {Teams, Plans} from '../../schemas';
 import TeamForms from '../../components/Teams/TeamForms';
-import {Typeahead} from 'react-typeahead';
+import PlanCard from '../../components/Plans/PlanCard.js';
+
 
 @handleForms
 @reactMixin.decorate(History)
@@ -36,7 +37,17 @@ export default class TeamCreateRoute extends React.Component {
     let values = this.props.inputState.values;
     let errors = this.props.inputState.errors;
 
-    //get plans
+    //set Plan Title value by whichever planId is currently selected
+    //Also shows planCard with whichever plan is selected
+    let selectedPlan
+    this.data.plans.map((plan) => {
+      if (plan._id == values.planId) {
+         values.planName = plan.title
+         selectedPlan = plan
+      }
+    });
+
+    //get plans to populate option select field in forms
     let planTitle = this.data.plans.map((plan) => {
       return <option key={plan._id} value={plan._id}>{plan.title}</option>
     });
@@ -57,12 +68,12 @@ export default class TeamCreateRoute extends React.Component {
         />
 
 
-        <h1 className="title">Add a New Team</h1>
+        <h1 className="title">Add your Team</h1>
 
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamForms
-              buttonText="Add Team"
+              buttonText="Create my Team"
               inputsToUse={inputsToUse}
               inputState={this.props.inputState}
               formError={this.state.formError}
@@ -74,7 +85,16 @@ export default class TeamCreateRoute extends React.Component {
               populate={planTitle} />
           </div>
           <div className={styles.column}>
+            <h3 className="subtitle">Your Team</h3>
             <TeamCard team={values}  />
+            {selectedPlan ?
+              <div className={styles.planShowing}>
+                <h3 className="subtitle">Your chosen plan (can change later)</h3>
+                <PlanCard plan={selectedPlan} makeClickable={false} />
+              </div>
+              :
+              null
+            }
           </div>
         </div>
       </div>
@@ -83,7 +103,7 @@ export default class TeamCreateRoute extends React.Component {
 
   handleSubmit(event, errors, values) {
     event.preventDefault();
-    const {name, desc, planId} = values;
+    const {name, desc, planId, planName} = values;
 
     //don't submit if there's errors showing
     if (errors.name || errors.desc || errors.planId) {
@@ -115,7 +135,8 @@ export default class TeamCreateRoute extends React.Component {
     Meteor.call('Team.create', {
       name: name,
       desc: desc,
-      planId: planId
+      planId: planId,
+      planName: planName
     }, (error) => {
       if (error) {
         this.setState({

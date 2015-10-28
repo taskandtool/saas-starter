@@ -7,6 +7,8 @@ import Helmet from 'react-helmet';
 import styles from './editTeam.css';
 import {Teams} from '../../schemas';
 import TeamForms from './TeamForms';
+import EditTeamImages from './EditTeamImages';
+
 
 @handleForms
 @reactMixin.decorate(History)
@@ -19,10 +21,15 @@ export default class EditTeam extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.listenForEnter = this.listenForEnter.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
+    this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
+
     this.state = {
       shakeBtn: false,
       formError: '',
-      formSuccess: ''
+      formSuccess: '',
+      showSpinner: false,
+      uploadingMsg: "Upload a new profile image:"
     }
   }
 
@@ -38,6 +45,17 @@ export default class EditTeam extends Component {
       "isDeleted",
     ];
 
+    //gets all profile images belonging to the team
+    let otherImages = []
+    if (team.images) {
+      otherImages = team.images.map((image, i) => {
+        return (
+          <img key={i} src={image} className={styles.imageList} onClick={() => this.handleSetProfilePic(image)} width="100px" />
+        );
+      })
+    }
+
+
     return (
       <div className="wrapper">
         <Helmet
@@ -47,7 +65,7 @@ export default class EditTeam extends Component {
           ]}
         />
 
-        <h1 className="title">Edit Team: {this.props.team.title}</h1>
+        <h1 className="title">Edit {this.props.team.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamForms
@@ -62,6 +80,15 @@ export default class EditTeam extends Component {
               handleAddFeature={this.handleAddFeature}
               team={this.props.team} />
           </div>
+
+          <EditUserImages
+            ref="editUserImages"
+            otherImages={otherImages}
+            handleUpload={this.handleUpload}
+            uploadingMsg={this.uploadingMsg}
+            showSpinner={this.state.showSpinner} />
+
+
           <div className={styles.column}>
             <TeamCard team={values}  />
           </div>
@@ -154,4 +181,35 @@ export default class EditTeam extends Component {
       }
     });
   }
+
+  handleSetProfilePic(image) {
+    Team.update(Meteor.userId(), {$set: {"picture": image }});
+  }
+
+  handleUpload() {
+    this.setState({
+      uploadingMsg: "Uploading...",
+      showSpinner: true
+    });
+
+    const metaContext = {teamId: this.props.team._id}
+    const uploader = new Slingshot.Upload("teamImages", metaContext);
+
+    uploader.send(this.refs.editUserImages.refs.imageUpload.refs.fileInput.files[0], (error, downloadUrl) => {
+      if (error) {
+        console.error('Error uploading', error);
+        this.setState({
+          uploadingMsg: "Sorry, there was an error. Please try again later",
+          showSpinner: false
+        });
+      } else {
+        Meteor.call('storeUserProfileImage', downloadUrl);
+        this.setState({
+          uploadingMsg: "Success!",
+          showSpinner: false
+        });
+      }
+    });
+  }
+
 }
