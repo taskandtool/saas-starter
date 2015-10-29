@@ -19,6 +19,8 @@
   width: 12em;
   box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
   z-index: 2;
+  left: -12em; /* safari on ipad doesn't want to obey animation-fill-mode forwards.
+  this is a workaround */
   animation: an-close .5s 1;
   animation-fill-mode: forwards;
 }
@@ -33,9 +35,9 @@
 
 @keyframes an-close {
   0% {
-    transform: translate3d(0,0,0);
+    transform: translate3d(100%,0,0);
   } 100% {
-    transform: translate3d(-100%,0,0);
+    transform: translate3d(0,0,0);
   }
 }
 
