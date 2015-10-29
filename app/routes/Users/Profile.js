@@ -4,7 +4,7 @@ import {Users} from '../../schemas';
 import UserCard from '../../components/Users/UserCard';
 import styles from './profile.css';
 import {Link} from 'react-router';
-import Spinner from '../../components/Utils/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import EditProfile from '../../components/Users/EditProfile';
 
 @reactMixin.decorate(ReactMeteorData)

@@ -52,7 +52,7 @@ export default class PlanCreateRoute extends React.Component {
       "currAvail",
       "displayOnMainSite"
     ];
-    //flatten array with features
+    //flatten array to seamlessly include features
     inputsToUse = [].concat.apply([], inputsToUse);
 
     return (

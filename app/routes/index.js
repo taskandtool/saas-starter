@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import Search from './Search';
 import * as Plans from './Plans';
 import * as Users from './Users';
+import * as Teams from './Teams';
 
 import NotFoundPage from './NotFoundPage';
 
@@ -26,6 +27,10 @@ Meteor.startup(function () {
         <Route path="/reset-password/:token" component={Users.ResetPassword} name="Reset Password" />
         <Route path="/plans" component={Plans.List} name="Plans" />
         <Route path="/plan/:id" component={Plans.View} name="Plan Details" back="/plans" />
+        <Route path="/teams" component={Teams.List} name="Teams" />
+        <Route path="/teams/add" component={Teams.Create} name="Create New Team" back="/teams" />
+        <Route path="/team/:id" component={Teams.View} name="Team Details" back="/teams" />
+        <Route path="/teams/add" component={Teams.Create} name="Create New Team" back="/teams" />
         <Route path="/users" component={Users.List} name="Users" />
         <Route path="/user/:id" component={Users.Profile} name="User Profile" back="/users" />
         <Route path="/super-global-dashboard" component={Dashboard} name="Dashboard" />

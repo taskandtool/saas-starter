@@ -21,7 +21,7 @@ const schema = {
 };
 
 Meteor.methods({
-  storeUserProfileImage: function( url ) {
+  "User.storeProfileImage": function( url ) {
     check( url, String );
 
     try {
@@ -30,6 +30,11 @@ Meteor.methods({
     } catch( exception ) {
       return exception;
     }
+  },
+
+  "User.setProfileImage": function ( url ) {
+    check( url, String );
+    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": url }});
   },
 
   "User.updateEmail": function(docId, data) {

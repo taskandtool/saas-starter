@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import ImageUpload from '../Utils/ImageUpload';
+import ImageUpload from '../Images/ImageUpload';
 
-export default class EditUserImages extends React.Component {
+export default class EditImages extends React.Component {
   static propTypes = {
     handleUpload: React.PropTypes.func.isRequired,
     uploadingMsg: React.PropTypes.string
@@ -14,7 +14,7 @@ export default class EditUserImages extends React.Component {
   render() {
     return (
         <div>
-          <h4 className="subtitle">Set a different profile image</h4>
+          <h4 className="subtitle">Set a different image</h4>
           {this.props.otherImages.length > 1 ?  <p>Click an image below to swap images.</p> : null}
           {this.props.otherImages}
 

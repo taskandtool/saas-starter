@@ -1,0 +1,56 @@
+.btn {
+  composes: button from '../../styles/buttons.css';
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .8em;
+  width: 100%;
+}
+
+.btnShake {
+  composes: button from '../../styles/buttons.css';
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .8em;
+  margin-top: .8em;
+  width: 100%;
+  animation: shake .5s 1 ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% {transform: translateX(0);}
+    25%, 50%, 75% {transform: translateX(-10px);}
+    50% {transform: translateX(10px);}
+}
+
+.form input, .form label{
+  display: block;
+  margin: 0.25em 0;
+  margin-bottom: 0em;
+  z-index: 3;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.btnFeatures {
+  composes: button from '../../styles/buttons.css';
+  margin: 0 .2em;
+}
+
+.btnHolder {
+ width: 10%;
+ display: inline-block;
+ margin-top: -2.25em;
+ float: right;
+}
+
+.inputFeatures {
+  width: 90%;
+  display: inline-block;
+}

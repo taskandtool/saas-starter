@@ -4,7 +4,7 @@ import reactMixin from 'react-mixin';
 import {handleForms} from '../Forms/FormDecorator';
 import styles from './editProfile.css';
 import UserCard from './UserCard';
-import EditUserImages from './EditUserImages';
+import EditImages from '../Images/EditImages';
 import UserForms from './UserForms.js';
 
 @handleForms
@@ -108,7 +108,7 @@ export default class EditProfileRoute extends React.Component {
         <div className={styles.grid}>
           <div className={styles.column}>
 
-            <EditUserImages
+            <EditImages
               ref="editUserImages"
               otherImages={otherImages}
               handleUpload={this.handleUpload}
@@ -293,11 +293,10 @@ export default class EditProfileRoute extends React.Component {
   }
 
   handleSetProfilePic(image) {
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.avatar": image }});
+    Meteor.call('User.setProfileImage', image);
   }
 
   handleUpload() {
-    console.log('hi');
 
     this.setState({
       uploadingMsg: "Uploading...",
@@ -313,7 +312,7 @@ export default class EditProfileRoute extends React.Component {
           showSpinner: false
         });
       } else {
-        Meteor.call('storeUserProfileImage', downloadUrl);
+        Meteor.call('User.storeProfileImage', downloadUrl);
         this.setState({
           uploadingMsg: "Success!",
           showSpinner: false

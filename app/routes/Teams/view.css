@@ -1,0 +1,52 @@
+.grid {
+  lost-utility: clearfix;
+  max-width: 960px;
+}
+
+.column {
+  lost-waffle: 1/2;
+}
+
+@media all and (max-width: 35em) {
+  .column {
+    lost-waffle: 1;
+  }
+}
+
+.listGroup {
+  margin-bottom: 2em;
+  margin-left: 0;
+  list-style: none;
+}
+
+.listGroup {
+  margin-bottom: 2em;
+  list-style: none;
+}
+
+.subTitle {
+  margin-bottom: 1em;
+}
+
+.title {
+  padding-bottom: .4em;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn {
+  composes: button from '../../styles/buttons.css';
+  background-color: #03A9F4;
+  color: #fff;
+  padding: .7em;
+  margin-top: .2em;
+  margin-bottom: 1em;
+}
+
+@media all and (max-width: 40em) {
+  .btn {
+    background-color: #03A9F4;
+    color: #fff;
+    padding: .4em;
+    margin-bottom: 1em;
+  }
+}

@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
-import {Plans} from '../../schemas';
-import PlanList from '../../components/Plans/PlanList';
+import {Teams} from '../../schemas';
+import TeamList from '../../components/Teams/TeamList';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './list.css';
 import {Link} from 'react-router';
 
 @reactMixin.decorate(ReactMeteorData)
-export default class PlanListRoute extends Component {
+export default class TeamListRoute extends Component {
 
   getMeteorData() {
-    let handle = Meteor.subscribe("plans");
+    let handle = Meteor.subscribe("teams");
     return {
-      plans: Plans.find({}, {sort: {createdAt: -1}}).fetch(),
+      teams: Teams.find({}, {sort: {createdAt: -1}}).fetch(),
       loading: !handle.ready()
     };
   }
@@ -21,17 +21,17 @@ export default class PlanListRoute extends Component {
     if (this.data.loading) {
       return (<div className="wrapper"><Spinner /></div>);
     }
-    let plans = this.data.plans;
+    let teams = this.data.teams;
 
     return (
       <div className="wrapper">
-        <h1 className="title">{plans.length} Plans</h1>
+        <h1 className="title">{teams.length} Teams</h1>
         <div className={styles.grid}>
-          <Link to='/super-global-dashboard/plan/add'>
-            <button className={styles.btn}>Create new plan</button>
+          <Link to='/teams/add'>
+            <button className={styles.btn}>Create new team</button>
           </Link>
-          {plans ?
-            <PlanList plans={plans} cardStyle={styles.column} makeClickable={true} />
+          {teams ?
+            <TeamList teams={teams} cardStyle={styles.column} makeClickable={true} />
           : null }
         </div>
       </div>

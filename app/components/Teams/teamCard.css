@@ -1,0 +1,32 @@
+.container {
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  padding: 1em;
+}
+
+.teamTitle {
+  margin: 0 0;
+}
+
+.info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.desc {
+  margin-bottom: .2em;
+  font-size: 1.1em;
+  color: #d3d3d3;
+}
+
+.link {
+  color: #333;
+}
+
+.picture {
+  width: 4em;
+  height: 4em;
+  border-radius: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  margin: .1em .2em .1em 0;
+}

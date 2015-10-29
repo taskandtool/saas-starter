@@ -45,6 +45,7 @@ export default class Sidebar extends React.Component {
               <Icon size="2em" icon="close" color="#fff" onClick={this.props.handleToggleSidebar} />
             </span>
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
+            <li className={styles.item}><Link to="/teams" className={styles.link} activeClassName={styles.active}>Teams</Link></li>
             <li className={styles.item}><Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link></li>
             <li className={styles.item}><Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link></li>
           </ul>

@@ -4,11 +4,16 @@ var schema = {
   _id: String,
   createdAt: Date,
   updatedAt: Date,
-  ownerId: String,
-  userName: String,
+  ownerId: String, //team owner user id
+  name: String,
   desc: String,
-  likeCount: Number,
-  commentCount: Number
+  planId: String,
+  planName: String,
+  userCount: Number,
+  todoCount: Number,
+  isDeleted: Boolean,
+  picture: String,
+  images: [String]
 };
 
 Meteor.methods({
@@ -20,8 +25,9 @@ Meteor.methods({
     data.ownerId = this.userId;
     data.createdAt = new Date();
     data.updatedAt = new Date();
-    data.likeCount = 0;
-    data.commentCount = 0;
+    data.todoCount = 0;
+    data.userCount = 0;
+    data.isDeleted = false;
 
     check(data, _.omit(schema, '_id'));
 
@@ -36,19 +42,24 @@ Meteor.methods({
     var optional = Match.Optional;
 
     check(docId, String);
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
     data.updatedAt = new Date();
 
     // whitelist what can be updated
     check(data, {
       updatedAt: schema.updatedAt,
       desc: optional(schema.desc),
-      commentCount: optional(schema.commentCount),
-      likeCount: optional(schema.likeCount)
+      planId: optional(schema.planId),
+      planName: optional(schema.planName),
+      todoCount: optional(schema.todoCount),
+      userCount: optional(schema.userCount),
+      name: optional(schema.name),
+      isDeleted: optional(schema.isDeleted),
+      picture: optional(schema.picture),
     });
 
     // if caller doesn't own doc, update will fail because fields won't match
-    selector = {_id: docId, ownerId: User.id()};
+    selector = {_id: docId, ownerId: this.userId};
 
     count = Teams.update(selector, {$set: data});
 
@@ -56,30 +67,24 @@ Meteor.methods({
     return count;
   },
 
-  "Team.destroy": function(docId) {
-    check(docId, String);
-
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
-
-    // if caller doesn't own doc, destroy will fail because fields won't match
-    var count = Teams.remove({_id: docId, ownerId: User.id()});
-
-    console.log("  [Team.destroy]", count);
-    return count;
+  "Team.storeProfileImage": function( docId, url ) {
+    check( url, String );
+    
+    try {
+      Teams.update(docId, {$push: {"images": url}});
+      Teams.update(docId, {$set: {"picture": url }});
+    } catch( exception ) {
+      return exception;
+    }
   },
 
-  "Team.like": function(docId) {
-    check(docId, String);
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
-
-    var count = Teams.update({_id: docId}, {$inc: {likeCount: 1} });
-
-    console.log("  [Team.like]", count);
-    return count;
+  "Team.setProfileImage": function ( docId, url ) {
+    check( url, String );
+    Teams.update(docId, {$set: {"picture": url }});
   },
 
   "Team.increment": function(docId, fieldName) {
-    check(fieldName, "commentCount");
+    check(fieldName, Match.oneOf("userCount, todoCount"));
     if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
 
     var incField = {};
