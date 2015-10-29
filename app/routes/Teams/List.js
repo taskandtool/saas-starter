@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
 import {Teams} from '../../schemas';
 import TeamList from '../../components/Teams/TeamList';
-import Spinner from '../../components/Utils/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import styles from './list.css';
 import {Link} from 'react-router';
 

@@ -5,16 +5,26 @@ import reactMixin from 'react-mixin';
 import TeamCard from './TeamCard.js';
 import Helmet from 'react-helmet';
 import styles from './editTeam.css';
-import {Teams} from '../../schemas';
+import {Teams, Plans} from '../../schemas';
 import TeamForms from './TeamForms';
-import EditTeamImages from './EditTeamImages';
+import EditImages from '../Images/EditImages';
 
 
 @handleForms
 @reactMixin.decorate(History)
+@reactMixin.decorate(ReactMeteorData)
 export default class EditTeam extends Component {
   static propTypes = {
     team: React.PropTypes.object
+  }
+
+  getMeteorData() {
+    //need to do this to prepopulate plan selection for teams
+    let handle = Meteor.subscribe("plans");
+    return {
+      plans: Plans.find().fetch(),
+      loading: !handle.ready()
+    };
   }
 
   constructor() {
@@ -57,6 +67,18 @@ export default class EditTeam extends Component {
       })
     }
 
+    let selectedPlan
+    this.data.plans.map((plan) => {
+      if (plan._id == values.planId) {
+         values.planName = plan.title
+         selectedPlan = plan
+      }
+    });
+
+    //get plans to populate option select field in forms
+    let planTitle = this.data.plans.map((plan) => {
+      return <option key={plan._id} value={plan._id}>{plan.title}</option>
+    });
 
     return (
       <div className="wrapper">
@@ -80,16 +102,17 @@ export default class EditTeam extends Component {
               handleChange={this.props.handleChange}
               handleSubmit={this.handleSubmit}
               handleAddFeature={this.handleAddFeature}
-              team={this.props.team} />
+              team={this.props.team}
+              populate={planTitle} />
           </div>
 
           <div className={styles.column}>
-            <TeamCard team={values}  />
+            <TeamCard team={values} picture={team.picture}  />
           </div>
 
           <div className={styles.column}>
 
-            <EditTeamImages
+            <EditImages
               ref="editTeamImages"
               otherImages={otherImages}
               handleUpload={this.handleUpload}

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import reactMixin from 'react-mixin';
 import {Users} from '../../schemas';
 import UserCard from '../../components/Users/UserCard';
-import Spinner from '../../components/Utils/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import UserList from '../../components/Users/UserList';
 import styles from './list.css';
 

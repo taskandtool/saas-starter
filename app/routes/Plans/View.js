@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
 import {Plans} from '../../schemas';
-import Spinner from '../../components/Utils/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import PlanCard from '../../components/Plans/PlanCard.js';
 import PlanDetails from '../../components/Plans/PlanDetails.js';
 import EditPlan from '../../components/Plans/EditPlan.js';

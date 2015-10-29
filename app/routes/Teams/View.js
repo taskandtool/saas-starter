@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import reactMixin from 'react-mixin';
 import {Teams} from '../../schemas';
-import Spinner from '../../components/Utils/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import TeamCard from '../../components/Teams/TeamCard.js';
 import TeamDetails from '../../components/Teams/TeamDetails.js';
 import EditTeam from '../../components/Teams/EditTeam.js';
@@ -36,7 +36,7 @@ export default class TeamViewRoute extends Component {
       );
     }
 
-    const {title, ownerId} = team;
+    const {name, ownerId} = team;
 
     //Edit params?
     const { query } = this.props.location
@@ -62,7 +62,7 @@ export default class TeamViewRoute extends Component {
 
     return (
       <div className="wrapper">
-        <h1 className="title">{title}</h1>
+        <h1 className="title">{name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamCard team={team} />

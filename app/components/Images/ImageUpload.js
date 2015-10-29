@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import styles from './imageUpload.css';
-import Spinner from './Spinner';
+import Spinner from '../Spinner/Spinner';
 
 export default class EditUserProfile extends React.Component {
   static propTypes = {

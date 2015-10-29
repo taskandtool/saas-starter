@@ -67,7 +67,6 @@ export default class TeamCreateRoute extends React.Component {
           ]}
         />
 
-
         <h1 className="title">Add your Team</h1>
 
         <div className={styles.grid}>

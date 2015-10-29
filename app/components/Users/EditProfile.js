@@ -4,7 +4,7 @@ import reactMixin from 'react-mixin';
 import {handleForms} from '../Forms/FormDecorator';
 import styles from './editProfile.css';
 import UserCard from './UserCard';
-import EditUserImages from './EditUserImages';
+import EditImages from '../Images/EditImages';
 import UserForms from './UserForms.js';
 
 @handleForms
@@ -108,7 +108,7 @@ export default class EditProfileRoute extends React.Component {
         <div className={styles.grid}>
           <div className={styles.column}>
 
-            <EditUserImages
+            <EditImages
               ref="editUserImages"
               otherImages={otherImages}
               handleUpload={this.handleUpload}
