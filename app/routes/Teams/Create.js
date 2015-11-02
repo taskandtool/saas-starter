@@ -59,7 +59,7 @@ export default class TeamCreateRoute extends React.Component {
     ];
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <Helmet
           title="Create New Team"
           meta={[
@@ -67,7 +67,7 @@ export default class TeamCreateRoute extends React.Component {
           ]}
         />
 
-        <h1 className="title">Add your Team</h1>
+        <h1 className={styles.title}>Add your Team</h1>
 
         <div className={styles.grid}>
           <div className={styles.column}>
@@ -84,11 +84,11 @@ export default class TeamCreateRoute extends React.Component {
               populate={planTitle} />
           </div>
           <div className={styles.column}>
-            <h3 className="subtitle">Your Team</h3>
+            <h3 className={styles.subtitle}>Your Team</h3>
             <TeamCard team={values}  />
             {selectedPlan ?
               <div className={styles.planShowing}>
-                <h3 className="subtitle">Your chosen plan (can change later)</h3>
+                <h3 className={styles.subtitle}>Your chosen plan (can change later)</h3>
                 <PlanCard plan={selectedPlan} makeClickable={false} />
               </div>
               :

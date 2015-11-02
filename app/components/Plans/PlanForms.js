@@ -55,7 +55,7 @@ export default class PlanForms extends Component {
             <InputStacked
               key={i}
               type="text"
-              name="title"
+              name={styles.title}
               value={values.title}
               errorMsg={errors.title}
               label="Plan Title"

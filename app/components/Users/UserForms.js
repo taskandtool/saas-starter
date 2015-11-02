@@ -103,7 +103,7 @@ export default class UserForms extends Component {
             <InputStacked
               key={i}
               type="text"
-              name="title"
+              name={styles.title}
               handleChange={this.props.handleChange}
               value={values.title}
               errorMsg={errors.title}

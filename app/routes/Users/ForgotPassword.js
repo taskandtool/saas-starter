@@ -21,9 +21,9 @@ export default class ForgotPasswordRoute extends React.Component {
 
     return (
       <div className={styles.wrapper}>
-        <h2 className="title">Recover your Password</h2>
+        <h2 className={styles.title}>Recover your Password</h2>
 
-        <h6 className="subtitle">Enter your email to reset your password</h6>
+        <h6 className={styles.subtitle}>Enter your email to reset your password</h6>
 
         <UserForms
           buttonText="Reset my Password"

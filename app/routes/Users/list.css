@@ -4,14 +4,22 @@
   margin: 1em 0;
 }
 
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
+}
+
 .list {
   lost-waffle: 1/2;
-  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  composes: cardShadow from '../../styles/utilities.css';
 }
 
 .closeList {
   lost-waffle: 1/2;
-  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+  composes: cardShadow from '../../styles/utilities.css';
 }
 
 .card {
@@ -20,14 +28,10 @@
 }
 
 .title {
-  padding-bottom: .4em;
-  border-bottom: 1px solid #ddd;
+  composes: title from '../../styles/utilities.css';
 }
 
 @media all and (max-width: 40em) {
-  .title {
-    display:none;
-  }
   .card {
     lost-waffle: 1;
     animation: opencard .5s 1;

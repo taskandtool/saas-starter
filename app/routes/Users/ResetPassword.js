@@ -27,9 +27,9 @@ export default class ResetPasswordRoute extends Component {
 
     return (
       <div className={styles.wrapper}>
-        <h2 className="title">Reset your Password</h2>
+        <h2 className={styles.title}>Reset your Password</h2>
 
-        <h6 className="subtitle">Enter your new password</h6>
+        <h6 className={styles.subtitle}>Enter your new password</h6>
 
         <UserForms
           buttonText="Reset my Password"

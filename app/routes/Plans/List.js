@@ -19,13 +19,13 @@ export default class PlanListRoute extends Component {
 
   render() {
     if (this.data.loading) {
-      return (<div className="wrapper"><Spinner /></div>);
+      return (<div className={styles.wrapper}><Spinner /></div>);
     }
     let plans = this.data.plans;
 
     return (
-      <div className="wrapper">
-        <h1 className="title">{plans.length} Plans</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>{plans.length} Plans</h1>
         <div className={styles.grid}>
           <Link to='/super-global-dashboard/plan/add'>
             <button className={styles.btn}>Create new plan</button>

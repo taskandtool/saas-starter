@@ -26,14 +26,14 @@ export default class UserListRoute extends Component {
 
   render() {
     if (this.data.loading) {
-      return (<div className="wrapper"><Spinner /></div>);
+      return (<div className={styles.wrapper}><Spinner /></div>);
     }
     //for user Preview
     const user = this.data.user;
     const email = user && user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <h1 className={styles.title}>{this.data.users.length} Users</h1>
         <div className={styles.grid}>
           <div className={user ? styles.closeList : styles.list} >

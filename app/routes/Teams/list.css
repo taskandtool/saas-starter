@@ -1,19 +1,7 @@
 .btn {
-  composes: button from '../../styles/buttons.css';
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .7em;
+  composes: buttonPrimary from '../../styles/buttons.css';
   margin-top: .2em;
   margin-bottom: 1em;
-}
-
-@media all and (max-width: 40em) {
-  .btn {
-    background-color: #03A9F4;
-    color: #fff;
-    padding: .4em;
-    margin-bottom: 1em;
-  }
 }
 
 .grid {
@@ -35,4 +23,12 @@
   .column {
     lost-waffle: 1;
   }
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
 }

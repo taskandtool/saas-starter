@@ -22,7 +22,7 @@ export default class UserItem extends Component {
     const createdAt = this.props.createdAt;
     return (
       <div
-        className={styles.shadow}
+        className={styles.border}
         onClick={this.props.clickPreview ?
                     () => this.history.pushState(null, `/users?id=${this.props._id}`) :
                     () => this.history.pushState(null, `/user/${this.props._id}`)}>

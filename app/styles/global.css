@@ -2,6 +2,7 @@
 @import './buttons.css';
 @import './forms.css';
 @import './typography.css';
+@import './utilities.css';
 
 html {
   height:100%;
@@ -9,28 +10,4 @@ html {
 
 body {
   min-height:100%;
-}
-
-:global .cardShadow {
-  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
-}
-
-:global .wrapper {
-  padding: 4em 1em;
-}
-
-:global .title {
-  padding-bottom: .4em;
-  border-bottom: 1px solid gray(50%, 20%);
-}
-
-@media all and (max-width: 40em) {
-  :global .title {
-    display: none;
-  }
-}
-
-:global .subtitle {
-  margin-bottom: .2em;
-  color: gray(20%, 80%);
 }

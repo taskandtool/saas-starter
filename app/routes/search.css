@@ -51,3 +51,11 @@
 .listItem a {
   text-decoration: none;
 }
+
+.title {
+  composes: title from '../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../styles/utilities.css';
+}

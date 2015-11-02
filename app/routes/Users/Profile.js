@@ -29,7 +29,7 @@ export default class UserProfileRoute extends Component {
   render() {
     if (this.data.loading) {
       return (
-        <div className="wrapper"><Spinner /></div>
+        <div className={styles.wrapper}><Spinner /></div>
       );
     }
 
@@ -46,7 +46,7 @@ export default class UserProfileRoute extends Component {
 
     if (!user) {
       return (
-        <div className="wrapper">No user found at this address</div>
+        <div className={styles.wrapper}>No user found at this address</div>
       );
     }
 
@@ -60,7 +60,7 @@ export default class UserProfileRoute extends Component {
 
     if (edit) {
       return (
-        <div className="wrapper">You don't have permission to edit {user.profile.name}'s profile.</div>
+        <div className={styles.wrapper}>You don't have permission to edit {user.profile.name}'s profile.</div>
       )
     }
 
@@ -77,8 +77,8 @@ export default class UserProfileRoute extends Component {
     }
 
     return (
-      <div className="wrapper">
-        <h1 className="title">{user.profile.name}</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>{user.profile.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <UserCard
@@ -91,11 +91,11 @@ export default class UserProfileRoute extends Component {
               email={email} />
            </div>
            <div className={styles.column}>
-             <h3 className="subtitle">Teams</h3>
+             <h3 className={styles.subtitle}>Teams</h3>
              {teams}
              {isUser ?
                 <div>
-                  <h3 className="subtitle">Roles</h3>
+                  <h3 className={styles.subtitle}>Roles</h3>
                   {teamsRoles}
                   <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
                     <button className={styles.btn}>Edit Profile</button>

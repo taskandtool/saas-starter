@@ -8,6 +8,7 @@ import styles from './editTeam.css';
 import {Teams, Plans} from '../../schemas';
 import TeamForms from './TeamForms';
 import EditImages from '../Images/EditImages';
+import PlanCard from '../Plans/PlanCard';
 
 
 @handleForms
@@ -81,7 +82,7 @@ export default class EditTeam extends Component {
     });
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <Helmet
           title="Edit Team"
           meta={[
@@ -89,7 +90,7 @@ export default class EditTeam extends Component {
           ]}
         />
 
-        <h1 className="title">Edit {this.props.team.name}</h1>
+        <h1 className={styles.title}>Edit {this.props.team.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamForms
@@ -108,6 +109,15 @@ export default class EditTeam extends Component {
 
           <div className={styles.column}>
             <TeamCard team={values} picture={team.picture}  />
+
+            {selectedPlan ?
+              <div className={styles.planShowing}>
+                <h3 className={styles.subtitle}>Your chosen plan (can change later)</h3>
+                <PlanCard plan={selectedPlan} makeClickable={false} />
+              </div>
+              :
+              null
+            }
           </div>
 
           <div className={styles.column}>

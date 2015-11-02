@@ -1,6 +1,6 @@
 .wrapper {
   lost-center: 400px;
-  padding: 4em 1em;
+  composes: wrapper from '../../styles/utilities.css';
 }
 
 .title {
@@ -8,6 +8,7 @@
 }
 
 .subtitle {
+  composes: subtitle from '../../styles/utilities.css';
   margin-bottom:.2em;
   margin-top:.6em;
   text-align: center;

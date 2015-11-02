@@ -3,8 +3,6 @@
   margin-bottom: 3em;
   padding: 0;
   width: 100%;
-  background-color: #03A9F4;
-  color: #fff;
 }
 
 .upload {
@@ -22,5 +20,5 @@
 }
 
 .container {
-  margin-left: -8.5em;
+  margin-left: -6em;
 }

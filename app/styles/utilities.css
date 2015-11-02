@@ -1,0 +1,28 @@
+/* You can call 'composes' from a local css stylesheet to grab consistent styling
+of these elements. Can override things locally too. */
+
+.cardShadow {
+  box-shadow: 1px 1px 12px -2px rgba(0,0,0,0.62);
+}
+
+.wrapper {
+  padding: 4em 1em;
+}
+
+.title {
+  padding-bottom: .2em;
+  border-bottom: 1px solid #ddd;
+}
+
+@media all and (max-width: 40em) {
+  /* Hiding the title on mobile because it typically displays in the nav so it
+  looks a bit redundant on mobile.  */
+  .title {
+    display: none;
+  }
+}
+
+.subtitle {
+  margin-bottom: .6em;
+  color: #999;
+}

@@ -13,55 +13,18 @@
   }
 }
 
-.btnFeatures {
-  composes: button from '../../styles/buttons.css';
-  margin: .4em 0em;
-  width: 100%;
-}
-
-.btn {
-  composes: button from '../../styles/buttons.css';
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .8em;
-  margin-top: .2em;
-  width: 100%;
-}
-
-.btnShake {
-  composes: button from '../../styles/buttons.css';
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .8em;
-  margin-top: .2em;
-  width: 100%;
-  animation: shake .5s 1 ease-in-out;
-}
-
-@keyframes shake {
-    0%, 100% {transform: translateX(0);}
-    25%, 50%, 75% {transform: translateX(-10px);}
-    50% {transform: translateX(10px);}
-}
-
-.addFeature {
-  margin: .5em 0;
-}
-
-.form input, .form label{
-  display: block;
-  margin: 0.25em 0;
-  z-index: 3;
-}
-
-.error {
-  color: red;
-}
-
-.success {
-  color: green;
-}
-
 .planShowing {
   margin-top: 1.5em;
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
 }

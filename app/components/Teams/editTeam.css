@@ -1,3 +1,15 @@
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
+}
+
 .grid {
   lost-utility: clearfix;
   max-width: 960px;
@@ -64,4 +76,8 @@
 
 .imageList {
   margin: .5em .5em .1em 0;
+}
+
+.planShowing {
+  margin-top: 1.5em;
 }
