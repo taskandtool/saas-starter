@@ -31,6 +31,7 @@ Meteor.startup(function () {
         <Route path="teams" component={Teams.List} name="Teams" />
         <Route path="teams/add" component={Teams.Create} name="Create New Team" back="/teams" />
         <Route path="team/:teamId" component={Teams.View} name="Team Details" back="/teams" />
+        <Route path="team/:teamId/dashboard" component={Teams.Dashboard} name="Team Dashboard" back="/teams" />
         <Route path="team/:teamId/todos" component={Todos.TeamTodoList} name="Todos" />
         <Route path="users" component={Users.List} name="Users" />
         <Route path="user/:id" component={Users.Profile} name="User Profile" back="/users" />

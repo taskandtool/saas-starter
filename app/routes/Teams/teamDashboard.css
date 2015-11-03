@@ -1,14 +1,14 @@
 .grid {
   lost-utility: clearfix;
-  max-width: 960px;
+  margin-bottom: 1em;
 }
 
-.column {
+.halfColumn {
   lost-waffle: 1/2;
 }
 
 @media all and (max-width: 35em) {
-  .column {
+  .halfColumn {
     lost-waffle: 1;
   }
 }
@@ -16,19 +16,6 @@
 .btn {
   composes: button from '../../styles/buttons.css';
   margin-top: .2em;
-  margin-bottom: 1em;
-}
-
-.btnTodos {
-  composes: button from '../../styles/buttons.css';
-  margin-top: 1em;
-}
-
-.btnDashboard {
-  composes: buttonPrimary from '../../styles/buttons.css';
-  padding: 0.5em 1em;
-  margin-top: 1em;
-  margin-left: 1em;
 }
 
 .title {

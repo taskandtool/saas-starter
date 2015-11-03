@@ -69,6 +69,9 @@ export default class TeamViewRoute extends Component {
             <Link to={`/team/${this.props.params.teamId}/todos`}  >
               <button className={styles.btnTodos}>See Todos</button>
             </Link>
+            <Link to={`/team/${this.props.params.teamId}/dashboard`}  >
+              <button className={styles.btnDashboard}>Dashboard</button>
+            </Link>
           </div>
           {isUser ?
           <div className={styles.column}>
