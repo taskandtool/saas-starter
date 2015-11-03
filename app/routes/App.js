@@ -29,7 +29,8 @@ export default class App extends Component {
   }
 
   getMeteorData() {
-    let handle = Meteor.subscribe("teams") && Meteor.subscribe("users");
+    let handle = Meteor.subscribe("teams")
+    Meteor.subscribe("users");
     return {
       user: Meteor.users.findOne(this.props.params.id),
       team: Teams.findOne(this.props.params.teamId),

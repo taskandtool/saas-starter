@@ -34,7 +34,6 @@ export default class TeamTodoListRoute extends Component {
     //See if user has a role on the team
     if (Meteor.user()) {
       let roles = Meteor.user().roles;
-      console.log(Meteor.user().roles)
       let team
       for (team in roles) {
         if (team === this.props.params.teamId) {

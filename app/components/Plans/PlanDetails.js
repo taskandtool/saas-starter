@@ -9,7 +9,6 @@ export default class SinglePlan extends Component {
 
   render() {
     const { plan } = this.props;
-    console.log('hi')
 
     const { _id, createdAt, updatedAt, createdBy, title, desc, monthlyPrice, setupPrice,
               maxProjects, maxItems, freeTrialDays, teamsUsingItCount, currAvail, displayOnMainSite,

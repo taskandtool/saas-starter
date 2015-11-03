@@ -76,6 +76,7 @@ export default class UserProfileRoute extends Component {
       teams.push(<div key={i}>{team}</div>);
       teamsRoles.push(<div key={i}><strong>{team}:</strong> <em>{roles[team]}</em></div>);
     }
+
     return (
       <div className={styles.wrapper}>
 

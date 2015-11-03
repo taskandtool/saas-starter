@@ -59,6 +59,11 @@
   line-height: 2.1em;
 }
 
+.globalDashItem {
+  composes: item;
+  margin: 1em 0;
+}
+
 .divider {
   background-color: #ccc;
   height: 1px;
