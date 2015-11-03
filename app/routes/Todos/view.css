@@ -1,14 +1,13 @@
 .grid {
   lost-utility: clearfix;
   max-width: 960px;
-  margin-bottom: 1em;
 }
 
 .column {
   lost-waffle: 1/2;
 }
 
-@media all and (max-width: 40em) {
+@media all and (max-width: 35em) {
   .column {
     lost-waffle: 1;
   }
@@ -16,9 +15,8 @@
 
 .btn {
   composes: button from '../../styles/buttons.css';
-  margin-top: .6em;
-  margin-bottom: 3em;
-  width: 100%;
+  margin-top: .2em;
+  margin-bottom: 1em;
 }
 
 .title {
@@ -27,11 +25,6 @@
 
 .subtitle {
   composes: subtitle from '../../styles/utilities.css';
-}
-
-.profileSubtitle {
-  composes: subtitle from '../../styles/utilities.css';
-  margin-top: 3em;
 }
 
 .wrapper {

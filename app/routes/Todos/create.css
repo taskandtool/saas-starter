@@ -1,0 +1,18 @@
+.grid {
+  lost-utility: clearfix;
+  max-width: 960px;
+}
+
+.column {
+  lost-column: 1/2;
+}
+
+@media all and (max-width: 40em) {
+  .column {
+    lost-waffle: 1;
+  }
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}

@@ -1,11 +1,11 @@
 .btn {
-  composes: button from '../../styles/buttons.css';
+  composes: buttonPrimary from '../../styles/buttons.css';
   margin-top: .8em;
   width: 100%;
 }
 
 .btnShake {
-  composes: buttonShake from '../../styles/buttons.css';
+  composes: buttonShakePrimary from '../../styles/buttons.css';
 }
 
 .form input, .form label{

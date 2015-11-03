@@ -19,6 +19,11 @@
   margin-bottom: 1em;
 }
 
+.btnTodos {
+  composes: button from '../../styles/buttons.css';
+  margin-top: 1em;
+}
+
 .title {
   composes: title from '../../styles/utilities.css';
 }

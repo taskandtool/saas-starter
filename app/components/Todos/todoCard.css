@@ -1,0 +1,24 @@
+.border {
+  margin: 0em;
+  border: solid 1px #ddd;
+  width: 100%;
+  padding: .5em;
+}
+
+.text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.item {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 .5em;
+  cursor: pointer;
+}
+
+.right {
+  float: right;
+  display: inline-block;
+  margin-top: -1.7em;
+}

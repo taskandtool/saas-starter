@@ -1,8 +1,4 @@
 @media only screen and (max-width : 480px) {
-    form button[type="submit"] {
-        margin: 0.7em 0 0;
-    }
-
     form input:not([type]),
     form input[type="text"],
     form input[type="password"],

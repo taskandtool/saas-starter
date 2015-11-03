@@ -10,7 +10,8 @@ export default class Icon extends React.Component {
       React.PropTypes.string,
       React.PropTypes.number
     ]),
-    style: React.PropTypes.object
+    style: React.PropTypes.object,
+    onClick: React.PropTypes.func
   }
 
   static defaultProps = {
@@ -63,6 +64,10 @@ export default class Icon extends React.Component {
       case 'arrow-drop-down':
         return (
           <g><path d="M7 10l5 5 5-5z"></path></g>
+        );
+      case 'delete':
+        return (
+          <g><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-12h-12v12zm13-15h-3.5l-1-1h-5l-1 1h-3.5v2h14v-2z"></path></g>
         );
     }
   }

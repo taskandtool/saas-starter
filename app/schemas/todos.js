@@ -7,21 +7,19 @@ var schema = {
   teamId: String, //team owner user id
   ownerId: String, // owner user id
   text: String,
-  completed: Boolean,
+  isCompleted: Boolean,
   isDeleted: Boolean
 };
 
 Meteor.methods({
 
-  "Todos.create": function(data) {
+  "Todo.create": function(data) {
     var docId;
     if (!this.userId) throw new Meteor.Error(401, "Login required");
 
     data.ownerId = this.userId;
     data.createdAt = new Date();
     data.updatedAt = new Date();
-    data.isDeleted = false;
-    data.isCompleted = false;
 
     check(data, _.omit(schema, '_id'));
 

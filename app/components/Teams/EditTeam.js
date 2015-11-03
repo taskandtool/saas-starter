@@ -93,6 +93,10 @@ export default class EditTeam extends Component {
         <h1 className={styles.title}>Edit {this.props.team.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
+            <div className={styles.card}>
+              <TeamCard team={values} picture={team.picture}  />
+            </div>
+
             <TeamForms
               buttonText="Update Team"
               inputsToUse={inputsToUse}
@@ -108,10 +112,9 @@ export default class EditTeam extends Component {
           </div>
 
           <div className={styles.column}>
-            <TeamCard team={values} picture={team.picture}  />
 
             {selectedPlan ?
-              <div className={styles.planShowing}>
+              <div>
                 <h3 className={styles.subtitle}>Your chosen plan (can change later)</h3>
                 <PlanCard plan={selectedPlan} makeClickable={false} />
               </div>

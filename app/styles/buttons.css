@@ -16,7 +16,7 @@
   box-sizing: border-box;
   font-family: inherit;
   font-size: 100%;
-  padding: 0.8em;
+  padding: .5em 1em;
   color: #444; /* rgba not supported (IE 8) */
   color: rgba(0, 0, 0, 0.80); /* rgba supported */
   border: 1px solid #999;  /*IE 6/7/8*/
@@ -56,6 +56,7 @@
   composes: button;
   background-color: #03A9F4;
   color: #fff;
+  padding: 0.8em;
 }
 
 .buttonShakePrimary {

@@ -1,0 +1,36 @@
+.btn {
+  composes: button from '../../styles/buttons.css';
+  display: inline-block;
+  padding: .55em;
+  margin-top: -2em;
+  margin-left: .3em;
+}
+
+.btnShake {
+  composes: buttonShake from '../../styles/buttons.css';
+  display: inline-block;
+  padding: .55em;
+  margin-top: -2em;
+  margin-left: .3em;
+}
+
+.form input, .form label{
+  display: inline-block;
+  margin: 0.25em 0;
+  margin-bottom: 0em;
+  z-index: 3;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.text {
+  display: inline-block;
+  max-width: 100%;
+  float:left;
+}

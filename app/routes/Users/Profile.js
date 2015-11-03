@@ -6,6 +6,7 @@ import styles from './profile.css';
 import {Link} from 'react-router';
 import Spinner from '../../components/Spinner/Spinner';
 import EditProfile from '../../components/Users/EditProfile';
+import Helmet from 'react-helmet';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class UserProfileRoute extends Component {
@@ -75,9 +76,16 @@ export default class UserProfileRoute extends Component {
       teams.push(<div key={i}>{team}</div>);
       teamsRoles.push(<div key={i}><strong>{team}:</strong> <em>{roles[team]}</em></div>);
     }
-
     return (
       <div className={styles.wrapper}>
+
+        <Helmet
+          title={user.profile.name}
+          meta={[
+              {"name": "description", "content": user.profile.name + "\'s profile"}
+          ]}
+        />
+
         <h1 className={styles.title}>{user.profile.name}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
@@ -92,16 +100,30 @@ export default class UserProfileRoute extends Component {
            </div>
            <div className={styles.column}>
              <h3 className={styles.subtitle}>Teams</h3>
-             {teams}
+             {_.isEmpty(teams) ?
+               <div>
+                 Not a member of any teams yet.
+                 {isUser ?
+                   <Link to="/teams/add" >
+                    <button className={styles.btn}>Create a Team</button>
+                  </Link>
+                  : null
+                 }
+                </div>
+              : <div>{teams}</div>
+              }
+
              {isUser ?
                 <div>
                   <h3 className={styles.subtitle}>Roles</h3>
-                  {teamsRoles}
+                  {_.isEmpty(teamsRoles) ? 'No roles in any teams yet.' : <div>{teamsRoles}</div>}
+                  <h3 className={styles.profileSubtitle}>Edit Profile</h3>
                   <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
                     <button className={styles.btn}>Edit Profile</button>
                   </Link>
                 </div>
-              : null }
+                : null
+              }
            </div>
          </div>
       </div>

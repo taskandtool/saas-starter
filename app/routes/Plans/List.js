@@ -5,6 +5,7 @@ import PlanList from '../../components/Plans/PlanList';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './list.css';
 import {Link} from 'react-router';
+import Helmet from 'react-helmet';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class PlanListRoute extends Component {
@@ -25,6 +26,14 @@ export default class PlanListRoute extends Component {
 
     return (
       <div className={styles.wrapper}>
+
+        <Helmet
+          title="Plans"
+          meta={[
+              {"name": "description", "content": "Plans"}
+          ]}
+        />
+
         <h1 className={styles.title}>{plans.length} Plans</h1>
         <div className={styles.grid}>
           <Link to='/super-global-dashboard/plan/add'>
