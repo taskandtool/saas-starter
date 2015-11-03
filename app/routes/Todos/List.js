@@ -129,6 +129,7 @@ console.log(Meteor.call('User.checkIfAuthorized'));
       text: text,
       isCompleted: false,
       isDeleted: false,
+      isPrivate: true,
       teamId: teamId
     }, (error) => {
       if (error) {

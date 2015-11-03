@@ -8,7 +8,8 @@ var schema = {
   ownerId: String, // owner user id
   text: String,
   isCompleted: Boolean,
-  isDeleted: Boolean
+  isDeleted: Boolean,
+  isPrivate: Boolean
 };
 
 Meteor.methods({
@@ -43,6 +44,7 @@ Meteor.methods({
       text: optional(schema.text),
       isCompleted: optional(schema.isCompleted),
       isDeleted: optional(schema.isDeleted),
+      isPrivate: optional(schema.isPrivate)
     });
 
     // if caller doesn't own doc, update will fail because fields won't match

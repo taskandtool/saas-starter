@@ -15,6 +15,7 @@ export default class TodoCard extends React.Component {
     super();
     this.handleClick = this.handleClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handlePrivateClick = this.handlePrivateClick.bind(this);
   }
 
   render() {
@@ -33,6 +34,12 @@ export default class TodoCard extends React.Component {
             }
           </div>
           <div className={styles.item}>
+            {todo.isPrivate ?
+              <Icon size="1.2em" icon="lock" color='#000' onClick={this.handlePrivateClick} /> :
+              <Icon size="1.2em" icon="lock" color='#ddd' onClick={this.handlePrivateClick} />
+            }
+          </div>
+          <div className={styles.item}>
             {todo.isDeleted ?
               <Icon size="1.2em" icon="delete" color='red' onClick={this.handleDeleteClick} /> :
               <Icon size="1.2em" icon="delete" color='#ddd' onClick={this.handleDeleteClick} />
@@ -45,6 +52,10 @@ export default class TodoCard extends React.Component {
 
   handleDeleteClick() {
     Meteor.call('Todos.update', this.props.todo._id, {isDeleted: !this.props.todo.isDeleted});
+  }
+
+  handlePrivateClick() {
+    Meteor.call('Todos.update', this.props.todo._id, {isPrivate: !this.props.todo.isPrivate});
   }
 
   handleClick() {

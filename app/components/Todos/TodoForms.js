@@ -28,14 +28,15 @@ export default class TodoForms extends Component {
         <form className={styles.form}>
           {inputs}
         </form>
-        <div className={styles.error}>{this.props.formError}</div>
-        <div className={styles.success}>{this.props.formSuccess}</div>
         <button
           type="submit"
           className={this.props.shakeBtn ? styles.btnShake : styles.btn}
           onClick={() => this.props.handleSubmit(event, errors, values)} >
           {this.props.buttonText}
         </button>
+        <div className={styles.error}>{this.props.formError}</div>
+        <div className={styles.success}>{this.props.formSuccess}</div>
+
       </div>
     )
   }
@@ -56,30 +57,6 @@ export default class TodoForms extends Component {
               styles={styles.text}
               handleChange={this.props.handleChange}
               placeholder="Type your todo"
-              />
-          );
-        case 'isCompleted':
-          return (
-            <InputStacked
-              key={i}
-              type="checkbox"
-              name="isCompleted"
-              label="Complete"
-              inputGroupStyles={styles.inputGroup}
-              value={values.isCompleted}
-              handleChange={this.props.handleChange}
-              />
-          );
-        case 'isDeleted':
-          return (
-            <InputStacked
-              key={i}
-              type="checkbox"
-              name="isDeleted"
-              label="Delete"
-              value={values.isDeleted}
-              errorMsg={errors.isDeleted}
-              handleChange={this.props.handleChange}
               />
           );
       }

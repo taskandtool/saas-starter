@@ -31,6 +31,6 @@
 
 .text {
   display: inline-block;
-  max-width: 100%;
+  width: 10em;
   float:left;
 }
