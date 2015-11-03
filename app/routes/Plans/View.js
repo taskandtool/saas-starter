@@ -73,7 +73,7 @@ export default class PlanViewRoute extends Component {
             <h3 className={styles.subtitle}>More details</h3>
             <PlanDetails plan={plan} />
             {isUser ?
-             <Link to={`/plan/${this.props.params.id}`} query={{ edit: true }}  >
+             <Link to={`/plan/${this.props.params.planId}`} query={{ edit: true }}  >
                <button className={styles.btn}>Edit Plan</button>
              </Link>
              : null }

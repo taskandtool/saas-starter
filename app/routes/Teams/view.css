@@ -24,6 +24,11 @@
   margin-top: 1em;
 }
 
+.btnUsers {
+  composes: btnTodos;
+  margin-left: 1em;
+}
+
 .title {
   composes: title from '../../styles/utilities.css';
 }

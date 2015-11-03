@@ -32,14 +32,18 @@ export default class TeamTodoListRoute extends Component {
     let handle
     let belongsToTeam = false
     //See if user has a role on the team
-    let roles = Meteor.user().roles;
-    let team
-    for (team in roles) {
-      if (team === this.props.params.teamId) {
-        belongsToTeam = true;
-        break;
+    if (Meteor.user()) {
+      let roles = Meteor.user().roles;
+      console.log(Meteor.user().roles)
+      let team
+      for (team in roles) {
+        if (team === this.props.params.teamId) {
+          belongsToTeam = true;
+          break;
+        }
       }
     }
+
 
     //Subscribe to either all user or team todos.... or just ones not labeled isPrivate
     if (belongsToTeam) {

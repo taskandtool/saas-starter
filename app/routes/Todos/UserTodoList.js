@@ -32,7 +32,9 @@ export default class UserTodoListRoute extends Component {
     let handle
     let belongsToUser = false
     //See if user owns list
-    belongsToUser = Meteor.user()._id === this.props.params.id;
+    if (Meteor.user()) {
+      belongsToUser = Meteor.user()._id === this.props.params.id;
+    }
 
     //Subscribe to todos labeled isPrivate?
     if (belongsToUser) {
