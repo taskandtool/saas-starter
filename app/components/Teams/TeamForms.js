@@ -91,7 +91,7 @@ export default class TeamForms extends Component {
               key={i}
               type="checkbox"
               name="isDeleted"
-              label="Deleted?"
+              label="Delete?"
               value={values.isDeleted}
               errorMsg={errors.isDeleted}
               handleChange={this.props.handleChange}

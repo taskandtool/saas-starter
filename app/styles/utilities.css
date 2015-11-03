@@ -14,14 +14,6 @@ of these elements. Can override things locally too. */
   border-bottom: 1px solid #ddd;
 }
 
-@media all and (max-width: 40em) {
-  /* Hiding the title on mobile because it typically displays in the nav so it
-  looks a bit redundant on mobile.  */
-  .title {
-    display: none;
-  }
-}
-
 .subtitle {
   margin-bottom: .6em;
   color: #999;

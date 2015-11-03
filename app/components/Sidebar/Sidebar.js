@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {Link, History} from 'react-router';
 import reactMixin from 'react-mixin';
 import styles from './sidebar.css';
@@ -6,7 +6,13 @@ import Icon from '../Icons/Icon';
 
 
 @reactMixin.decorate(History)
-export default class Sidebar extends React.Component {
+export default class Sidebar extends Component {
+
+  static PropTypes = {
+    user: PropTypes.object,
+    team: PropTypes.object
+  }
+
   constructor() {
     super();
     this.handleBrandClick = this.handleBrandClick.bind(this);
@@ -23,6 +29,11 @@ export default class Sidebar extends React.Component {
             <li className={styles.item}>
               <Link to={`/user/${user._id}`} className={styles.link} activeClassName={styles.active} >{user.profile.name}'s Profile</Link>
             </li>
+            {this.props.team ?
+              <li className={styles.item}>
+                <Link to={`/team/${this.props.team._id}/todos`} className={styles.link} activeClassName={styles.active} >{this.props.team.name}'s Todos</Link>
+              </li>
+            : null }
             <li className={styles.item}>
               <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Dashboard</Link>
             </li>

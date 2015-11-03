@@ -97,6 +97,10 @@ export default class UserProfileRoute extends Component {
               bio={user.profile.bio}
               createdAt={user.createdAt}
               email={email} />
+
+              <Link to={`/user/${this.props.params.id}/todos`}  >
+                <button className={styles.btnTodos}>See Todos</button>
+              </Link>
            </div>
            <div className={styles.column}>
              <h3 className={styles.subtitle}>Teams</h3>
@@ -115,9 +119,9 @@ export default class UserProfileRoute extends Component {
 
              {isUser ?
                 <div>
-                  <h3 className={styles.subtitle}>Roles</h3>
+                  <h3 className={styles.marginTopSubtitle}>Roles</h3>
                   {_.isEmpty(teamsRoles) ? 'No roles in any teams yet.' : <div>{teamsRoles}</div>}
-                  <h3 className={styles.profileSubtitle}>Edit Profile</h3>
+                  <h3 className={styles.marginTopSubtitle}>Edit Profile</h3>
                   <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
                     <button className={styles.btn}>Edit Profile</button>
                   </Link>

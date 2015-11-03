@@ -5,14 +5,13 @@ import TodoList from '../../components/Todos/TodoList';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './list.css';
 import {handleForms} from '../../components/Forms/FormDecorator';
-import {History, Link} from 'react-router';
 import Helmet from 'react-helmet';
 import TodoForms from '../../components/Todos/TodoForms';
+import TeamCard from '../../components/Teams/TeamCard.js';
 
 @handleForms
-@reactMixin.decorate(History)
 @reactMixin.decorate(ReactMeteorData)
-export default class TodoListRoute extends Component {
+export default class TeamTodoListRoute extends Component {
 
   static propTypes = {
     params: PropTypes.object
@@ -30,23 +29,45 @@ export default class TodoListRoute extends Component {
   }
 
   getMeteorData() {
-    let handle = Meteor.subscribe("todos", this.props.params.id);
+    let handle
+    let belongsToTeam = false
+    //See if user has a role on the team
+    let roles = Meteor.user().roles;
+    let team
+    for (team in roles) {
+      if (team === this.props.params.teamId) {
+        belongsToTeam = true;
+        break;
+      }
+    }
+
+    //Subscribe to either all user or team todos.... or just ones not labeled isPrivate
+    if (belongsToTeam) {
+      handle = Meteor.subscribe("todos.auth", null, this.props.params.teamId);
+    } else {
+      handle = Meteor.subscribe("todos.public", null, this.props.params.teamId);
+    }
+
     return {
       todos: Todos.find({}, {sort: {createdAt: -1}}).fetch(),
-      loading: !handle.ready()
+      loading: !handle.ready(),
+      belongsToTeam: belongsToTeam
     };
   }
 
   render() {
+    //list of todos
     let todos = this.data.todos;
+
+    //todo form setup
     let values = this.props.inputState.values;
     let errors = this.props.inputState.errors;
-
     let inputsToUse = [
       "text"
     ];
 
-console.log(Meteor.call('User.checkIfAuthorized'));
+    //grabbing this from subscription in app.js
+    const {name, _id} = this.props.team
 
     return (
       <div className={styles.wrapper}>
@@ -58,22 +79,32 @@ console.log(Meteor.call('User.checkIfAuthorized'));
           ]}
         />
 
-        <h1 className={styles.title}>{todos.length} Todos</h1>
+        <h1 className={styles.title}>{name}'s Todos</h1>
+        <h3 className={styles.subtitle}>{todos.length} Todos</h3>
         <div className={styles.grid}>
+          <div className={styles.column}>
 
-          <TodoForms
-            buttonText="Add Todo"
-            inputsToUse={inputsToUse}
-            inputState={this.props.inputState}
-            formError={this.state.formError}
-            formSuccess={this.state.formSuccess}
-            shakeBtn={this.state.shakeBtn}
-            handleChange={this.props.handleChange}
-            handleSubmit={this.handleSubmit} />
+            {this.data.belongsToUser || this.data.belongsToTeam ?
+              <TodoForms
+                buttonText="Add Todo"
+                inputsToUse={inputsToUse}
+                inputState={this.props.inputState}
+                formError={this.state.formError}
+                formSuccess={this.state.formSuccess}
+                shakeBtn={this.state.shakeBtn}
+                handleChange={this.props.handleChange}
+                handleSubmit={this.handleSubmit} />
+            : null }
 
-          {todos ?
-            <TodoList todos={todos} />
-          : null }
+            {todos ?
+              <TodoList todos={todos} />
+            : null }
+          </div>
+          <div className={styles.cardColumn}>
+            <TeamCard
+              team={this.props.team}
+              linkTo={`/team/${_id}`} />
+          </div>
         </div>
       </div>
     );
@@ -109,7 +140,7 @@ console.log(Meteor.call('User.checkIfAuthorized'));
     }
 
     const {text} = values;
-    const teamId = this.props.params.id;
+    const teamId = this.props.params.teamId || 'belongstouser';
 
     //Don't submit if required fields aren't filled out
     let requiredValues = [text];

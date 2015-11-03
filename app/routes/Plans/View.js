@@ -19,7 +19,7 @@ export default class PlanViewRoute extends Component {
   getMeteorData() {
     let handle = Meteor.subscribe("plans");
     return {
-      plan: Plans.findOne(this.props.params.id),
+      plan: Plans.findOne(this.props.params.planId),
       loading: !handle.ready()
     };
   }

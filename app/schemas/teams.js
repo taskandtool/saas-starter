@@ -33,6 +33,9 @@ Meteor.methods({
 
     docId = Teams.insert(data);
 
+    //Make the user who created the team the admin by default
+    Roles.addUsersToRoles(this.userId, 'admin', docId);
+
     console.log("[Team.create]", docId);
     return docId;
   },
@@ -59,10 +62,10 @@ Meteor.methods({
       isDeleted: optional(schema.isDeleted),
     });
 
-    // if caller doesn't own doc, update will fail because fields won't match
-    selector = {_id: docId, ownerId: this.userId};
-
-    count = Teams.update(selector, {$set: data});
+    // Only update team if user is an admin on that team
+    if (Roles.userIsInRole(this.userId, ["admin"], docId)) {
+      count = Teams.update(docId, {$set: data});
+    }
 
     console.log("  [Team.update]", count, docId);
     return count;
