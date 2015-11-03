@@ -1,4 +1,12 @@
 .wrapper {
   lost-center: 400px;
-  padding: 4em 1em;
+  composes: wrapper from '../../styles/utilities.css';
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
 }

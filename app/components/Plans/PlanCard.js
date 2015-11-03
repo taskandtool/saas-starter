@@ -35,7 +35,7 @@ export default class PlanCard extends React.Component {
 
     return (
       <div key={plan._id}
-        className="cardShadow"
+        className={styles.cardShadow}
         onClick={this.props.makeClickable ? () => this.history.pushState(null, `/plan/${plan._id}`) : ''} >
 
         <div className={styles.header}>

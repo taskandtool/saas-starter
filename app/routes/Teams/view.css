@@ -13,40 +13,25 @@
   }
 }
 
-.listGroup {
-  margin-bottom: 2em;
-  margin-left: 0;
-  list-style: none;
-}
-
-.listGroup {
-  margin-bottom: 2em;
-  list-style: none;
-}
-
-.subTitle {
-  margin-bottom: 1em;
-}
-
-.title {
-  padding-bottom: .4em;
-  border-bottom: 1px solid #ddd;
-}
-
 .btn {
   composes: button from '../../styles/buttons.css';
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .7em;
   margin-top: .2em;
   margin-bottom: 1em;
 }
 
-@media all and (max-width: 40em) {
-  .btn {
-    background-color: #03A9F4;
-    color: #fff;
-    padding: .4em;
-    margin-bottom: 1em;
-  }
+.btnTodos {
+  composes: button from '../../styles/buttons.css';
+  margin-top: 1em;
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
 }

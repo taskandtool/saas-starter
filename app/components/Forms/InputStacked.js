@@ -32,8 +32,6 @@ export default class InputStacked extends React.Component {
       message = {__html: '- ' + this.props.errorMsg};
     }
 
-
-
     return (
       <div>
         <label htmlFor={ this.props.name } title={ this.props.label }>
@@ -60,8 +58,10 @@ export default class InputStacked extends React.Component {
             data-validateby={this.props.validateBy}
             required={this.props.required}
             defaultValue={this.props.defaultValue}
+            {...this.props}
             />
           }
+
       </div>
     );
   }

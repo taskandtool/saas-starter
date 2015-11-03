@@ -4,10 +4,6 @@
   padding-left: 0.3em;
 }
 
-.messageSuccess {
-  composes: message;
-}
-
 .messageError {
   composes: message;
   color:red;

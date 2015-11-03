@@ -72,8 +72,8 @@ export default class EditProfileRoute extends React.Component {
 
 
     return (
-      <div className="wrapper">
-        <h1 className="title">Edit Profile</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Edit Profile</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <div className={styles.card}>
@@ -86,12 +86,12 @@ export default class EditProfileRoute extends React.Component {
                 bio={values.bio}
                 createdAt={user.createdAt}
                 email={email}
-                makeClickable={true} />
+                makeClickable={false} />
 
             </div>
           </div>
           <div className={styles.column}>
-            <h4 className="subtitle">Update Info</h4>
+            <h4 className={styles.subtitle}>Update Info</h4>
 
             <UserForms
               buttonText="Update Profile"
@@ -117,7 +117,7 @@ export default class EditProfileRoute extends React.Component {
 
           </div>
           <div className={styles.column}>
-            <h4 className="subtitle">Change Email Address</h4>
+            <h4 className={styles.subtitle}>Change Email Address</h4>
 
             <UserForms
               buttonText="Change Email"
@@ -133,7 +133,7 @@ export default class EditProfileRoute extends React.Component {
         </div>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <h4 className="subtitle">Change Password</h4>
+            <h4 className={styles.subtitle}>Change Password</h4>
 
             <UserForms
               buttonText="Change Password"
@@ -148,7 +148,7 @@ export default class EditProfileRoute extends React.Component {
           </div>
 
           <div className={styles.column}>
-            <h4 className="subtitle">Change Roles</h4>
+            <h4 className={styles.subtitle}>Change Roles</h4>
 
             <UserForms
               buttonText="Change Roles"

@@ -4,7 +4,6 @@
   margin-bottom: 1em;
 }
 
-
 .column {
   lost-waffle: 1/2;
 }
@@ -17,7 +16,24 @@
 
 .btn {
   composes: button from '../../styles/buttons.css';
-  margin-top: .2em;
+  margin-top: .6em;
   margin-bottom: 3em;
   width: 100%;
+}
+
+.title {
+  composes: title from '../../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.profileSubtitle {
+  composes: subtitle from '../../styles/utilities.css';
+  margin-top: 3em;
+}
+
+.wrapper {
+  composes: wrapper from '../../styles/utilities.css';
 }

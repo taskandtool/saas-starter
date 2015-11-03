@@ -26,13 +26,13 @@ export default class PlanViewRoute extends Component {
 
   render() {
     if (this.data.loading) {
-      return (<div className="wrapper"><Spinner /></div>);
+      return (<div className={styles.wrapper}><Spinner /></div>);
     }
 
     const plan = this.data.plan;
     if (!plan) {
       return (
-        <div className="wrapper">No plan found at this address</div>
+        <div className={styles.wrapper}>No plan found at this address</div>
       );
     }
 
@@ -58,19 +58,19 @@ export default class PlanViewRoute extends Component {
     //Wants to edit but doesn't own plan
     if (edit) {
       return (
-        <div className="wrapper">You don't have permission to edit {title} plan.</div>
+        <div className={styles.wrapper}>You don't have permission to edit {title} plan.</div>
       )
     }
 
     return (
-      <div className="wrapper">
-        <h1 className="title">{title}</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>{title}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <PlanCard plan={plan} />
           </div>
           <div className={styles.column}>
-            <h3 className="subtitle">More details</h3>
+            <h3 className={styles.subtitle}>More details</h3>
             <PlanDetails plan={plan} />
             {isUser ?
              <Link to={`/plan/${this.props.params.id}`} query={{ edit: true }}  >

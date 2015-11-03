@@ -21,17 +21,13 @@
 }
 
 .primary {
-  composes: button from '../styles/buttons.css';
-  background-color: #03A9F4;
-  color: #fff;
-  padding: .8em;
+  composes: buttonPrimary from '../styles/buttons.css';
   margin-top: .2em;
 }
 
 .white {
   color: #fff;
 }
-
 
 .section2 {
   max-width: 960px;
@@ -95,4 +91,8 @@
   composes: primary;
   background-color: #777;
   color: #fff;
+}
+
+.title {
+  composes: title from '../styles/utilities.css';
 }

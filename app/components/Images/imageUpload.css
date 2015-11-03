@@ -3,8 +3,6 @@
   margin-bottom: 3em;
   padding: 0;
   width: 100%;
-  background-color: #03A9F4;
-  color: #fff;
 }
 
 .upload {
@@ -12,15 +10,15 @@
   height: 100%;
   cursor: pointer;
   opacity: 0;
-  padding: .8em 0em .8em 1em;
+  padding: .5em 0em .5em 1em;
   filter: alpha(opacity=0);
 }
 
 .btnText {
   position: absolute;
-  margin-top:.9em;
+  margin-top:.5em;
 }
 
 .container {
-  margin-left: -8.5em;
+  margin-left: -6em;
 }

@@ -9,7 +9,6 @@ export const handleForms = ComposedComponent => class extends Component {
       values: {}
     };
     this.handleChange = this.handleChange.bind(this);
-    this.formValidateRequired = this.formValidateRequired.bind(this);
     this.setDefaultValues = this.setDefaultValues.bind(this);
   }
 
@@ -18,7 +17,6 @@ export const handleForms = ComposedComponent => class extends Component {
       <ComposedComponent
         inputState={this.state}
         handleChange={this.handleChange}
-        formValidateRequired={this.formValidateRequired}
         setDefaultValues={this.setDefaultValues}
         {...this.props} />
     )
@@ -67,16 +65,6 @@ export const handleForms = ComposedComponent => class extends Component {
   }
 
   throttledSetErrorState(newError) {
-    this.setState({ errors: newError });
-  }
-
-  //for Safari, because it doesn't block form submission with 'required' inputs
-  //this sets error state to all inputs 'required' attribute
-  //doesn't really do anything for other browsers
-  formValidateRequired(name, val) {
-    let error = 'Can\'t be blank';
-    let newError = _.extend({}, this.state.errors);
-    newError[name] = error;
     this.setState({ errors: newError });
   }
 

@@ -51,7 +51,7 @@ export default class EditPlan extends Component {
     inputsToUse = [].concat.apply([], inputsToUse);
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <Helmet
           title="Edit Plan"
           meta={[
@@ -59,7 +59,7 @@ export default class EditPlan extends Component {
           ]}
         />
 
-        <h1 className="title">Edit Plan: {this.props.plan.title}</h1>
+        <h1 className={styles.title}>Edit Plan: {this.props.plan.title}</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <PlanForms

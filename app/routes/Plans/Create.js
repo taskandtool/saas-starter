@@ -56,7 +56,7 @@ export default class PlanCreateRoute extends React.Component {
     inputsToUse = [].concat.apply([], inputsToUse);
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <Helmet
           title="Create New Plan"
           meta={[
@@ -64,7 +64,7 @@ export default class PlanCreateRoute extends React.Component {
           ]}
         />
 
-        <h1 className="title">Add a New Plan</h1>
+        <h1 className={styles.title}>Add a New Plan</h1>
         <div className={styles.grid}>
           <div className={styles.column}>
             <PlanForms

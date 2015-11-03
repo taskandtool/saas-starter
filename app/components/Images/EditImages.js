@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ImageUpload from '../Images/ImageUpload';
+import styles from './editImages.css';
 
 export default class EditImages extends React.Component {
   static propTypes = {
@@ -14,7 +15,7 @@ export default class EditImages extends React.Component {
   render() {
     return (
         <div>
-          <h4 className="subtitle">Set a different image</h4>
+          <h4 className={styles.subtitle}>Set a Different Image</h4>
           {this.props.otherImages.length > 1 ?  <p>Click an image below to swap images.</p> : null}
           {this.props.otherImages}
 

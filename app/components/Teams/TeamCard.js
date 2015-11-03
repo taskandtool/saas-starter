@@ -20,7 +20,9 @@ export default class TeamCard extends Component {
       <div key={team._id}
         className={styles.container}
         onClick={this.props.makeClickable ? () => this.history.pushState(null, `/team/${team._id}`) : ''} >
-        <img src={this.props.picture || team.picture} className={styles.picture} />
+        {team.picture || this.props.picture ?
+          <img src={this.props.picture || team.picture} className={styles.picture} />
+        : null}
         <div className={styles.info}>
           <h3 className={styles.teamTitle}>{team.name}</h3>
           <p className={styles.desc}><em>{team.desc}</em></p>

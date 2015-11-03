@@ -18,7 +18,7 @@ export default class Home extends Component {
           </div>
         </div>
         <div className={styles.section2}>
-          <h2 className="title">Why Use It</h2>
+          <h2 className={styles.title}>Why Use It</h2>
           <div className={styles.listGrid}>
             <div className={styles.listColumn}>
               <span className={styles.icon}><Icon size="1em" icon="check" /></span>
@@ -44,7 +44,7 @@ export default class Home extends Component {
         </div>
 
         <div className={styles.section2}>
-          <h2 className="title">Will it meet my needs?</h2>
+          <h2 className={styles.title}>Will it meet my needs?</h2>
           <div className={styles.listGrid}>
             <div className={styles.listColumn}>
               <h4>What's in the box:</h4>
@@ -72,7 +72,7 @@ export default class Home extends Component {
         </div>
 
         <div className={styles.section2}>
-          <h2 className="title">Take it for a spin</h2>
+          <h2 className={styles.title}>Take it for a spin</h2>
           <div className={styles.listGrid}>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-clone"></i></span>

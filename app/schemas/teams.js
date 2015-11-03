@@ -29,7 +29,7 @@ Meteor.methods({
     data.userCount = 0;
     data.isDeleted = false;
 
-    check(data, _.omit(schema, '_id'));
+    check(data, _.omit(schema, '_id', 'picture', 'images'));
 
     docId = Teams.insert(data);
 
@@ -53,9 +53,10 @@ Meteor.methods({
       planName: optional(schema.planName),
       todoCount: optional(schema.todoCount),
       userCount: optional(schema.userCount),
+      picture: optional(schema.picture),
+      images: optional(schema.images),
       name: optional(schema.name),
       isDeleted: optional(schema.isDeleted),
-      picture: optional(schema.picture),
     });
 
     // if caller doesn't own doc, update will fail because fields won't match
@@ -69,7 +70,7 @@ Meteor.methods({
 
   "Team.storeProfileImage": function( docId, url ) {
     check( url, String );
-    
+
     try {
       Teams.update(docId, {$push: {"images": url}});
       Teams.update(docId, {$set: {"picture": url }});

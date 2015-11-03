@@ -1,17 +1,21 @@
 .btn {
   composes: button from '../../styles/buttons.css';
-  margin-top: .8em;
-  width: 100%;
+  display: inline-block;
+  padding: .55em;
+  margin-top: -2em;
+  margin-left: .3em;
 }
 
 .btnShake {
   composes: buttonShake from '../../styles/buttons.css';
-  margin-top: .8em;
-  width: 100%;
+  display: inline-block;
+  padding: .55em;
+  margin-top: -2em;
+  margin-left: .3em;
 }
 
 .form input, .form label{
-  display: block;
+  display: inline-block;
   margin: 0.25em 0;
   margin-bottom: 0em;
   z-index: 3;
@@ -25,19 +29,8 @@
   color: green;
 }
 
-.btnFeatures {
-  composes: button from '../../styles/buttons.css';
-  margin: 0 .2em;
-}
-
-.btnHolder {
- width: 10%;
- display: inline-block;
- margin-top: -2.25em;
- float: right;
-}
-
-.inputFeatures {
-  width: 90%;
+.text {
   display: inline-block;
+  width: 10em;
+  float:left;
 }

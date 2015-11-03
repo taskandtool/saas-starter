@@ -15,6 +15,17 @@
 
 .btn {
   composes: button from '../styles/buttons.css';
-  padding: .8em;
   margin-top: .2em;
+}
+
+.title {
+  composes: title from '../styles/utilities.css';
+}
+
+.subtitle {
+  composes: subtitle from '../styles/utilities.css';
+}
+
+.wrapper {
+  composes: wrapper from '../styles/utilities.css';
 }

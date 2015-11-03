@@ -81,9 +81,9 @@ export default class Dashboard extends Component {
   render() {
 
     return (
-      <div className="wrapper">
-        <h1 className="title">Dashboard</h1>
-        <h3 className="subtitle">User Stats</h3>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Dashboard</h1>
+        <h3 className={styles.subtitle}>User Stats</h3>
         <div className={styles.grid} >
           <div className={styles.halfColumn} >
             <Sparkline
@@ -131,7 +131,7 @@ export default class Dashboard extends Component {
           </div>
         </div>
 
-        <h3 className="subtitle">Social Data</h3>
+        <h3 className={styles.subtitle}>Social Data</h3>
         <div className={styles.grid} >
           <div className={styles.halfColumn} >
             <Pie
@@ -147,7 +147,7 @@ export default class Dashboard extends Component {
           </div>
         </div>
 
-        <h3 className="subtitle">Latest 4 Users</h3>
+        <h3 className={styles.subtitle}>Latest 4 Users</h3>
         <UserList users={this.data.users} />
         <Link to="/users" className={styles.buttonLink} ><button className={styles.btn}>See all users</button></Link>
 

@@ -19,13 +19,13 @@ export default class TeamListRoute extends Component {
 
   render() {
     if (this.data.loading) {
-      return (<div className="wrapper"><Spinner /></div>);
+      return (<div className={styles.wrapper}><Spinner /></div>);
     }
     let teams = this.data.teams;
 
     return (
-      <div className="wrapper">
-        <h1 className="title">{teams.length} Teams</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>{teams.length} Teams</h1>
         <div className={styles.grid}>
           <Link to='/teams/add'>
             <button className={styles.btn}>Create new team</button>

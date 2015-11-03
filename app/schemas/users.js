@@ -62,6 +62,12 @@ Meteor.methods({
     Roles.addUsersToRoles(userID, roles, team);
   },
 
+  "User.checkIfAuthorized": function(roles, team) {
+    if (Roles.userIsInRole(this.userId, 'normal', 'example-team')) {
+      return 'hello'
+    }
+  },
+
   "User.updateProfile": function(docId, data) {
 
     check(docId, String);

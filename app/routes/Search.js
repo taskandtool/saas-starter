@@ -42,8 +42,8 @@ export default class Search extends Component {
     }
 
     return (
-      <div className="wrapper">
-        <h1 className="title">Search</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Search</h1>
           Here's a Typeahead search of users. Some sort of elastic search would scale better. Try pressing 'a'
           to get results if you just have the users generated on startup.
           <div className={styles.grid}>
