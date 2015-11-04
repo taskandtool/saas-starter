@@ -48,9 +48,11 @@ export default class TeamCreateRoute extends React.Component {
     });
 
     //get plans to populate option select field in forms
-    let planTitle = this.data.plans.map((plan) => {
-      return <option key={plan._id} value={plan._id}>{plan.title}</option>
+    let planTitle = [<option key="a" value="">Choose a plan</option>]
+    this.data.plans.map((plan, i) => {
+      planTitle.push(<option key={i} value={plan._id}>{plan.title}</option>)
     });
+
 
     let inputsToUse = [
       "name",

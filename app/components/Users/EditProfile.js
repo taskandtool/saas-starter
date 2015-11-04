@@ -22,7 +22,6 @@ export default class EditProfileRoute extends React.Component {
     this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
-    this.handleRolesSubmit = this.handleRolesSubmit.bind(this);
 
     //this handles state.. but isn't a top-level component/route. Not normally what I'd do... but it's called if
     //params edit=true is on the profile route. The only other option is including all this form state on
@@ -36,20 +35,16 @@ export default class EditProfileRoute extends React.Component {
       profileFormError: "",
       passwordFormSuccess: "",
       passwordFormError: "",
-      rolesFormSuccess: "",
-      rolesFormError: "",
       showSpinner: false,
       uploadingMsg: "Upload a new profile image:"
     };
   }
 
   render() {
-    //Laying out inputs of all 4 separate forms
+    //Laying out inputs of all 3 separate forms
     const profileInputs = ["name", "title", "bio"];
     const emailInput = ["email"];
     const resetPasswordInput = ["oldPassword", "password"];
-    const rolesInput = ["role", "team"];
-
 
     //individual input values/errors from form decorator
     const values = this.props.inputState.values;
@@ -147,21 +142,6 @@ export default class EditProfileRoute extends React.Component {
 
           </div>
 
-          <div className={styles.column}>
-            <h4 className={styles.subtitle}>Change Roles</h4>
-
-            <UserForms
-              buttonText="Change Roles"
-              inputsToUse={rolesInput}
-              inputState={this.props.inputState}
-              formError={this.state.rolesFormError}
-              formSuccess={this.state.rolesFormSuccess}
-              shakeBtn={this.state.shakeBtn}
-              handleChange={this.props.handleChange}
-              handleSubmit={this.handleRolesSubmit} />
-
-
-          </div>
         </div>
       </div>
     )
@@ -178,35 +158,6 @@ export default class EditProfileRoute extends React.Component {
     }
     //sets default values in handle forms decorators
     this.props.setDefaultValues(data);
-  }
-
-  handleRolesSubmit(event, errors, values) {
-    event.preventDefault();
-    const {role, team} = values;
-
-    if (errors.role || errors.team) {
-      this.setState({
-        shakeBtn: true
-      });
-      window.setTimeout(() => {
-        this.setState({
-          shakeBtn: false
-        });
-      }, 3000);
-      return false;
-    }
-    Meteor.call('User.addRole', this.props.user._id, role, team, (error,result) => {
-      if (error) {
-        this.setState({
-          emailRolesError: error.reason
-        });
-      } else {
-        this.setState({
-          emailRolesError: "",
-          emailRolesSuccess: "Success! Your profile has been updated."
-        });
-      }
-    });
   }
 
   handlePasswordSubmit(event, errors, values, userId) {

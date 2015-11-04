@@ -103,7 +103,7 @@ export default class UserForms extends Component {
             <InputStacked
               key={i}
               type="text"
-              name={styles.title}
+              name='title'
               handleChange={this.props.handleChange}
               value={values.title}
               errorMsg={errors.title}
@@ -132,30 +132,6 @@ export default class UserForms extends Component {
               value={values.bio}
               errorMsg={errors.bio}
               label="Bio"
-              />
-          );
-        case 'role':
-          return (
-            <InputStacked
-              key={i}
-              type="text"
-              name="role"
-              handleChange={this.props.handleChange}
-              value={values.role}
-              errorMsg={errors.role}
-              label="Role"
-              />
-          );
-        case 'team':
-          return (
-            <InputStacked
-              key={i}
-              type="text"
-              name="team"
-              handleChange={this.props.handleChange}
-              value={values.team}
-              errorMsg={errors.team}
-              label="Team"
               />
           );
       }

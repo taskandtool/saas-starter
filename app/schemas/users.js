@@ -18,7 +18,12 @@ const schema = {
     images: optional([String]),
     isDeleted: optional(Boolean), //soft delete
     invites: optional([])
-  }
+  },
+  permissions: {
+    teamId: optional(String),
+    teamName: optional(String),
+    roles: optional([String]),
+  },
 };
 
 Meteor.methods({
@@ -59,16 +64,6 @@ Meteor.methods({
     Accounts.setPassword(userId, newPassword);
   },
 
-  "User.addRole": function(userID, roles, team) {
-    Roles.addUsersToRoles(userID, roles, team);
-  },
-
-  "User.checkIfAuthorized": function(roles, team) {
-    if (Roles.userIsInRole(this.userId, 'normal', 'example-team')) {
-      return 'hello'
-    }
-  },
-
   "User.updateProfile": function(docId, data) {
 
     check(docId, String);
@@ -88,6 +83,40 @@ Meteor.methods({
     count = Meteor.users.update(docId, {$set: data});
 
     console.log("[User.update]", count, docId);
+    return count;
+  },
+
+  "User.addTeam": function(roles, teamId, teamName) {
+    check(teamId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    count = Meteor.users.update(this.userId, {
+      $push: {
+        permissions: {
+            teamId: teamId,
+            teamName: teamName,
+            roles: roles
+        }
+      }
+    });
+
+    Meteor.call("Team.increment", teamId, "userCount")
+    
+    console.log("User.addTeam", count);
+    return count;
+  },
+
+  "User.addRole": function(roles, teamId) {
+    check(teamId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    count = Meteor.users.update({_id : this.userId, 'permissions.teamId': teamId},
+      {$push: {"permissions.$.roles": roles}
+    })
+
+    console.log("User.addRole", count);
     return count;
   },
 

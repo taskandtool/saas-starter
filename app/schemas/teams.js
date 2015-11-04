@@ -34,7 +34,7 @@ Meteor.methods({
     docId = Teams.insert(data);
 
     //Make the user who created the team the admin by default
-    Roles.addUsersToRoles(this.userId, 'admin', docId);
+    Meteor.call("User.addTeam", 'admin', docId, data.name)
 
     console.log("[Team.create]", docId);
     return docId;
