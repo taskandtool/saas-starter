@@ -72,6 +72,16 @@ export default class TeamViewRoute extends Component {
             <Link to={`/team/${this.props.params.teamId}/dashboard`}  >
               <button className={styles.btnDashboard}>Dashboard</button>
             </Link>
+            <Link to={`/team/${this.props.params.teamId}/invite`}  >
+              <button className={styles.btnDashboard}>Invite</button>
+            </Link>
+            {this.props.children ?
+              React.cloneElement(this.props.children, {
+                //Currently displays inviteUsers component only
+                team: this.data.team
+              })
+              : null
+            }
           </div>
           {isUser ?
           <div className={styles.column}>

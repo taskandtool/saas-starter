@@ -27,13 +27,15 @@ export default class Sidebar extends Component {
     let superAdminContent;
     let isSuperAdmin = false;
     if (Meteor.user()) {
-      let roles = Meteor.user().roles;
-      let roleKeys = Object.keys(roles)
-      roleKeys.map((role) => {
-        if (role === "__global_roles__") {
-          isSuperAdmin = true;
-        }
-      })
+      if (Meteor.user().roles) {
+        let roles = Meteor.user().roles;
+        let roleKeys = Object.keys(roles)
+        roleKeys.map((role) => {
+          if (role === "__global_roles__") {
+            isSuperAdmin = true;
+          }
+        })
+      }
     }
 
     if (user) {

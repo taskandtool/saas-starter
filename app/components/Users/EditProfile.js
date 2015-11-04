@@ -195,7 +195,7 @@ export default class EditProfileRoute extends React.Component {
       }, 3000);
       return false;
     }
-    Meteor.call('User.addRoles', this.props.user._id, role, team, (error,result) => {
+    Meteor.call('User.addRole', this.props.user._id, role, team, (error,result) => {
       if (error) {
         this.setState({
           emailRolesError: error.reason

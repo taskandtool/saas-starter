@@ -32,6 +32,7 @@ export default class App extends Component {
     let handle = Meteor.subscribe("teams")
     Meteor.subscribe("users");
     return {
+      currentUser: Meteor.user(), //putting it here makes it reactive
       user: Meteor.users.findOne(this.props.params.id),
       team: Teams.findOne(this.props.params.teamId),
       loading: !handle.ready(),
@@ -69,7 +70,7 @@ export default class App extends Component {
         <Sidebar
           team={this.data.team}
           user={this.data.user}
-          currentUser={Meteor.user()}
+          currentUser={this.data.currentUser}
           handleToggleSidebar={this.handleToggleSidebar}
           showSidebar={this.state.showSidebar}
           initialLoad={this.state.initialLoad} />
@@ -84,7 +85,7 @@ export default class App extends Component {
           <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null}>
 
             <Nav
-              user={Meteor.user()}
+              user={this.data.currentUser}
               showDropDown={this.state.showDropDown}
               showSidebar={this.state.showSidebar}
               handleToggleSidebar={this.handleToggleSidebar}
@@ -98,7 +99,7 @@ export default class App extends Component {
                   //Make this.props.team/user/currentUser available to all routes.
                   team: this.data.team,
                   user: this.data.user,
-                  currentUser: Meteor.user()
+                  currentUser: this.data.currentUser
                 })
               }
             </div>

@@ -17,6 +17,8 @@ export default class UserProfileRoute extends Component {
 
   constructor() {
     super();
+    this.handleAccept = this.handleAccept.bind(this);
+    this.handleDecline = this.handleDecline.bind(this);
   }
 
   getMeteorData() {
@@ -77,6 +79,32 @@ export default class UserProfileRoute extends Component {
       teamsRoles.push(<div key={i}><strong>{team}:</strong> <em>{roles[team]}</em></div>);
     }
 
+    //see if there's pending invites
+    let invites
+    if (user.profile.invites) {
+      invites = user.profile.invites.map((invite, i) => {
+        return (
+          <div key={i} className={styles.invite}>
+            You've been invited by
+              <Link to={`user/${invite.inviterId}`} className={styles.link}> {invite.inviterName}</Link> to
+              <Link to={`user/${invite.teamId}`} className={styles.link}> {invite.teamName}</Link>
+            <p>
+              <button
+                className={styles.btnAccept}
+                onClick={() => this.handleAccept(invite.teamId, invite.inviterId)}>
+                Accept?
+              </button>
+              <button
+                className={styles.btnDecline}
+                onClick={() => this.handleDecline(invite.teamId, invite.inviterId)}>
+                Decline
+              </button>
+            </p>
+          </div>
+        )
+      })
+    }
+
     return (
       <div className={styles.wrapper}>
 
@@ -104,14 +132,20 @@ export default class UserProfileRoute extends Component {
               </Link>
            </div>
            <div className={styles.column}>
+            {!_.isEmpty(invites) ?
+              <div>
+                <h3 className={styles.subtitle}>Pending invites</h3>
+                {invites}
+              </div>
+            : null}
              <h3 className={styles.subtitle}>Teams</h3>
              {_.isEmpty(teams) ?
                <div>
-                 Not a member of any teams yet.
+                 Not a member of any teams yet.<br />
                  {isUser ?
                    <Link to="/teams/add" >
                     <button className={styles.btn}>Create a Team</button>
-                  </Link>
+                   </Link>
                   : null
                  }
                 </div>
@@ -133,5 +167,18 @@ export default class UserProfileRoute extends Component {
          </div>
       </div>
     );
+  }
+
+  handleAccept(teamId, inviterId) {
+    //Add user to the team (by adding 'normal' role to group with id teamId)
+    Meteor.call("User.addRole", Meteor.user()._id, 'normal', teamId);
+
+    //Delete invite
+    Meteor.call("User.removeTeamInvite", teamId, inviterId);
+  }
+
+  handleDecline(teamId, inviterId) {
+    //Delete invite
+    Meteor.call("User.removeTeamInvite", teamId, inviterId);
   }
 }
