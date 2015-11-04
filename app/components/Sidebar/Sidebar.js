@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {Link, History} from 'react-router';
 import reactMixin from 'react-mixin';
 import styles from './sidebar.css';
@@ -6,7 +6,13 @@ import Icon from '../Icons/Icon';
 
 
 @reactMixin.decorate(History)
-export default class Sidebar extends React.Component {
+export default class Sidebar extends Component {
+
+  static PropTypes = {
+    user: PropTypes.object,
+    team: PropTypes.object
+  }
+
   constructor() {
     super();
     this.handleBrandClick = this.handleBrandClick.bind(this);
@@ -14,43 +20,72 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    const user = this.props.user;
+    const user = Meteor.user();
     let content;
+
+    //display link to global dashboard if superAdmin
+    let superAdminContent;
+    let isSuperAdmin = false;
+    if (Meteor.user()) {
+      if (Meteor.user().roles) {
+        let roles = Meteor.user().roles;
+        let roleKeys = Object.keys(roles)
+        roleKeys.map((role) => {
+          if (role === "__global_roles__") {
+            isSuperAdmin = true;
+          }
+        })
+      }
+    }
 
     if (user) {
       content = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <li className={styles.item}>
-              <Link to={`/user/${user._id}`} className={styles.link} activeClassName={styles.active} >{user.profile.name}'s Profile</Link>
-            </li>
-            <li className={styles.item}>
-              <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Dashboard</Link>
+              <Link to={`/user/${user._id}/todos`} className={styles.link} activeClassName={styles.active} >My Todos</Link>
             </li>
           </ul>
       );
     } else {
       content = (
-            <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
-              <li className={styles.item}><Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link></li>
-            </ul>
+          <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
+            <li className={styles.item}><Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link></li>
+          </ul>
+      );
+    }
+
+    if (isSuperAdmin) {
+      superAdminContent = (
+          <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
+            <hr className={styles.globalDashItem}/>
+            <li className={styles.globalDashItem}>
+              <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Global Dashboard</Link>
+            </li>
+          </ul>
       );
     }
 
     return (
         <div className={this.props.showSidebar ? styles.sidebar : styles.sidebarClose} style={this.props.initialLoad ? {display: 'none'} : null}>
-            <span className={styles.heading} onClick={this.props.handleToggleSidebar}>
-              <span className={styles.menu} onClick={this.handleBrandClick}> STARTER APP</span>
-            </span>
-            <span className={styles.close}>
-              <Icon size="2em" icon="close" color="#fff" onClick={this.props.handleToggleSidebar} />
-            </span>
-          <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
-            <li className={styles.item}><Link to="/teams" className={styles.link} activeClassName={styles.active}>Teams</Link></li>
-            <li className={styles.item}><Link to="/team/:id/todos" className={styles.link} activeClassName={styles.active}>Todos</Link></li>
-            <li className={styles.item}><Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link></li>
-            <li className={styles.item}><Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link></li>
-          </ul>
+          <span className={styles.heading} onClick={this.props.handleToggleSidebar}>
+            <span className={styles.menu} onClick={this.handleBrandClick}> STARTER APP</span>
+          </span>
+          <span className={styles.close}>
+            <Icon size="2em" icon="close" color="#fff" onClick={this.props.handleToggleSidebar} />
+          </span>
           { content }
+          <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
+            <li className={styles.item}>
+              <Link to="/teams" className={styles.link} activeClassName={styles.active}>Teams</Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link>
+            </li>
+          </ul>
+          { superAdminContent }
         </div>
 
     );

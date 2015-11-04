@@ -16,7 +16,8 @@ const schema = {
     title: optional(String),
     bio: optional(String),
     images: optional([String]),
-    isDeleted: optional(Boolean) //soft delete
+    isDeleted: optional(Boolean), //soft delete
+    invites: optional([])
   }
 };
 
@@ -58,7 +59,7 @@ Meteor.methods({
     Accounts.setPassword(userId, newPassword);
   },
 
-  "User.addRoles": function(userID, roles, team) {
+  "User.addRole": function(userID, roles, team) {
     Roles.addUsersToRoles(userID, roles, team);
   },
 
@@ -87,6 +88,42 @@ Meteor.methods({
     count = Meteor.users.update(docId, {$set: data});
 
     console.log("[User.update]", count, docId);
+    return count;
+  },
+
+  "User.teamInvite": function(invitedUserId, teamName, teamId) {
+    check(invitedUserId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    count = Meteor.users.update(invitedUserId, {
+      $push: {
+        "profile.invites": {
+            teamId: teamId,
+            teamName: teamName,
+            inviterId: this.userId,
+            inviterName: Meteor.user().profile.name
+        }
+      }
+    });
+    console.log("User.teamInvite", count);
+    return count;
+  },
+
+  "User.removeTeamInvite": function(teamId, inviterId) {
+    check(teamId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    count = Meteor.users.update(this.userId, {
+      $pull: {
+        "profile.invites": {
+            teamId: teamId,
+            inviterId: inviterId,
+        }
+      }
+    });
+    console.log("User.removeTeamInvite", count);
     return count;
   },
 });

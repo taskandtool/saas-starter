@@ -1,6 +1,10 @@
 import {Plans, Users, Teams, Todos} from '../schemas';
 
+//only super-admins can see all plans. Everyone else gets the public plans only
 Meteor.publish('plans', function() {
+  if (!this.userId || !Roles.userIsInRole(this.userId, ['super-admin'])) {
+    return Plans.find({displayOnMainSite: true});
+  }
   return Plans.find();
 });
 
@@ -8,29 +12,49 @@ Meteor.publish('teams', function() {
   return Teams.find();
 });
 
- Meteor.publish('users', function() {
-   return Meteor.users.find();
- });
+//to display teams only belonging to user
+Meteor.publish('teams.belongingToUser', function() {
+  let teams = Roles.getGroupsForUser(this.userId);
+  return Teams.find({_id: {$in:teams}})
+});
 
+Meteor.publish('users', function() {
+ return Meteor.users.find();
+});
+
+//Helper for getting user roles on the front-end.
 Meteor.publish(null, function (){
   return Meteor.roles.find({})
 })
 
-Meteor.publish('todos', function(teamId) {
-  return Todos.find({
-    isDeleted: false,
-    teamId: teamId
-  });
+//Can see all todos belonging to user/team
+Meteor.publish('todos.auth', function(userId, teamId) {
+  if (userId) {
+    return Todos.find({
+      isDeleted: false,
+      ownerId: userId,
+    });
+  } else {
+    return Todos.find({
+      isDeleted: false,
+      teamId: teamId
+    });
+  }
 });
 
-// Authorized users can manage user accounts
-// Meteor.publish("users", function () {
-//   var user = Meteor.users.findOne({_id:this.userId});
-//
-//   if (Roles.userIsInRole(user, ["admin","manage-users"])) {
-//     return Meteor.users.find({}, {fields: {emails: 1, profile: 1, roles: 1}});
-//   }
-//
-//   this.stop();
-//   return;
-// });
+//Can only see todos not marked as private
+Meteor.publish('todos.public', function(userId, teamId) {
+  if (userId) {
+    return Todos.find({
+      isDeleted: false,
+      ownerId: userId,
+      isPrivate: false
+    });
+  } else {
+    return Todos.find({
+      isDeleted: false,
+      teamId: teamId,
+      isPrivate: false
+    });
+  }
+});

@@ -6,6 +6,7 @@ import Icon from '../Icons/Icon.js';
 
 export default class Nav extends Component {
   static PropTypes = {
+    user: PropTypes.object
   }
 
   render() {

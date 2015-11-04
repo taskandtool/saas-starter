@@ -19,7 +19,7 @@ export default class TeamViewRoute extends Component {
   getMeteorData() {
     let handle = Meteor.subscribe("teams");
     return {
-      team: Teams.findOne(this.props.params.id),
+      team: Teams.findOne(this.props.params.teamId),
       loading: !handle.ready()
     };
   }
@@ -66,15 +66,28 @@ export default class TeamViewRoute extends Component {
         <div className={styles.grid}>
           <div className={styles.column}>
             <TeamCard team={team} />
-             <Link to={`/team/${this.props.params.id}/todos`}  >
-               <button className={styles.btnTodos}>See Todos</button>
-             </Link>
+            <Link to={`/team/${this.props.params.teamId}/todos`}  >
+              <button className={styles.btnTodos}>See Todos</button>
+            </Link>
+            <Link to={`/team/${this.props.params.teamId}/dashboard`}  >
+              <button className={styles.btnDashboard}>Dashboard</button>
+            </Link>
+            <Link to={`/team/${this.props.params.teamId}/invite`}  >
+              <button className={styles.btnDashboard}>Invite</button>
+            </Link>
+            {this.props.children ?
+              React.cloneElement(this.props.children, {
+                //Currently displays inviteUsers component only
+                team: this.data.team
+              })
+              : null
+            }
           </div>
           {isUser ?
           <div className={styles.column}>
             <h3 className={styles.subtitle}>More details</h3>
             <TeamDetails team={team} />
-             <Link to={`/team/${this.props.params.id}`} query={{ edit: true }}  >
+             <Link to={`/team/${this.props.params.teamId}`} query={{ edit: true }}  >
                <button className={styles.btn}>Edit Team</button>
              </Link>
           </div>

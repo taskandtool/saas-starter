@@ -10,7 +10,7 @@ export default class TeamList extends React.Component {
     let teams = this.props.teams.map((team) => {
       return (
         <div key={team._id} className={this.props.cardStyle} >
-          <TeamCard team={team} makeClickable={this.props.makeClickable} />
+          <TeamCard team={team} linkTo={`/team/${team._id}/todos`} />
         </div>
       );
     })

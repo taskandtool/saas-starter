@@ -2,13 +2,10 @@
 import {Users} from './schemas';
 
 export function createUsers() {
-  console.log('Creating fake users');
+  console.log('Creating global admin user');
   const global = Roles.GLOBAL_GROUP
   const users = [
-        {name:"Global Admin User",email:"global@example.com",roles: 'super-admin',group: global},
-        {name:"No Team User",email:"noteam@example.com",roles:[],group: ''},
-        {name:"Team User",email:"teamuser@example.com",roles:['normal'],group:'Example-team'},
-        {name:"Team Admin User",email:"teamadmin@example.com",roles:['admin'],group:'Example-team'}
+        {name:"Global Admin User",email:"global@example.com",roles: 'super-admin',group: global}
       ];
 
   _.each(users, function (user) {

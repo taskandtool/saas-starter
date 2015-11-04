@@ -18,7 +18,7 @@ export default class UserProfile extends Component {
     const createdAt = this.props.createdAt;
 
     return (
-      <div className={styles.cardShadow} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props.user._id}`) : ''}>
+      <div className={styles.cardShadow} onClick={this.props.makeClickable ? () => this.history.pushState(null, `/user/${this.props.user._id}/todos`) : ''}>
         <div className={styles.imgWrapper}>
           <img src="https://unsplash.it/500/150/?random" className={styles.bannerImg} ref="bannerImg" />
           <img src={this.props.avatar} className={styles.avatar} />

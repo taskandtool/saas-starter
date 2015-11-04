@@ -4,6 +4,8 @@ import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
 import reactMixin from 'react-mixin';
 import Helmet from "react-helmet";
+import {Teams, Users} from '../schemas';
+import Spinner from '../components/Spinner/Spinner';
 
 import global from '../styles/global.css';
 import styles from './app.css';
@@ -26,26 +28,23 @@ export default class App extends Component {
     };
   }
 
-  handleToggleDropDown() {
-    this.setState({showDropDown: !this.state.showDropDown})
-  }
-
-  handleToggleSidebar() {
-    this.setState({
-      showSidebar: !this.state.showSidebar,
-      initialLoad: false
-    });
-  }
-
   getMeteorData() {
+    let handle = Meteor.subscribe("teams")
+    Meteor.subscribe("users");
     return {
-      user: Meteor.user()
+      currentUser: Meteor.user(), //putting it here makes it reactive
+      user: Meteor.users.findOne(this.props.params.id),
+      team: Teams.findOne(this.props.params.teamId),
+      loading: !handle.ready(),
     };
   }
 
   render() {
+    if (this.data.loading) {
+      return (<div><Spinner /></div>);
+    }
 
-    //Back button in menu works by either grabbing "back" props in Route (see index.js in routes)
+    //Back button in nav menu works by either grabbing "back" props in Route (see index.js in /routes)
     //Or by clearing all params/queries
     const { query, pathname } = this.props.location
     const backLink =
@@ -53,6 +52,10 @@ export default class App extends Component {
         this.props.routes[1].back ? this.props.routes[1].back :
         null
 
+    //teamsList = teams where user has a role. Server side publish
+    //userList = all users that belong to the same teams. Server side publish
+    //todos = link to user/:id/todos. Say 'saving to user profile. To save to a team, choose one of your teams'
+    //todos = :id/todos Should be default link when team card is clicked. Can click over to profile or team user list from there
 
     return (
       <div>
@@ -65,7 +68,9 @@ export default class App extends Component {
         />
 
         <Sidebar
+          team={this.data.team}
           user={this.data.user}
+          currentUser={this.data.currentUser}
           handleToggleSidebar={this.handleToggleSidebar}
           showSidebar={this.state.showSidebar}
           initialLoad={this.state.initialLoad} />
@@ -80,7 +85,7 @@ export default class App extends Component {
           <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null}>
 
             <Nav
-              user={this.data.user}
+              user={this.data.currentUser}
               showDropDown={this.state.showDropDown}
               showSidebar={this.state.showSidebar}
               handleToggleSidebar={this.handleToggleSidebar}
@@ -89,7 +94,14 @@ export default class App extends Component {
               back={backLink} />
 
             <div className={styles.app}>
-              {this.props.children}
+
+              {React.cloneElement(this.props.children, {
+                  //Make this.props.team/user/currentUser available to all routes.
+                  team: this.data.team,
+                  user: this.data.user,
+                  currentUser: this.data.currentUser
+                })
+              }
             </div>
           <Footer />
           </div>
@@ -97,5 +109,16 @@ export default class App extends Component {
         </div>
       </div>
     );
+  }
+
+  handleToggleDropDown() {
+    this.setState({showDropDown: !this.state.showDropDown})
+  }
+
+  handleToggleSidebar() {
+    this.setState({
+      showSidebar: !this.state.showSidebar,
+      initialLoad: false
+    });
   }
 }

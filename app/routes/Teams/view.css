@@ -24,6 +24,13 @@
   margin-top: 1em;
 }
 
+.btnDashboard {
+  composes: buttonPrimary from '../../styles/buttons.css';
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
 .title {
   composes: title from '../../styles/utilities.css';
 }

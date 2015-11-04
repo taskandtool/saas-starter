@@ -6,6 +6,8 @@
 
 .btnShake {
   composes: buttonShakePrimary from '../../styles/buttons.css';
+  margin-top: .8em;
+  width: 100%;
 }
 
 .form input, .form label{

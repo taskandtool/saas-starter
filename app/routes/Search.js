@@ -13,7 +13,6 @@ export default class Search extends Component {
     super();
     this.handleOptionSelect = this.handleOptionSelect.bind(this);
     this.displayOption = this.displayOption.bind(this);
-
   }
 
   getMeteorData() {

@@ -1,1 +1,2 @@
-export List from './List';
+export UserTodoList from './UserTodoList';
+export TeamTodoList from './TeamTodoList';

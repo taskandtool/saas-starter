@@ -18,7 +18,22 @@
   composes: button from '../../styles/buttons.css';
   margin-top: .6em;
   margin-bottom: 3em;
-  width: 100%;
+}
+
+.btnAccept {
+  composes: buttonPrimary from '../../styles/buttons.css';
+  margin-top: .6em;
+  padding: 0.5em 1em;
+}
+
+.btnDecline {
+  composes: button from '../../styles/buttons.css';
+  margin: .6em 0 0em .5em;
+}
+
+.btnTodos {
+  composes: button from '../../styles/buttons.css';
+  margin-top: 1em;
 }
 
 .title {
@@ -29,11 +44,26 @@
   composes: subtitle from '../../styles/utilities.css';
 }
 
-.profileSubtitle {
+.marginTopSubtitle {
   composes: subtitle from '../../styles/utilities.css';
-  margin-top: 3em;
+  margin-top: 1.6em;
 }
 
 .wrapper {
   composes: wrapper from '../../styles/utilities.css';
+}
+
+.link {
+  text-decoration: none;
+  color: #777;
+}
+
+.link:hover {
+  color: #333;
+}
+
+.invite {
+  background-color: #f7f7f7;
+  padding: .5em;
+  margin: 1em 0;
 }
