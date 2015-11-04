@@ -19,6 +19,13 @@
   margin-bottom: 1em;
 }
 
+.btnManage {
+  composes: btn;
+  margin-top: .2em;
+  margin-bottom: 1em;
+  margin-left: .5em;
+}
+
 .btnTodos {
   composes: button from '../../styles/buttons.css';
   margin-top: 1em;

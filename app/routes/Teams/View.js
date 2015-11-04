@@ -77,7 +77,6 @@ export default class TeamViewRoute extends Component {
             </Link>
             {this.props.children ?
               React.cloneElement(this.props.children, {
-                //Currently displays inviteUsers component only
                 team: this.data.team
               })
               : null
@@ -89,6 +88,9 @@ export default class TeamViewRoute extends Component {
             <TeamDetails team={team} />
              <Link to={`/team/${this.props.params.teamId}`} query={{ edit: true }}  >
                <button className={styles.btn}>Edit Team</button>
+             </Link>
+             <Link to={`/team/${this.props.params.teamId}/manage-users`}  >
+               <button className={styles.btnManage}>Manage Team Users</button>
              </Link>
           </div>
           : null }

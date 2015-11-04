@@ -18,6 +18,13 @@ Meteor.publish('teams.belongingToUser', function() {
   return Teams.find({_id: {$in:teams}})
 });
 
+//to display users only belonging to a team
+Meteor.publish('users.belongingToTeam', function(team) {
+  //return Roles.getUsersInRole('normal', team); Not working, returning all users
+  console.log(team)
+  Meteor.users.find({_id: { $exists: false } })
+});
+
 Meteor.publish('users', function() {
  return Meteor.users.find();
 });

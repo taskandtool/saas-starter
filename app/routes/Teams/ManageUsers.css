@@ -1,0 +1,46 @@
+.typeahead {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5em 0.6em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 4px;
+}
+
+.results {
+  margin: .5em;
+  padding: .5em;
+}
+
+.listItem {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.listItem a {
+  text-decoration: none;
+}
+
+.btn {
+  composes: button from '../../styles/buttons.css';
+  margin-top: .2em;
+  margin-bottom: 1em;
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.wrapper {
+  margin-top: 2em;
+}
+
+.success {
+  color: green;
+}
