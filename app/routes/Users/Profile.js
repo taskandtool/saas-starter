@@ -39,9 +39,11 @@ export default class UserProfileRoute extends Component {
     const {id} = this.props.params
     const user = this.data.user;
 
-    //Checks for edit params on route and checks if user owns profile
+    //Checks for edit params on route
     const { query } = this.props.location
     const edit = query && query.edit == "true"
+
+    //checks if user owns profile
     let isUser = false;
     if (Meteor.user()){
       isUser = id == Meteor.user()._id
@@ -68,15 +70,18 @@ export default class UserProfileRoute extends Component {
     }
 
     //get roles & teams
-    let permissions = this.props.currentUser.permissions;
     let teams = []
     let teamsRoles = []
-    if (permissions) {
-      permissions.map((team, i) => {
-        teams.push(<div key={i}><Link to={`/team/${team.teamId}`}>{team.teamName}</Link></div>);
-        teamsRoles.push(<div key={i}><strong>{team.teamName}:</strong> <em>{team.roles}</em></div>);
-      })
+    if (this.props.currentUser) {
+      let permissions = this.props.currentUser.permissions;
+      if (permissions) {
+        permissions.map((team, i) => {
+          teams.push(<div key={i}><Link to={`/team/${team.teamId}`}>{team.teamName}</Link></div>);
+          teamsRoles.push(<div key={i}><strong>{team.teamName}:</strong> <em>{team.roles}</em></div>);
+        })
+      }
     }
+
 
 
     //see if there's pending invites

@@ -79,7 +79,11 @@ export default class InviteUsersRoute extends Component {
     let users = this.refs.tokenizer.getSelectedTokens()
     const {_id, name} = this.props.team
     users.map((user) => {
-      Meteor.call("User.teamInvite", user.id, name, _id)
+      Meteor.call("User.teamInvite", user.id, name, _id, (err, res) => {
+        if (err) {
+          console.log(err.reason)
+        }
+      })
     })
     this.setState({
       success: true

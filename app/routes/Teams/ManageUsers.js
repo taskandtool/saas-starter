@@ -4,6 +4,7 @@ import {Users} from '../../schemas';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './manageUsers.css';
 import Icon from '../../components/Icons/Icon.js';
+import {Link} from 'react-router';
 
 @reactMixin.decorate(ReactMeteorData)
 export default class ManageUsersRoute extends Component {
@@ -33,41 +34,48 @@ export default class ManageUsersRoute extends Component {
 
     const {name, _id} = this.props.team;
 
-    let users = this.data.users.map((user) => {
+    let users = this.data.users.map((user, i) => {
       return (
-        <div key={user._id} className={styles.item}>
+        <div key={i} className={styles.item}>
           {user.profile.name} <em>{user.profile.title}</em><br />
+          Roles:<br/>
 
-          {user.permissions.map((team, i) => {
-            if (team.teamId === this.props.team._id) {
-              return (
-                <div key={i}>
-                  Roles:<br/>
-                  {team.roles.includes('admin') ?
-                    <div>
-                      <Icon size="1.2em" icon="check" color='green' onClick={() => this.handleRemoveRole(user._id, 'admin')} />
-                      Admin
-                    </div>
+          {user.permissions.map((permission) => {
+            //not sure how to do this better. Looping through all the user's
+            //permissions until we find the one that matches this team. Maybe should
+            //use 'teamId' as an object key in user.permissions instead of
+            //making it an array of objects?
+            if (permission.teamId === this.props.team._id) {
+              let rolesToCheck = ['admin', 'normal', 'secret'];
+              let roles
+                {_.each(rolesToCheck, (role) => {
+                  permission.roles.includes(role) ?
+
+                  roles =
+                      <div key={i}>
+                        <Icon
+                          size="1.2em"
+                          icon="check"
+                          color='green'
+                          onClick={() => this.handleRemoveRole(user._id, role)} />
+                        {role}
+                      </div>
                     :
-                    <div><Icon size="1.2em" icon="check" color='#ddd' onClick={() => this.handleAddRole(user._id, 'admin')} /> Admin</div>
-                  }
+                  roles =
+                      <div key={i}>
+                        <Icon
+                          size="1.2em"
+                          icon="check"
+                          color='#ddd'
+                          onClick={() => this.handleAddRole(user._id, role)} />
+                          {role}
+                      </div>
 
-                  {team.roles.includes('normal') ?
-                    <div><Icon size="1.2em" icon="check" color='green' onClick={() => this.handleRemoveRole(user._id, 'normal')} /> Normal</div>
-                    :
-                    <div><Icon size="1.2em" icon="check" color='#ddd' onClick={() => this.handleAddRole(user._id, 'normal')} /> Normal</div>
-                  }
-
-                  {team.roles.includes('secret') ?
-                    <div><Icon size="1.2em" icon="check" color='green' onClick={() => this.handleRemoveRole(user._id, 'secret')} /> Secret</div>
-                    :
-                    <div><Icon size="1.2em" icon="check" color='#ddd' onClick={() => this.handleAddRole(user._id, 'secret')} /> Secret</div>
-                  }
-
-                </div>
-              )
-            }
-          })
+                  })
+                return roles
+                }
+              }
+            })
           }
 
           <button className={styles.btn} onClick={this.handleRemoveUser}>
@@ -91,7 +99,7 @@ export default class ManageUsersRoute extends Component {
   handleAddRole(userId, role){
     const {_id, name} = this.props.team
 
-    Meteor.call("User.changeRole", userId, _id, role)
+    Meteor.call("User.addRole", userId, _id, role)
 
     this.setState({
       success: true
@@ -106,7 +114,7 @@ export default class ManageUsersRoute extends Component {
   handleRemoveRole(userId, role){
     const {_id} = this.props.team
 
-    Meteor.call("User.changeRole", userId, _id, role)
+    Meteor.call("User.removeRole", userId, _id, role)
 
     this.setState({
       success: true

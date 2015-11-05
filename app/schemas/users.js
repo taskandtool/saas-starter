@@ -102,7 +102,7 @@ Meteor.methods({
     });
 
     Meteor.call("Team.increment", teamId, "userCount")
-    
+
     console.log("User.addTeam", count);
     return count;
   },
@@ -124,6 +124,9 @@ Meteor.methods({
     check(invitedUserId, String );
 
     if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    let alreadyMember = Users.findOne({_id: invitedUserId, 'permissions.teamId': teamId });
+    if (alreadyMember) throw new Meteor.Error(401, alreadyMember.profile.name + " is already a member");
 
     count = Meteor.users.update(invitedUserId, {
       $push: {

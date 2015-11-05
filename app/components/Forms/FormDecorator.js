@@ -23,7 +23,8 @@ export const handleForms = ComposedComponent => class extends Component {
   }
 
   setDefaultValues(data) {
-    //optional. Useful if editing existing docs. Ideally call on componentDidMount
+    //optional. Useful if editing existing docs rather than creating new ones.
+    //Ideally call on componentDidMount
     this.setState({ values: data });
   }
 
@@ -33,7 +34,9 @@ export const handleForms = ComposedComponent => class extends Component {
   }
 
   handleChange(event) {
-    let name = event.target.name;
+    //Stripe cautions against using name attributes, so to avoid them hitting
+    //the server, using data-name instead. Can change in InputStacked.js
+    let name = event.target.getAttribute('data-name');
     let value;
     if (event.target.type === 'checkbox') {
       value = event.target.checked;
