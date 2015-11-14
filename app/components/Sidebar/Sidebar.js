@@ -24,14 +24,12 @@ export default class Sidebar extends Component {
     let content;
 
     //display link to global dashboard if superAdmin
-    let superAdminContent;
     let isSuperAdmin = false;
-    if (Meteor.user()) {
-      if (Meteor.user().roles) {
-        let roles = Meteor.user().roles;
-        let roleKeys = Object.keys(roles)
-        roleKeys.map((role) => {
-          if (role === "__global_roles__") {
+    if (this.props.currentUser) {
+      let permissions = this.props.currentUser.permissions;
+      if (permissions) {
+        permissions.map((permission) => {
+          if (permission.roles[0] === "super-admin") {
             isSuperAdmin = true;
           }
         })
@@ -54,16 +52,16 @@ export default class Sidebar extends Component {
       );
     }
 
-    if (isSuperAdmin) {
-      superAdminContent = (
+
+    let superAdminContent = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <hr className={styles.globalDashItem}/>
             <li className={styles.globalDashItem}>
               <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Global Dashboard</Link>
             </li>
           </ul>
-      );
-    }
+    )
+
 
     return (
         <div className={this.props.showSidebar ? styles.sidebar : styles.sidebarClose} style={this.props.initialLoad ? {display: 'none'} : null}>
@@ -85,7 +83,7 @@ export default class Sidebar extends Component {
               <Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link>
             </li>
           </ul>
-          { superAdminContent }
+          { isSuperAdmin ? superAdminContent : null }
         </div>
 
     );

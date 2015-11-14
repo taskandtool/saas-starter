@@ -52,7 +52,6 @@ export default class TeamViewRoute extends Component {
             permission.roles.map((role) => {
               roles.add(role)
             })
-
           }
         })
       }
