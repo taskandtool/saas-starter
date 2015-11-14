@@ -34,6 +34,7 @@ export default class ManageUsersRoute extends Component {
 
     const {name, _id} = this.props.team;
 
+    //list users and their roles.
     let users = this.data.users.map((user, i) => {
       return (
         <div key={i} className={styles.item}>
@@ -47,38 +48,36 @@ export default class ManageUsersRoute extends Component {
             //making it an array of objects?
             if (permission.teamId === this.props.team._id) {
               let rolesToCheck = ['admin', 'normal', 'secret'];
-              let roles
-                {_.each(rolesToCheck, (role) => {
-                  permission.roles.includes(role) ?
+              let roles = []
 
-                  roles =
-                      <div key={i}>
-                        <Icon
-                          size="1.2em"
-                          icon="check"
-                          color='green'
-                          onClick={() => this.handleRemoveRole(user._id, role)} />
+              rolesToCheck.map((role, i) => {
+                permission.roles.includes(role) ?
+                roles.push
+                    (<div key={i}>
+                      <Icon
+                        size="1.2em"
+                        icon="check"
+                        color='green'
+                        onClick={() => this.handleRemoveRole(user._id, role)} />
+                      {role}
+                    </div>)
+                  :
+                roles.push
+                    (<div key={i}>
+                      <Icon
+                        size="1.2em"
+                        icon="check"
+                        color='#ddd'
+                        onClick={() => this.handleAddRole(user._id, role)} />
                         {role}
-                      </div>
-                    :
-                  roles =
-                      <div key={i}>
-                        <Icon
-                          size="1.2em"
-                          icon="check"
-                          color='#ddd'
-                          onClick={() => this.handleAddRole(user._id, role)} />
-                          {role}
-                      </div>
-
-                  })
-                return roles
-                }
+                    </div>)
+                })
+              return roles
               }
             })
           }
 
-          <button className={styles.btn} onClick={this.handleRemoveUser}>
+          <button className={styles.btn} onClick={() => this.handleRemoveUser(user._id)}>
             Remove From Team
           </button>
         </div>
@@ -108,7 +107,7 @@ export default class ManageUsersRoute extends Component {
       this.setState({
         success: false
       });
-    }, 3000);
+    }, 2000);
   }
 
   handleRemoveRole(userId, role){
@@ -123,7 +122,7 @@ export default class ManageUsersRoute extends Component {
       this.setState({
         success: false
       });
-    }, 3000);
+    }, 2000);
   }
 
   handleRemoveUser(userId){

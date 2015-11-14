@@ -19,7 +19,6 @@ export default class SingleTeam extends Component {
           <li>This team has {todoCount} todos</li>
           <li>Created: {moment({createdAt}).format('MMMM DD, YYYY')}</li>
           <li>Updated: {moment({updatedAt}).format('MMMM DD, YYYY')}</li>
-          <li>Is Deleted? {isDeleted ? 'True' : 'False'}</li>
           <li>Team ID: {_id}</li>
         </ul>
     );

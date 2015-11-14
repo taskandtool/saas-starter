@@ -40,7 +40,7 @@ Meteor.methods({
     return docId;
   },
 
-  "Team.update": function(docId, data) {
+  "Team.update": function(docId, currUser, data) {
     var count, selector;
     var optional = Match.Optional;
 
@@ -62,9 +62,24 @@ Meteor.methods({
       isDeleted: optional(schema.isDeleted),
     });
 
+    //Check user permissions
+    let roles = new Set();
+    if (currUser) {
+      let permissions = currUser.permissions;
+      if (permissions) {
+        permissions.map((permission, i) => {
+          if (permission.teamId === docId) {
+            roles.add(permission.roles)
+          }
+        })
+      }
+    }
+
     // Only update team if user is an admin on that team
-    if (Roles.userIsInRole(this.userId, ["admin"], docId)) {
+    if (roles.has("admin")) {
       count = Teams.update(docId, {$set: data});
+    } else {
+      console.log('you dont have permission')
     }
 
     console.log("  [Team.update]", count, docId);
@@ -88,8 +103,9 @@ Meteor.methods({
   },
 
   "Team.increment": function(docId, fieldName) {
-    check(fieldName, Match.oneOf("userCount, todoCount"));
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
+    console.log(fieldName)
+    check(fieldName, Match.OneOf("userCount", "todoCount"));
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
 
     var incField = {};
     incField[fieldName] = 1;

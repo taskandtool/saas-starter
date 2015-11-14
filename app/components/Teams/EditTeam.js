@@ -180,7 +180,7 @@ export default class EditTeam extends Component {
       return false;
     }
 
-    //Don't submit if all fields aren't filled out
+    //Don't submit if these fields aren't filled out
     if (!name || !desc || !planId ) {
       this.setState({
         formError: "Please fill out all fields",
@@ -194,7 +194,7 @@ export default class EditTeam extends Component {
       return false;
     }
 
-    Meteor.call('Team.update', this.props.team._id, {
+    Meteor.call('Team.update', this.props.team._id, this.props.currentUser, {
       name: name,
       desc: desc,
       planId: planId,
@@ -217,7 +217,7 @@ export default class EditTeam extends Component {
           formSuccess: "Team Successfully Changed!"
         });
         window.setTimeout(() => {
-          this.history.pushState(null, `/teams`);
+          this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
       }
     });

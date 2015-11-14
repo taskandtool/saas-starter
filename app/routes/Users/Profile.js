@@ -49,6 +49,7 @@ export default class UserProfileRoute extends Component {
       isUser = id == Meteor.user()._id
     }
 
+    //if id params don't link to a user...
     if (!user) {
       return (
         <div className={styles.wrapper}>No user found at this address</div>
@@ -57,12 +58,14 @@ export default class UserProfileRoute extends Component {
 
     const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
+    //if user is looking at their own profile and edit query is on on route
     if (edit && isUser) {
       return (
         <EditProfile user={user} email={email} />
       )
     }
 
+    //if user doesn't own profile but is trying to edit it...
     if (edit) {
       return (
         <div className={styles.wrapper}>You don't have permission to edit {user.profile.name}'s profile.</div>
@@ -81,8 +84,6 @@ export default class UserProfileRoute extends Component {
         })
       }
     }
-
-
 
     //see if there's pending invites
     let invites

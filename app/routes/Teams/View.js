@@ -42,21 +42,34 @@ export default class TeamViewRoute extends Component {
     const { query } = this.props.location
     const edit = query && query.edit == "true"
 
-    //Edit permissions?
-    let isUser = false;
-    if (Meteor.user()) {
-      isUser = ownerId == Meteor.user()._id
-    }
+    //Check user's permissions on this team.
+    let roles = new Set();
+    if (this.props.currentUser) {
+      let permissions = this.props.currentUser.permissions;
+      if (permissions) {
+        permissions.map((permission, i) => {
+          if (permission.teamId === this.props.params.teamId) {
+            permission.roles.map((role) => {
+              roles.add(role)
+            })
 
-    if (edit && isUser) {
+          }
+        })
+      }
+    }
+    // This uses babel ES2015
+    // Can use something like roles.has("admin") that returns a boolean
+    // Or check if person has any roles with roles.size (if 0, no roles)
+
+    if (edit && roles.has("admin")) {
       return (
-        <EditTeam team={team} />
+        <EditTeam team={team} currentUser={this.props.currentUser} />
       )
     }
 
     if (edit) {
       return (
-        <div className={styles.wrapper}>You don't have permission to edit {title} team.</div>
+        <div className={styles.wrapper}>You don't have permission to edit {title} team. (Must be team admin)</div>
       )
     }
 
@@ -69,12 +82,18 @@ export default class TeamViewRoute extends Component {
             <Link to={`/team/${this.props.params.teamId}/todos`}  >
               <button className={styles.btnTodos}>See Todos</button>
             </Link>
-            <Link to={`/team/${this.props.params.teamId}/dashboard`}  >
-              <button className={styles.btnDashboard}>Dashboard</button>
-            </Link>
-            <Link to={`/team/${this.props.params.teamId}/invite`}  >
-              <button className={styles.btnDashboard}>Invite</button>
-            </Link>
+            {roles.size > 0 ?
+              <span>
+                <Link to={`/team/${this.props.params.teamId}/dashboard`}  >
+                  <button className={styles.btnDashboard}>Dashboard</button>
+                </Link>
+                <Link to={`/team/${this.props.params.teamId}/invite`}  >
+                  <button className={styles.btnDashboard}>Invite</button>
+                </Link>
+              </span>
+            :
+              <p>Must be a member of this team to invite users or see the dashboard</p>
+            }
             {this.props.children ?
               React.cloneElement(this.props.children, {
                 team: this.data.team
@@ -82,7 +101,7 @@ export default class TeamViewRoute extends Component {
               : null
             }
           </div>
-          {isUser ?
+          {roles.has("admin") ?
           <div className={styles.column}>
             <h3 className={styles.subtitle}>More details</h3>
             <TeamDetails team={team} />

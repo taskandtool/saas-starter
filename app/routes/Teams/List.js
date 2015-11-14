@@ -27,9 +27,11 @@ export default class TeamListRoute extends Component {
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{teams.length} Teams</h1>
         <div className={styles.grid}>
-          <Link to='/teams/add'>
-            <button className={styles.btn}>Create new team</button>
-          </Link>
+          {this.props.currentUser ?
+            <Link to='/teams/add'>
+              <button className={styles.btn}>Create new team</button>
+            </Link>
+          : null }
           {teams ?
             <TeamList teams={teams} cardStyle={styles.column} makeClickable={true} />
           : null }

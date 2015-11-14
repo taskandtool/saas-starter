@@ -96,7 +96,7 @@ Meteor.methods({
         permissions: {
             teamId: teamId,
             teamName: teamName,
-            roles: roles
+            roles: [roles]
         }
       }
     });
@@ -107,16 +107,46 @@ Meteor.methods({
     return count;
   },
 
-  "User.addRole": function(roles, teamId) {
+  "User.removeFromTeam": function(userId, teamId) {
     check(teamId, String );
 
     if (!this.userId) throw new Meteor.Error(401, "Login required");
 
-    count = Meteor.users.update({_id : this.userId, 'permissions.teamId': teamId},
-      {$push: {"permissions.$.roles": roles}
+    let count = Meteor.users.update({_id : userId},
+       {$pull:
+         { permissions :
+            { teamId: teamId }
+          }
+        }
+    )
+
+    console.log("User.removeFromTeam", count);
+    return count;
+  },
+
+  "User.addRole": function(userId, teamId, roles) {
+    check(teamId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    let count = Meteor.users.update({_id : userId, 'permissions.teamId': teamId},
+      {$addToSet: {"permissions.$.roles": roles}
     })
 
     console.log("User.addRole", count);
+    return count;
+  },
+
+  "User.removeRole": function(userId, teamId, roles) {
+    check(teamId, String );
+
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
+
+    let count = Meteor.users.update({_id : userId, 'permissions.teamId': teamId},
+      {$pull: {"permissions.$.roles": roles}
+    })
+
+    console.log("User.removeRole", count);
     return count;
   },
 

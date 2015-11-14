@@ -71,7 +71,8 @@ export default class TeamDashboard extends Component {
     const pieChartData1 = [
       { label: 'Private', value: privateTodos, color: '#3b5998' },
       { label: 'Completed', value: completeTodos, color: '#00aced' },
-      { label: 'Third Label', value: 4, color: 'red' }
+      { label: 'Example Label', value: 4, color: 'red' },
+      { label: 'Another Example Label', value: 2, color: 'green' }
     ]
 
     return (
