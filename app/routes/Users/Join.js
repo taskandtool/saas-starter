@@ -14,6 +14,7 @@ export default class JoinRoute extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.listenForEnter = this.listenForEnter.bind(this);
     this.state = {
       formSuccess: "",
       formError: "",
@@ -47,6 +48,17 @@ export default class JoinRoute extends React.Component {
         <AuthLinks linksToUse={linksToUse} />
       </div>
     )
+  }
+
+  componentDidMount() {
+    window.onkeydown = this.listenForEnter;
+  }
+
+  listenForEnter(e) {
+    e = e || window.event;
+    if (e.keyCode === 13) {
+      this.handleSubmit(e, this.props.inputState.errors, this.props.inputState.values);
+    }
   }
 
   handleSubmit(event, errors, values) {
