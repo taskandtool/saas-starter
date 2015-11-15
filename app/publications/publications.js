@@ -1,11 +1,9 @@
 import {Plans, Users, Teams, Todos} from '../schemas';
 
 //only super-admins can see all plans. Everyone else gets the public plans only
+//should implmenet this at some point.
 Meteor.publish('plans', function() {
-  if (!this.userId) {
-    return Plans.find({displayOnMainSite: true});
-  }
-  return Plans.find();
+  return Plans.find({displayOnMainSite: true});
 });
 
 Meteor.publish('teams', function() {

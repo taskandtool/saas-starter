@@ -68,7 +68,7 @@ export default class TeamViewRoute extends Component {
 
     if (edit) {
       return (
-        <div className={styles.wrapper}>You don't have permission to edit {title} team. (Must be team admin)</div>
+        <div className={styles.wrapper}>You don't have permission to edit {team.name} team. (Must be team admin)</div>
       )
     }
 

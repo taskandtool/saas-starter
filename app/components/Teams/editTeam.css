@@ -8,11 +8,12 @@
 
 .wrapper {
   composes: wrapper from '../../styles/utilities.css';
+  max-width: 960px;
 }
 
 .grid {
   lost-utility: clearfix;
-  max-width: 960px;
+  margin-bottom: 2em;
 }
 
 .column {
@@ -68,4 +69,32 @@
 
 .card {
   margin-bottom: 2em;
+}
+
+.selected {
+  border: .3em solid green;
+  margin-bottom: 3em;
+}
+
+.unselected {
+  composes: selected;
+  padding: .2em;
+  border:none
+}
+
+.planColumn {
+  min-width: 16em;
+}
+
+@media all and (max-width: 40em) {
+  .planColumn {
+    width: 100%;
+    min-width: 17em;
+  }
+}
+
+.planGrid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }

@@ -29,7 +29,7 @@ Meteor.methods({
     data.userCount = 0;
     data.isDeleted = false;
 
-    check(data, _.omit(schema, '_id', 'picture', 'images'));
+    check(data, _.omit(schema, '_id', 'picture', 'images', 'planId', 'planName'));
 
     docId = Teams.insert(data);
 
@@ -63,23 +63,24 @@ Meteor.methods({
     });
 
     //Check user permissions
-    let roles = new Set();
+    let canUpdate = false
     if (currUser) {
       let permissions = currUser.permissions;
       if (permissions) {
         permissions.map((permission, i) => {
-          if (permission.teamId === docId) {
-            roles.add(permission.roles)
+          if (permission.teamId === docId && permission.roles.includes('admin')) {
+            canUpdate = true
+            return
           }
         })
       }
     }
-
+console.log(canUpdate)
     // Only update team if user is an admin on that team
-    if (roles.has("admin")) {
+    if (canUpdate) {
       count = Teams.update(docId, {$set: data});
     } else {
-      console.log('you dont have permission')
+      throw new Meteor.Error(401, "You don\'t have permission. Must be an admin on the team");
     }
 
     console.log("  [Team.update]", count, docId);
