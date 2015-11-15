@@ -33,4 +33,5 @@
 
 .wrapper {
   composes: wrapper from '../../styles/utilities.css';
+  max-width: 960px;
 }

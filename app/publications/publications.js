@@ -17,7 +17,9 @@ Meteor.publish('teams.belongingToUser', function(teamId) {
 
 //to display users only belonging to a team
 Meteor.publish('users.belongingToTeam', function(teamId) {
-  //This still returns all users. No idea why. So filtering again in ManageUserRoute
+  //This still returns all users because of the publication below publishing all
+  //users. In the real app, the publication below likely wouldn't exist.
+  //For now we're filtering again in ManageUsersRoute component.
   return Users.find({'permissions.teamId': teamId });
 });
 

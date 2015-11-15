@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Mailto from 'react-mailto';
 import styles from './home.css';
 import Icon from '../components/Icons/Icon';
+import {Link} from 'react-router';
 
 export default class Home extends Component {
 
@@ -13,7 +14,8 @@ export default class Home extends Component {
             <div className={styles.heroColumn}>
               <h1 className={styles.white}>Starter SaaS App Code</h1>
               <h3 className={styles.white}>Build your next SaaS app fast</h3>
-              <a href="https://github.com/taskandtool/saas-starter"><button className={styles.primary}>See it on Github</button></a>
+              <Link to="/docs"><button className={styles.primary}>Docs</button></Link>
+              <a href="https://github.com/taskandtool/saas-starter"><button className={styles.primary}>Github</button></a>
             </div>
           </div>
         </div>
@@ -86,15 +88,49 @@ export default class Home extends Component {
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-lock"></i></span>
-              <h4>Login as super admin (soon)</h4>
-              <p>With these creds: </p>
+              <h4>Login as super admin</h4>
+              <p>With these creds: login: super@admin.com, pass: apple1. Please don't change the creds for this user
+              on this public demo site. The only difference with this guy is he can see a link in the sidebar to a global
+              dashboard. Not super exciting. Most of the action is in the regular user accounts.</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
               <h4>See it on mobile</h4>
-              <p>Could use work with animations/transitions, but it's started.</p>
+              <p>Because it works there too. I did something funky with the list of users (you can see in the user list
+              after clicking 'users' in the navbar at the top). It sometimes works on mobile... on my todo list to cleanup. </p>
             </div>
           </div>
+        </div>
+
+        <div className={styles.section2}>
+          <h2 className={styles.title}>More...</h2>
+          <div className={styles.listGrid}>
+            <div className={styles.listColumn}>
+              <span className={styles.iconBlue}><i className="fa fa-clone"></i></span>
+              <h4>Very open to feedback</h4>
+              <p>Please shoot me an email or submit a pull request. Would love anything to make this project better.</p>
+            </div>
+            <div className={styles.listColumn}>
+              <span className={styles.iconBlue}><i className="fa fa-user"></i></span>
+              <h4>Specific areas to improve</h4>
+              <p>I'd like SSR to work. I messed with it a bit, but haven't got it working. Also, google's oauth is causing
+              some trouble. FB and twitter work fine but I've had no luck with google. I also think a component that allows
+              users to invite people from their gmail contact list would be great.</p>
+            </div>
+            <div className={styles.listColumn}>
+              <span className={styles.iconBlue}><i className="fa fa-lock"></i></span>
+              <h4>Current status</h4>
+              <p>This is a learning project for me in both react and meteor. I've just started freelancing a few months back and I'm currently looking for more work. =) Please shoot
+              me an email below if you'd like to get in touch.</p>
+            </div>
+            <div className={styles.listColumn}>
+              <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
+              <h4>General idea</h4>
+              <p>The todo portion of the app will be replaced by your actual app. However, instead of writing the team/users/payments/dashboards from scratch, you have a base to start from. </p>
+            </div>
+          </div>
+          <p><em>Last thing - reset password option fake generates an email in your console that you can only see when you run locally at the moment. No real email is sent. While the token pass reset works, you'll have to finish setting up email with Meteor and Mailgun/Mandrill or something of the like.</em></p>
+
         </div>
 
         <div className={styles.section3}>

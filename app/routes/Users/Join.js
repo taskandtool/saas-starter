@@ -104,7 +104,7 @@ export default class JoinRoute extends React.Component {
           formSuccess: "Success! Thanks for Joining!"
         });
         window.setTimeout(() => {
-          this.history.pushState(null, `/`);
+          this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
         }, 1000);
       }
     });

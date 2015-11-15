@@ -77,6 +77,13 @@ export default class UserTodoListRoute extends Component {
 
         <h1 className={styles.title}>{name}'s Todos</h1>
         <h3 className={styles.subtitle}>{todos.length} Todos</h3>
+        <p>Your todos. But you should create a team to make team todos and
+        see how managing and inviting users works. Also visit this exact URL on your phone or a a different browser
+        (while not logged in) to see how clicking the Lock icon instantly makes your todo public or private without
+        refreshing.</p>
+        <p>Essentially the todos will be replaced by your actual app. They're just here for a quick demo of privacy
+        settings and team invites. The managing of users, teams, payments and plans and overall intent is to
+        help you build your actual app faster.</p>
         <div className={styles.grid}>
           <div className={styles.column}>
 

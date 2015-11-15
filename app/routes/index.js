@@ -5,6 +5,7 @@ import createHistory from 'react-router/node_modules/history/lib/createBrowserHi
 
 import App from './App';
 import Home from './Home';
+import Docs from './Docs';
 import Dashboard from './Dashboard';
 import Search from './Search';
 import * as Plans from './Plans';
@@ -21,6 +22,7 @@ Meteor.startup(function () {
     <Router history={history}>
       <Route component={App}>
         <Route path="/" component={Home} name="Develop Saas Apps Fast" />
+        <Route path="docs" component={Docs} name="Docs" />
         <Route path="search" component={Search} name="Search" />
         <Route path="join" component={Users.Join} name="Get Started" />
         <Route path="signin" component={Users.SignIn} name="Sign In" />
