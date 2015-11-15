@@ -34,6 +34,7 @@ export default class EditTeam extends Component {
     this.listenForEnter = this.listenForEnter.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
+    this.handleSelectPlan = this.handleSelectPlan.bind(this);
 
     this.state = {
       shakeBtn: false,
@@ -52,15 +53,13 @@ export default class EditTeam extends Component {
     let inputsToUse = [
       "name",
       "desc",
-      "planId",
-      "isDeleted",
     ];
 
     const team = this.props.team
 
-    //gets all profile images belonging to the team
+    //gets all profile images belonging to the team.
     let otherImages = []
-    if (team.images) {
+    if (team.images.length > 1) {
       otherImages = team.images.map((image, i) => {
         return (
           <img key={i} src={image} className={styles.imageList} onClick={() => this.handleSetProfilePic(image)} width="100px" />
@@ -68,12 +67,16 @@ export default class EditTeam extends Component {
       })
     }
 
-    let selectedPlan
-    this.data.plans.map((plan) => {
-      if (plan._id == values.planId) {
-         values.planName = plan.title
-         selectedPlan = plan
-      }
+    let displayPlans = this.data.plans.map((plan, i) => {
+      return (<div
+              key={i}
+              onClick={() => this.handleSelectPlan(plan._id, plan.title)}
+              className={styles.planColumn}>
+              {team.planId == plan._id ? 'Current Plan' : <br/> }
+              <div className={values.planId == plan._id ? styles.selected : styles.unselected}>
+                <PlanCard plan={plan} />
+              </div>
+            </div>)
     });
 
     //get plans to populate option select field in forms
@@ -92,11 +95,12 @@ export default class EditTeam extends Component {
 
         <h1 className={styles.title}>Edit {this.props.team.name}</h1>
         <div className={styles.grid}>
+
           <div className={styles.column}>
+            <h3 className={styles.subtitle}>Update Team Info</h3>
             <div className={styles.card}>
               <TeamCard team={values} picture={team.picture}  />
             </div>
-
             <TeamForms
               buttonText="Update Team"
               inputsToUse={inputsToUse}
@@ -112,27 +116,17 @@ export default class EditTeam extends Component {
           </div>
 
           <div className={styles.column}>
-
-            {selectedPlan ?
-              <div>
-                <h3 className={styles.subtitle}>Your chosen plan (can change later)</h3>
-                <PlanCard plan={selectedPlan} makeClickable={false} />
-              </div>
-              :
-              null
-            }
-          </div>
-
-          <div className={styles.column}>
-
             <EditImages
               ref="editTeamImages"
               otherImages={otherImages}
               handleUpload={this.handleUpload}
               uploadingMsg={this.uploadingMsg}
               showSpinner={this.state.showSpinner} />
-
           </div>
+        </div>
+        <h3 className={styles.subtitle}>Upgrade Plan</h3>
+        <div className={styles.planGrid}>
+          {displayPlans}
         </div>
       </div>
     );
@@ -145,8 +139,7 @@ export default class EditTeam extends Component {
     let data = {
       name: name,
       desc: desc,
-      planId: planId,
-      isDeleted: !!isDeleted,
+      planId: planId
     }
 
     //sets default values in handle forms decorators
@@ -162,10 +155,16 @@ export default class EditTeam extends Component {
     }
   }
 
+  handleSelectPlan(id) {
+    let newValue = _.extend({}, this.props.inputState.values);
+    newValue["planId"] = id;
+    this.props.setDefaultValues(newValue);
+  }
+
   handleSubmit(event, errors, values) {
     event.preventDefault();
 
-    const {name, desc, planId, isDeleted} = values;
+    const {name, desc, planId} = values;
 
     //don't submit if there's errors showing
     if (errors.name || errors.desc || errors.planId) {
@@ -180,25 +179,10 @@ export default class EditTeam extends Component {
       return false;
     }
 
-    //Don't submit if all fields aren't filled out
-    if (!name || !desc || !planId ) {
-      this.setState({
-        formError: "Please fill out all fields",
-        shakeBtn: true
-      });
-      window.setTimeout(() => {
-        this.setState({
-          shakeBtn: false
-        });
-      }, 3000);
-      return false;
-    }
-
-    Meteor.call('Team.update', this.props.team._id, {
+    Meteor.call('Team.update', this.props.team._id, this.props.currentUser, {
       name: name,
       desc: desc,
-      planId: planId,
-      isDeleted: isDeleted
+      planId: planId
     }, (error) => {
       if (error) {
         this.setState({
@@ -217,7 +201,7 @@ export default class EditTeam extends Component {
           formSuccess: "Team Successfully Changed!"
         });
         window.setTimeout(() => {
-          this.history.pushState(null, `/teams`);
+          this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
       }
     });

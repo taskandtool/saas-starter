@@ -5,14 +5,12 @@ import reactMixin from 'react-mixin';
 import TeamCard from '../../components/Teams/TeamCard.js';
 import Helmet from 'react-helmet';
 import styles from './create.css';
-import {Teams, Plans} from '../../schemas';
+import {Teams} from '../../schemas';
 import TeamForms from '../../components/Teams/TeamForms';
-import PlanCard from '../../components/Plans/PlanCard.js';
 
 
 @handleForms
 @reactMixin.decorate(History)
-@reactMixin.decorate(ReactMeteorData)
 export default class TeamCreateRoute extends React.Component {
 
   constructor() {
@@ -25,37 +23,14 @@ export default class TeamCreateRoute extends React.Component {
     }
   }
 
-  getMeteorData() {
-    let handle = Meteor.subscribe("plans");
-    return {
-      plans: Plans.find().fetch(),
-      loading: !handle.ready()
-    };
-  }
 
   render() {
     let values = this.props.inputState.values;
     let errors = this.props.inputState.errors;
 
-    //set Plan Title value by whichever planId is currently selected
-    //Also shows planCard with whichever plan is selected
-    let selectedPlan
-    this.data.plans.map((plan) => {
-      if (plan._id == values.planId) {
-         values.planName = plan.title
-         selectedPlan = plan
-      }
-    });
-
-    //get plans to populate option select field in forms
-    let planTitle = this.data.plans.map((plan) => {
-      return <option key={plan._id} value={plan._id}>{plan.title}</option>
-    });
-
     let inputsToUse = [
       "name",
-      "desc",
-      "planId"
+      "desc"
     ];
 
     return (
@@ -67,10 +42,11 @@ export default class TeamCreateRoute extends React.Component {
           ]}
         />
 
-        <h1 className={styles.title}>Add your Team</h1>
+        <h1 className={styles.title}>Create Team</h1>
 
         <div className={styles.grid}>
           <div className={styles.column}>
+            <h3 className={styles.subtitle}>Add my Team</h3>
             <TeamForms
               buttonText="Create my Team"
               inputsToUse={inputsToUse}
@@ -79,22 +55,14 @@ export default class TeamCreateRoute extends React.Component {
               formSuccess={this.state.formSuccess}
               shakeBtn={this.state.shakeBtn}
               handleChange={this.props.handleChange}
-              handleSubmit={this.handleSubmit}
-              handleAddFeature={this.handleAddFeature}
-              populate={planTitle} />
+              handleSubmit={this.handleSubmit} />
           </div>
+          {this.props.inputState.values.name ?
           <div className={styles.column}>
-            <h3 className={styles.subtitle}>Your Team</h3>
+            <h3 className={styles.subtitle}>My Team</h3>
             <TeamCard team={values}  />
-            {selectedPlan ?
-              <div className={styles.planShowing}>
-                <h3 className={styles.subtitle}>Your chosen plan (can change later)</h3>
-                <PlanCard plan={selectedPlan} makeClickable={false} />
-              </div>
-              :
-              null
-            }
           </div>
+          : null}
         </div>
       </div>
     );
@@ -102,10 +70,10 @@ export default class TeamCreateRoute extends React.Component {
 
   handleSubmit(event, errors, values) {
     event.preventDefault();
-    const {name, desc, planId, planName} = values;
+    const {name, desc} = values;
 
     //don't submit if there's errors showing
-    if (errors.name || errors.desc || errors.planId) {
+    if (errors.name || errors.desc) {
       this.setState({
         shakeBtn: true
       });
@@ -118,7 +86,7 @@ export default class TeamCreateRoute extends React.Component {
     }
 
     //Don't submit if all fields aren't filled out
-    if (!name || !desc || !planId ) {
+    if (!name || !desc ) {
       this.setState({
         formError: "Please fill out all fields",
         shakeBtn: true
@@ -133,9 +101,7 @@ export default class TeamCreateRoute extends React.Component {
 
     Meteor.call('Team.create', {
       name: name,
-      desc: desc,
-      planId: planId,
-      planName: planName
+      desc: desc
     }, (error) => {
       if (error) {
         this.setState({

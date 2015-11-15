@@ -29,18 +29,18 @@ Meteor.methods({
     data.userCount = 0;
     data.isDeleted = false;
 
-    check(data, _.omit(schema, '_id', 'picture', 'images'));
+    check(data, _.omit(schema, '_id', 'picture', 'images', 'planId', 'planName'));
 
     docId = Teams.insert(data);
 
     //Make the user who created the team the admin by default
-    Roles.addUsersToRoles(this.userId, 'admin', docId);
+    Meteor.call("User.addTeam", 'admin', docId, data.name)
 
     console.log("[Team.create]", docId);
     return docId;
   },
 
-  "Team.update": function(docId, data) {
+  "Team.update": function(docId, currUser, data) {
     var count, selector;
     var optional = Match.Optional;
 
@@ -62,9 +62,25 @@ Meteor.methods({
       isDeleted: optional(schema.isDeleted),
     });
 
+    //Check user permissions
+    let canUpdate = false
+    if (currUser) {
+      let permissions = currUser.permissions;
+      if (permissions) {
+        permissions.map((permission, i) => {
+          if (permission.teamId === docId && permission.roles.includes('admin')) {
+            canUpdate = true
+            return
+          }
+        })
+      }
+    }
+console.log(canUpdate)
     // Only update team if user is an admin on that team
-    if (Roles.userIsInRole(this.userId, ["admin"], docId)) {
+    if (canUpdate) {
       count = Teams.update(docId, {$set: data});
+    } else {
+      throw new Meteor.Error(401, "You don\'t have permission. Must be an admin on the team");
     }
 
     console.log("  [Team.update]", count, docId);
@@ -88,8 +104,9 @@ Meteor.methods({
   },
 
   "Team.increment": function(docId, fieldName) {
-    check(fieldName, Match.oneOf("userCount, todoCount"));
-    if (User.loggedOut()) throw new Meteor.Error(401, "Login required");
+    console.log(fieldName)
+    check(fieldName, Match.OneOf("userCount", "todoCount"));
+    if (!this.userId) throw new Meteor.Error(401, "Login required");
 
     var incField = {};
     incField[fieldName] = 1;

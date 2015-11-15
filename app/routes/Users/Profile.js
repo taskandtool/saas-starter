@@ -39,14 +39,17 @@ export default class UserProfileRoute extends Component {
     const {id} = this.props.params
     const user = this.data.user;
 
-    //Checks for edit params and permissions
+    //Checks for edit params on route
     const { query } = this.props.location
     const edit = query && query.edit == "true"
+
+    //checks if user owns profile
     let isUser = false;
     if (Meteor.user()){
       isUser = id == Meteor.user()._id
     }
 
+    //if id params don't link to a user...
     if (!user) {
       return (
         <div className={styles.wrapper}>No user found at this address</div>
@@ -55,12 +58,14 @@ export default class UserProfileRoute extends Component {
 
     const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
 
+    //if user is looking at their own profile and edit query is on on route
     if (edit && isUser) {
       return (
         <EditProfile user={user} email={email} />
       )
     }
 
+    //if user doesn't own profile but is trying to edit it...
     if (edit) {
       return (
         <div className={styles.wrapper}>You don't have permission to edit {user.profile.name}'s profile.</div>
@@ -68,15 +73,16 @@ export default class UserProfileRoute extends Component {
     }
 
     //get roles & teams
-    let roles = Meteor.user().roles;
-    let i = 0
     let teams = []
     let teamsRoles = []
-    let team
-    for (team in roles) {
-      i = i + 1
-      teams.push(<div key={i}>{team}</div>);
-      teamsRoles.push(<div key={i}><strong>{team}:</strong> <em>{roles[team]}</em></div>);
+    if (this.props.currentUser) {
+      let permissions = this.props.currentUser.permissions;
+      if (permissions) {
+        permissions.map((team, i) => {
+          teams.push(<div key={i}><Link to={`/team/${team.teamId}`}>{team.teamName}</Link></div>);
+          teamsRoles.push(<div key={i}><strong>{team.teamName}:</strong> <em>{team.roles}</em></div>);
+        })
+      }
     }
 
     //see if there's pending invites
@@ -91,7 +97,7 @@ export default class UserProfileRoute extends Component {
             <p>
               <button
                 className={styles.btnAccept}
-                onClick={() => this.handleAccept(invite.teamId, invite.inviterId)}>
+                onClick={() => this.handleAccept(invite.teamId, invite.teamName, invite.inviterId)}>
                 Accept?
               </button>
               <button
@@ -122,7 +128,7 @@ export default class UserProfileRoute extends Component {
               user={user}
               name={user.profile.name}
               avatar={user.profile.avatar}
-              role={user.profile.role}
+              title={user.profile.title}
               bio={user.profile.bio}
               createdAt={user.createdAt}
               email={email} />
@@ -169,9 +175,9 @@ export default class UserProfileRoute extends Component {
     );
   }
 
-  handleAccept(teamId, inviterId) {
-    //Add user to the team (by adding 'normal' role to group with id teamId)
-    Meteor.call("User.addRole", Meteor.user()._id, 'normal', teamId);
+  handleAccept(teamId, teamName, inviterId) {
+    //Add user to the team (by adding 'normal' role to team)
+    Meteor.call("User.addTeam", 'normal', teamId, teamName);
 
     //Delete invite
     Meteor.call("User.removeTeamInvite", teamId, inviterId);

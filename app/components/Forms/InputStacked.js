@@ -16,8 +16,7 @@ export default class InputStacked extends React.Component {
 
   static defaultProps = {
     type: 'text',
-    required: true,
-    validateBy: 'required'
+    required: false
   };
 
   constructor() {
@@ -43,14 +42,14 @@ export default class InputStacked extends React.Component {
             className={this.props.styles || styles.input}
             onChange={this.props.handleChange}
             selected={this.props.value}
-            name={this.props.name}>
+            data-name={this.props.name}>
             {this.props.populate}
           </select>
         :
           <input
             className={this.props.styles || styles.input}
             type={this.props.type}
-            name={this.props.name}
+            data-name={this.props.name}
             onChange={this.props.handleChange}
             value={this.props.value}
             checked={this.props.value == true ? this.props.value : null}

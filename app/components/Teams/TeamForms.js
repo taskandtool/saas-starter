@@ -55,6 +55,7 @@ export default class TeamForms extends Component {
               value={values.name}
               errorMsg={errors.name}
               label="Team Name"
+              validateBy="required"
               handleChange={this.props.handleChange}
               />
           );

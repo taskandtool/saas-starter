@@ -31,20 +31,20 @@ export default class TeamTodoListRoute extends Component {
   getMeteorData() {
     let handle
     let belongsToTeam = false
+
     //See if user has a role on the team
-    if (Meteor.user()) {
-      let roles = Meteor.user().roles;
-      let team
-      for (team in roles) {
-        if (team === this.props.params.teamId) {
-          belongsToTeam = true;
-          break;
-        }
+    if (this.props.currentUser) {
+      let permissions = this.props.currentUser.permissions;
+      if (permissions) {
+        permissions.map((permission, i) => {
+          if (permission.teamId === this.props.params.teamId) {
+            belongsToTeam = true;
+          }
+        })
       }
     }
 
-
-    //Subscribe to either all user or team todos.... or just ones not labeled isPrivate
+    //Subscribe to private and public or just private todos?
     if (belongsToTeam) {
       handle = Meteor.subscribe("todos.auth", null, this.props.params.teamId);
     } else {
@@ -83,7 +83,8 @@ export default class TeamTodoListRoute extends Component {
         />
 
         <h1 className={styles.title}>{name}'s Todos</h1>
-        <h3 className={styles.subtitle}>{todos.length} Todos</h3>
+        <h3 className={styles.subtitle}>{todos.length} Todos. </h3>
+        <p>Can see whole teams todos (even private ones), but can only edit your todos.</p>
         <div className={styles.grid}>
           <div className={styles.column}>
 
@@ -178,7 +179,8 @@ export default class TeamTodoListRoute extends Component {
         }, 1000);
         return;
       } else {
-        //resets form
+        Meteor.call('Team.increment', this.props.params.teamId, 'todoCount')
+        //resets form in FormDecorator (components/forms)
         this.props.setDefaultValues({
           text: '',
           isCompleted: false,

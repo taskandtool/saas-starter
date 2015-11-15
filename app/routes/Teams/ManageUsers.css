@@ -1,0 +1,23 @@
+.item {
+  background-color: #f7f7f7;
+  padding: .5em;
+  margin: 1em 0;
+}
+
+.btn {
+  composes: button from '../../styles/buttons.css';
+  margin: .2em .4em .2em 0;
+  padding: .2em;
+}
+
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+}
+
+.wrapper {
+  margin-top: 2em;
+}
+
+.success {
+  color: green;
+}

@@ -18,6 +18,14 @@ body {
   word-wrap: break-word;
 }
 
+a {
+  color: #777;
+}
+
+a:hover {
+  color: #333;
+}
+
 /* All block elements get one rhythm of bottom margin. */
 h1,
 h2,

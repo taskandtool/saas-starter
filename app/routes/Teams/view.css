@@ -19,6 +19,12 @@
   margin-bottom: 1em;
 }
 
+.btnManage {
+  composes: buttonPrimary from '../../styles/buttons.css';
+  margin: .2em 0 1em .5em;
+  padding: 0.5em 1em;
+}
+
 .btnTodos {
   composes: button from '../../styles/buttons.css';
   margin-top: 1em;
