@@ -78,8 +78,7 @@
 
 .unselected {
   composes: selected;
-  padding: .2em;
-  border:none
+  border-color: rgba(255, 0, 0, 0);
 }
 
 .planColumn {
@@ -97,4 +96,17 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+
+.btnPlan {
+  composes: btn;
+  max-width: 10em;
+}
+
+.planSuccess {
+  color:green;
+}
+
+.planError {
+  color:red;
 }

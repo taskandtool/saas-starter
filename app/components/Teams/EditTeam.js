@@ -35,11 +35,14 @@ export default class EditTeam extends Component {
     this.handleUpload = this.handleUpload.bind(this);
     this.handleSetProfilePic = this.handleSetProfilePic.bind(this);
     this.handleSelectPlan = this.handleSelectPlan.bind(this);
+    this.updatePlan = this.updatePlan.bind(this);
 
     this.state = {
       shakeBtn: false,
       formError: '',
       formSuccess: '',
+      planError: '',
+      planSuccess: '',
       showSpinner: false,
       uploadingMsg: "Upload a new profile image:"
     }
@@ -128,6 +131,9 @@ export default class EditTeam extends Component {
         <div className={styles.planGrid}>
           {displayPlans}
         </div>
+        <div className={styles.planSuccess}>{this.state.planSuccess}</div>
+        <div className={styles.planError}>{this.state.planError}</div>
+        <button onClick={this.updatePlan} className={styles.btnPlan}>Update Plan</button>
       </div>
     );
   }
@@ -159,6 +165,33 @@ export default class EditTeam extends Component {
     let newValue = _.extend({}, this.props.inputState.values);
     newValue["planId"] = id;
     this.props.setDefaultValues(newValue);
+  }
+
+  updatePlan() {
+    Meteor.call('Team.update', this.props.team._id, this.props.currentUser, {
+      planId: this.props.inputState.values.planId
+    }, (error) => {
+      if (error) {
+        this.setState({
+          planError: error.reason,
+          shakeBtn: true
+        });
+        window.setTimeout(() => {
+          this.setState({
+            shakeBtn: false
+          });
+        }, 3000);
+        return;
+      } else {
+        this.setState({
+          planError: "",
+          planSuccess: "Plan Successfully Updated!"
+        });
+        window.setTimeout(() => {
+          this.history.pushState(null, `/team/${this.props.team._id}`);
+        }, 1000);
+      }
+    })
   }
 
   handleSubmit(event, errors, values) {
