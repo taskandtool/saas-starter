@@ -62,7 +62,7 @@ export default class EditTeam extends Component {
 
     //gets all profile images belonging to the team.
     let otherImages = []
-    if (team.images.length > 1) {
+    if (team.images) {
       otherImages = team.images.map((image, i) => {
         return (
           <img key={i} src={image} className={styles.imageList} onClick={() => this.handleSetProfilePic(image)} width="100px" />
@@ -168,7 +168,7 @@ export default class EditTeam extends Component {
   }
 
   updatePlan() {
-    Meteor.call('Team.update', this.props.team._id, this.props.currentUser, {
+    Meteor.call('Team.update', this.props.team._id, this.props.currUser, {
       planId: this.props.inputState.values.planId
     }, (error) => {
       if (error) {
@@ -212,7 +212,7 @@ export default class EditTeam extends Component {
       return false;
     }
 
-    Meteor.call('Team.update', this.props.team._id, this.props.currentUser, {
+    Meteor.call('Team.update', this.props.team._id, this.props.currUser, {
       name: name,
       desc: desc,
       planId: planId

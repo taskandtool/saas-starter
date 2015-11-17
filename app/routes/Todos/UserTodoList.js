@@ -30,14 +30,9 @@ export default class UserTodoListRoute extends Component {
 
   getMeteorData() {
     let handle
-    let belongsToUser = false
-    //See if user owns list
-    if (Meteor.user()) {
-      belongsToUser = Meteor.user()._id === this.props.params.id;
-    }
 
     //Subscribe to todos labeled isPrivate?
-    if (belongsToUser) {
+    if (this.props.ownsProfile) {
       handle = Meteor.subscribe("todos.auth", this.props.params.id);
     } else {
       handle = Meteor.subscribe("todos.public", this.props.params.id);
@@ -45,8 +40,7 @@ export default class UserTodoListRoute extends Component {
 
     return {
       todos: Todos.find({}, {sort: {createdAt: -1}}).fetch(),
-      loading: !handle.ready(),
-      belongsToUser: belongsToUser
+      loading: !handle.ready()
     };
   }
 
@@ -61,7 +55,7 @@ export default class UserTodoListRoute extends Component {
       "text"
     ];
 
-    const user = this.props.user;
+    const {user, ownsProfile} = this.props;
     const {_id, createdAt} = user;
     const {name, avatar} = user.profile;
 
@@ -87,7 +81,7 @@ export default class UserTodoListRoute extends Component {
         <div className={styles.grid}>
           <div className={styles.column}>
 
-            {this.data.belongsToUser || this.data.belongsToTeam ?
+            {this.props.ownsProfile ?
               <TodoForms
                 buttonText="Add Todo"
                 inputsToUse={inputsToUse}
@@ -145,11 +139,10 @@ export default class UserTodoListRoute extends Component {
     }
 
     const {text} = values;
-    const teamId = this.props.params.teamId || 'belongstouser';
 
     //Don't submit if required fields aren't filled out
     let requiredValues = [text];
-    if (_.some(requiredValues, function(str){ return str == undefined; })) {
+    if (_.some(requiredValues, function(str){ return str == undefined || str == ''; })) {
       this.setState({
         shakeBtn: true
       });
@@ -166,7 +159,7 @@ export default class UserTodoListRoute extends Component {
       isCompleted: false,
       isDeleted: false,
       isPrivate: true,
-      teamId: teamId
+      teamId: ''
     }, (error) => {
       if (error) {
         this.setState({
