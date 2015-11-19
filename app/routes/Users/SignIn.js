@@ -86,7 +86,7 @@ export default class SignInRoute extends Component {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
         this.setState ({
