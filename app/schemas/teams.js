@@ -75,7 +75,7 @@ Meteor.methods({
         })
       }
     }
-console.log(canUpdate)
+
     // Only update team if user is an admin on that team
     if (canUpdate) {
       count = Teams.update(docId, {$set: data});
