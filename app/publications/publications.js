@@ -13,6 +13,12 @@ Meteor.publish('teams', function(limit) {
   return Teams.find({}, {limit: limit, sort: {date: -1}});
 });
 
+//Publish roles fields (normally its hidden. Meteor publishes only email and profile
+//fields on the user by default)
+Meteor.publish(null, function() {
+  return Meteor.users.find({_id: this.userId}, {fields: {permissions: 1}});
+});
+
 Meteor.publish('users.belongingToTeam', function(teamId) {
   //This still returns all users because of the publication below publishing all
   //users.
@@ -20,7 +26,7 @@ Meteor.publish('users.belongingToTeam', function(teamId) {
 });
 
 Meteor.publish('users', function(limit) {
-  //Paginated users. 
+  //Paginated users.
  if (limit) {
    return Meteor.users.find({}, {limit: limit, sort: {date: -1}});
  }
