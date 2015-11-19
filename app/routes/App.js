@@ -32,7 +32,7 @@ export default class App extends Component {
     let handle = Meteor.subscribe("teams")
     Meteor.subscribe("users");
     return {
-      currentUser: Meteor.user(), //putting it here makes it reactive
+      currUser: Meteor.user(), //putting it here makes it reactive
       user: Meteor.users.findOne(this.props.params.id),
       team: Teams.findOne(this.props.params.teamId),
       loading: !handle.ready(),
@@ -44,7 +44,11 @@ export default class App extends Component {
       return (<div><Spinner /></div>);
     }
 
-    //Back button in nav menu works by either grabbing "back" props in Route (see index.js in /routes)
+    const currUser = this.data.currUser
+    const user = this.data.user
+    const team = this.data.team
+
+    //Back arrow button in nav menu works by either grabbing "back" props in Route (see index.js in /routes)
     //Or by clearing all params/queries
     const { query, pathname } = this.props.location
     const backLink =
@@ -52,10 +56,26 @@ export default class App extends Component {
         this.props.routes[1].back ? this.props.routes[1].back :
         null
 
-    //teamsList = teams where user has a role. Server side publish
-    //userList = all users that belong to the same teams. Server side publish
-    //todos = link to user/:id/todos. Say 'saving to user profile. To save to a team, choose one of your teams'
-    //todos = :id/todos Should be default link when team card is clicked. Can click over to profile or team user list from there
+    //Check permissions of current user for super-admin,
+    //if user is on their own profile route,
+    //or if user has roles on current team route
+    let isSuperAdmin = false;
+    let teamRoles = []
+    let ownsProfile = false;
+    if (currUser) {
+      if (user) ownsProfile = currUser._id === user._id
+      let permissions = currUser.permissions;
+      if (permissions) {
+        permissions.map((permission) => {
+          if (permission.roles[0] === "super-admin") {
+            isSuperAdmin = true;
+          }
+          if (team && permission.teamId == team._id) {
+            teamRoles = permission.roles
+          }
+        })
+      }
+    }
 
     return (
       <div>
@@ -68,9 +88,10 @@ export default class App extends Component {
         />
 
         <Sidebar
-          team={this.data.team}
-          user={this.data.user}
-          currentUser={this.data.currentUser}
+          team={team}
+          isSuperAdmin={isSuperAdmin}
+          user={user}
+          currUser={currUser}
           handleToggleSidebar={this.handleToggleSidebar}
           showSidebar={this.state.showSidebar}
           initialLoad={this.state.initialLoad} />
@@ -85,7 +106,7 @@ export default class App extends Component {
           <div onClick={this.state.showDropDown ? () => this.handleToggleDropDown() : null}>
 
             <Nav
-              user={this.data.currentUser}
+              user={currUser}
               showDropDown={this.state.showDropDown}
               showSidebar={this.state.showSidebar}
               handleToggleSidebar={this.handleToggleSidebar}
@@ -96,10 +117,13 @@ export default class App extends Component {
             <div className={styles.app}>
 
               {React.cloneElement(this.props.children, {
-                  //Make this.props.team/user/currentUser available to all routes.
-                  team: this.data.team,
-                  user: this.data.user,
-                  currentUser: this.data.currentUser
+                  //Make below props available to all routes.
+                  team: team,
+                  user: user,
+                  currUser: currUser,
+                  teamRoles: teamRoles,
+                  ownsProfile: ownsProfile,
+                  isSuperAdmin: isSuperAdmin
                 })
               }
             </div>

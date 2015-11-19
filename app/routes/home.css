@@ -23,6 +23,7 @@
 .primary {
   composes: buttonPrimary from '../styles/buttons.css';
   margin-top: .2em;
+  margin-right: .2em;
 }
 
 .white {

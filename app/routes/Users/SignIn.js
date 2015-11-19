@@ -94,7 +94,7 @@ export default class SignInRoute extends Component {
           formSuccess: 'Success!'
         });
         window.setTimeout(() => {
-          this.history.pushState(null, `/`);
+          this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
         }, 1000);
       }
     });

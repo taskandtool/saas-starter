@@ -39,10 +39,10 @@ export default class SocialAuth extends React.Component {
           this.setState({
             errors: { 'facebook': error.reason }
           });
-        return;
-      }
+        } else {
+           this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
+        }
     });
-    this.history.pushState(null, `/`);
   }
 
   handleGoogle() {
@@ -53,10 +53,10 @@ export default class SocialAuth extends React.Component {
         this.setState({
           errors: { 'google': error.reason }
         });
-        return;
+      } else {
+         this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
       }
     });
-    this.history.pushState(null, `/`);
   }
 
   handleTwitter() {
@@ -65,9 +65,10 @@ export default class SocialAuth extends React.Component {
         this.setState({
           errors: { 'twitter': error.reason }
         });
-        return;
+      } else {
+        this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
       }
     });
-    this.history.pushState(null, `/`);
+
   }
 }

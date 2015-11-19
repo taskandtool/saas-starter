@@ -180,7 +180,7 @@ export default class EditProfileRoute extends React.Component {
       if (error) {
         //If there's no existing password set (like when user signed up with facebook/twitter), hard set the password
         if (error.reason == 'User has no password set') {
-          Meteor.call('User.setPasswordIfDoesNotExsit', Meteor.user()._id, password);
+          Meteor.call('User.setPasswordIfDoesNotExsit', this.props.currUser._id, password);
         } else {
           this.setState({
             passwordFormError: error.reason
@@ -203,7 +203,7 @@ export default class EditProfileRoute extends React.Component {
       return false;
     }
 
-    Meteor.call('User.updateEmail', Meteor.user()._id, {"emails": {address : email, verified: false}}, (error,result) => {
+    Meteor.call('User.updateEmail', this.props.currUser._id, {"emails": {address : email, verified: false}}, (error,result) => {
       if (error) {
         this.setState({
           emailFormError: error.reason
@@ -225,7 +225,7 @@ export default class EditProfileRoute extends React.Component {
       return false;
     }
 
-    Meteor.call('User.updateProfile', Meteor.user()._id, {
+    Meteor.call('User.updateProfile', this.props.currUser._id, {
       "profile.name": name,
       "profile.title": title,
       "profile.bio": bio

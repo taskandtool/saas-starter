@@ -44,8 +44,8 @@ export default class PlanViewRoute extends Component {
 
     //Does user own plan?
     let isUser = false;
-    if (Meteor.user()) {
-      isUser = createdBy == Meteor.user()._id
+    if (this.props.currUser) {
+      isUser = createdBy == this.props.currUser._id
     }
 
     //Wants to edit and owns plan

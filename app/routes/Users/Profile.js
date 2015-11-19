@@ -1,17 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import reactMixin from 'react-mixin';
-import {Users} from '../../schemas';
 import UserCard from '../../components/Users/UserCard';
 import styles from './profile.css';
 import {Link} from 'react-router';
-import Spinner from '../../components/Spinner/Spinner';
 import EditProfile from '../../components/Users/EditProfile';
 import Helmet from 'react-helmet';
 
-@reactMixin.decorate(ReactMeteorData)
 export default class UserProfileRoute extends Component {
   static propTypes = {
-    params: PropTypes.object,
     query: PropTypes.object
   }
 
@@ -21,33 +16,12 @@ export default class UserProfileRoute extends Component {
     this.handleDecline = this.handleDecline.bind(this);
   }
 
-  getMeteorData() {
-    let handle = Meteor.subscribe("users");
-    return {
-      loading: !handle.ready(),
-      user: Meteor.users.findOne(this.props.params.id)
-    };
-  }
-
   render() {
-    if (this.data.loading) {
-      return (
-        <div className={styles.wrapper}><Spinner /></div>
-      );
-    }
+    const {user, ownsProfile, currUser} = this.props;
 
-    const {id} = this.props.params
-    const user = this.data.user;
-
-    //Checks for edit params on route
+    //Checks for edit query on route
     const { query } = this.props.location
     const edit = query && query.edit == "true"
-
-    //checks if user owns profile
-    let isUser = false;
-    if (Meteor.user()){
-      isUser = id == Meteor.user()._id
-    }
 
     //if id params don't link to a user...
     if (!user) {
@@ -56,12 +30,12 @@ export default class UserProfileRoute extends Component {
       );
     }
 
-    const email = user.emails && user.emails[0].address ? user.emails[0].address : 'None@none.com';
+    const email = user.emails && user.emails[user.emails.length - 1].address ? user.emails[user.emails.length - 1].address : 'None@none.com';
 
     //if user is looking at their own profile and edit query is on on route
-    if (edit && isUser) {
+    if (edit && ownsProfile) {
       return (
-        <EditProfile user={user} email={email} />
+        <EditProfile user={currUser} email={email} />
       )
     }
 
@@ -72,26 +46,26 @@ export default class UserProfileRoute extends Component {
       )
     }
 
-    //get roles & teams
+    //diplay roles & teams
     let teams = []
     let teamsRoles = []
-    if (this.props.currentUser) {
-      let permissions = this.props.currentUser.permissions;
+    if (user) {
+      let permissions = user.permissions;
       if (permissions) {
         permissions.map((team, i) => {
           teams.push(<div key={i}><Link to={`/team/${team.teamId}`}>{team.teamName}</Link></div>);
-          teamsRoles.push(<div key={i}><strong>{team.teamName}:</strong> <em>{team.roles}</em></div>);
+          teamsRoles.push(<div key={i}><strong>{team.teamName}:</strong> <em>{team.roles.join(', ')}</em></div>);
         })
       }
     }
 
     //see if there's pending invites
     let invites
-    if (user.profile.invites) {
-      invites = user.profile.invites.map((invite, i) => {
+    if (currUser.profile.invites) {
+      invites = currUser.profile.invites.map((invite, i) => {
         return (
           <div key={i} className={styles.invite}>
-            You've been invited by
+            You have been invited by
               <Link to={`user/${invite.inviterId}`} className={styles.link}> {invite.inviterName}</Link> to
               <Link to={`user/${invite.teamId}`} className={styles.link}> {invite.teamName}</Link>
             <p>
@@ -133,7 +107,7 @@ export default class UserProfileRoute extends Component {
               createdAt={user.createdAt}
               email={email} />
 
-              <Link to={`/user/${this.props.params.id}/todos`}  >
+              <Link to={`/user/${user._id}/todos`}  >
                 <button className={styles.btnTodos}>See Todos</button>
               </Link>
            </div>
@@ -148,7 +122,7 @@ export default class UserProfileRoute extends Component {
              {_.isEmpty(teams) ?
                <div>
                  Not a member of any teams yet.<br />
-                 {isUser ?
+                 {ownsProfile ?
                    <Link to="/teams/add" >
                     <button className={styles.btn}>Create a Team</button>
                    </Link>
@@ -158,12 +132,12 @@ export default class UserProfileRoute extends Component {
               : <div>{teams}</div>
               }
 
-             {isUser ?
+             {ownsProfile ?
                 <div>
                   <h3 className={styles.marginTopSubtitle}>Roles</h3>
                   {_.isEmpty(teamsRoles) ? 'No roles in any teams yet.' : <div>{teamsRoles}</div>}
                   <h3 className={styles.marginTopSubtitle}>Edit Profile</h3>
-                  <Link to={`/user/${this.props.params.id}`} query={{ edit: true }}  >
+                  <Link to={`/user/${user._id}`} query={{ edit: true }}  >
                     <button className={styles.btn}>Edit Profile</button>
                   </Link>
                 </div>
@@ -175,16 +149,15 @@ export default class UserProfileRoute extends Component {
     );
   }
 
+  //Accept or decline team invite.
   handleAccept(teamId, teamName, inviterId) {
     //Add user to the team (by adding 'normal' role to team)
     Meteor.call("User.addTeam", 'normal', teamId, teamName);
-
-    //Delete invite
+    //delete invite
     Meteor.call("User.removeTeamInvite", teamId, inviterId);
   }
 
   handleDecline(teamId, inviterId) {
-    //Delete invite
     Meteor.call("User.removeTeamInvite", teamId, inviterId);
   }
 }

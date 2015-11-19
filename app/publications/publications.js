@@ -1,28 +1,29 @@
 import {Plans, Users, Teams, Todos} from '../schemas';
 
 //only super-admins can see all plans. Everyone else gets the public plans only
-//should implmenet this at some point.
-Meteor.publish('plans', function() {
-  return Plans.find({displayOnMainSite: true});
+Meteor.publish('plans', function(isSuperAdmin) {
+  if (isSuperAdmin) {
+    return Plans.find();
+  } else {
+    return Plans.find({displayOnMainSite: true});
+  }
 });
 
-Meteor.publish('teams', function() {
-  return Teams.find();
+Meteor.publish('teams', function(limit) {
+  return Teams.find({}, {limit: limit, sort: {date: -1}});
 });
 
-//to display teams only belonging to user
-Meteor.publish('teams.belongingToUser', function(teamId) {
-  return Teams.find(teamId)
-});
-
-//to display users only belonging to a team
 Meteor.publish('users.belongingToTeam', function(teamId) {
-  //This still returns all users. No idea why. So filtering again in ManageUserRoute
+  //This still returns all users because of the publication below publishing all
+  //users.
   return Users.find({'permissions.teamId': teamId });
 });
 
-Meteor.publish('users', function() {
- return Meteor.users.find();
+Meteor.publish('users', function(limit) {
+  //Paginated users. 
+ if (limit) {
+   return Meteor.users.find({}, {limit: limit, sort: {date: -1}});
+ }
 });
 
 //Can see all todos belonging to user/team

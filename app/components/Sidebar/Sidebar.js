@@ -20,44 +20,35 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const user = Meteor.user();
+    const {currUser, isSuperAdmin} = this.props;
     let content;
 
-    //display link to global dashboard if superAdmin
-    let isSuperAdmin = false;
-    if (this.props.currentUser) {
-      let permissions = this.props.currentUser.permissions;
-      if (permissions) {
-        permissions.map((permission) => {
-          if (permission.roles[0] === "super-admin") {
-            isSuperAdmin = true;
-          }
-        })
-      }
-    }
-
-    if (user) {
+    if (currUser) {
       content = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <li className={styles.item}>
-              <Link to={`/user/${user._id}/todos`} className={styles.link} activeClassName={styles.active} >My Todos</Link>
+              <Link to={`/user/${currUser._id}/todos`} className={styles.link} activeClassName={styles.active} >My Todos</Link>
             </li>
           </ul>
       );
     } else {
       content = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
-            <li className={styles.item}><Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link></li>
+            <li className={styles.item}>
+              <Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link>
+            </li>
           </ul>
       );
     }
 
-
     let superAdminContent = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <hr className={styles.globalDashItem}/>
-            <li className={styles.globalDashItem}>
+            <li className={styles.item}>
               <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Global Dashboard</Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link>
             </li>
           </ul>
     )
@@ -75,9 +66,6 @@ export default class Sidebar extends Component {
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <li className={styles.item}>
               <Link to="/teams" className={styles.link} activeClassName={styles.active}>Teams</Link>
-            </li>
-            <li className={styles.item}>
-              <Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link>
             </li>
             <li className={styles.item}>
               <Link to="/users" className={styles.link} activeClassName={styles.active}>Users</Link>

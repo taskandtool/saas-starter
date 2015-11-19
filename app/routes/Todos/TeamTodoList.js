@@ -30,22 +30,9 @@ export default class TeamTodoListRoute extends Component {
 
   getMeteorData() {
     let handle
-    let belongsToTeam = false
-
-    //See if user has a role on the team
-    if (this.props.currentUser) {
-      let permissions = this.props.currentUser.permissions;
-      if (permissions) {
-        permissions.map((permission, i) => {
-          if (permission.teamId === this.props.params.teamId) {
-            belongsToTeam = true;
-          }
-        })
-      }
-    }
 
     //Subscribe to private and public or just private todos?
-    if (belongsToTeam) {
+    if (this.props.teamRoles.length > 0) {
       handle = Meteor.subscribe("todos.auth", null, this.props.params.teamId);
     } else {
       handle = Meteor.subscribe("todos.public", null, this.props.params.teamId);
@@ -53,8 +40,7 @@ export default class TeamTodoListRoute extends Component {
 
     return {
       todos: Todos.find({}, {sort: {createdAt: -1}}).fetch(),
-      loading: !handle.ready(),
-      belongsToTeam: belongsToTeam
+      loading: !handle.ready()
     };
   }
 
@@ -87,8 +73,7 @@ export default class TeamTodoListRoute extends Component {
         <p>Can see whole teams todos (even private ones), but can only edit your todos.</p>
         <div className={styles.grid}>
           <div className={styles.column}>
-
-            {this.data.belongsToUser || this.data.belongsToTeam ?
+            {this.props.teamRoles.length > 0 ?
               <TodoForms
                 buttonText="Add Todo"
                 inputsToUse={inputsToUse}
