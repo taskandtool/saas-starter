@@ -65,7 +65,7 @@ export default class UserProfileRoute extends Component {
       invites = currUser.profile.invites.map((invite, i) => {
         return (
           <div key={i} className={styles.invite}>
-            You've been invited by
+            You have been invited by
               <Link to={`user/${invite.inviterId}`} className={styles.link}> {invite.inviterName}</Link> to
               <Link to={`user/${invite.teamId}`} className={styles.link}> {invite.teamName}</Link>
             <p>

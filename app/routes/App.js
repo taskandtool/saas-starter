@@ -89,6 +89,7 @@ export default class App extends Component {
 
         <Sidebar
           team={team}
+          isSuperAdmin={isSuperAdmin}
           user={user}
           currUser={currUser}
           handleToggleSidebar={this.handleToggleSidebar}

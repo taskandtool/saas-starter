@@ -11,7 +11,7 @@ import Helmet from 'react-helmet';
 export default class PlanListRoute extends Component {
 
   getMeteorData() {
-    let handle = Meteor.subscribe("plans");
+    let handle = Meteor.subscribe("plans", this.props.isSuperAdmin);
     return {
       plans: Plans.find({}, {sort: {createdAt: -1}}).fetch(),
       loading: !handle.ready()

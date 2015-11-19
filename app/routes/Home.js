@@ -91,13 +91,12 @@ export default class Home extends Component {
               <h4>Login as super admin</h4>
               <p>With these creds: login: super@admin.com, pass: apple1. Please don't change the creds for this user
               on this public demo site. The only difference with this guy is he can see a link in the sidebar to a global
-              dashboard. Not super exciting. Most of the action is in the regular user accounts.</p>
+              dashboard and see all plans (even ones not labeled 'displayOnMainSite')</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
               <h4>See it on mobile</h4>
-              <p>Because it works there too. I did something funky with the list of users (you can see in the user list
-              after clicking 'users' in the navbar at the top). It sometimes works on mobile... on my todo list to cleanup. </p>
+              <p>Because it works there too. Make a chance on your phone and see how fast it updates on your computer. </p>
             </div>
           </div>
         </div>

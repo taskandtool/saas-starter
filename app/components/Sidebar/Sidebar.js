@@ -37,19 +37,18 @@ export default class Sidebar extends Component {
             <li className={styles.item}>
               <Link to="/join" className={styles.link} activeClassName={styles.active}>Get Started</Link>
             </li>
-            <li className={styles.item}>
-              <Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link>
-            </li>
           </ul>
       );
     }
 
-
     let superAdminContent = (
           <ul className={styles.sidebarList} onClick={this.props.handleToggleSidebar}>
             <hr className={styles.globalDashItem}/>
-            <li className={styles.globalDashItem}>
+            <li className={styles.item}>
               <Link to="/super-global-dashboard" className={styles.link} activeClassName={styles.active}>Global Dashboard</Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/plans" className={styles.link} activeClassName={styles.active}>Plans</Link>
             </li>
           </ul>
     )
