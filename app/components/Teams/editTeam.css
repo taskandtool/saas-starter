@@ -74,11 +74,13 @@
 .selected {
   border: .3em solid green;
   margin-bottom: 3em;
+  cursor: pointer;
 }
 
 .unselected {
   composes: selected;
   border-color: rgba(255, 0, 0, 0);
+  cursor: pointer;
 }
 
 .planColumn {

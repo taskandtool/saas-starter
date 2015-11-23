@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Nav from '../components/Header/Nav';
+import Nav from '../components/Nav/Nav';
 import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
 import reactMixin from 'react-mixin';
@@ -30,7 +30,7 @@ export default class App extends Component {
 
   getMeteorData() {
     let handle = Meteor.subscribe("teams")
-    Meteor.subscribe("users");
+    Meteor.subscribe("user", this.props.params.id)
     return {
       currUser: Meteor.user(), //putting it here makes it reactive
       user: Meteor.users.findOne(this.props.params.id),
@@ -44,9 +44,7 @@ export default class App extends Component {
       return (<div><Spinner /></div>);
     }
 
-    const currUser = this.data.currUser
-    const user = this.data.user
-    const team = this.data.team
+    const {currUser, user, team} = this.data
 
     //Back arrow button in nav menu works by either grabbing "back" props in Route (see index.js in /routes)
     //Or by clearing all params/queries
@@ -76,7 +74,6 @@ export default class App extends Component {
         })
       }
     }
-console.log(currUser)
 
 
     return (

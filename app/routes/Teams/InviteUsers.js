@@ -92,6 +92,6 @@ export default class InviteUsersRoute extends Component {
       this.setState({
         success: false
       });
-    }, 3000);
+    }, 1000);
   }
 }

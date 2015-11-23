@@ -49,6 +49,7 @@ export default class ResetPasswordRoute extends Component {
     event.preventDefault();
     const {password, confirm} = values;
 
+    //if there's errors on any field or if confirm password doesn't equal password
     if (errors.password || errors.confim || !password || confirm !== password) {
       this.setState({
         shakeBtn: true
@@ -71,7 +72,7 @@ export default class ResetPasswordRoute extends Component {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
         this.setState({

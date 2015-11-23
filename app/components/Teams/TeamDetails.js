@@ -8,9 +8,7 @@ export default class SingleTeam extends Component {
   }
 
   render() {
-    const { team } = this.props;
-
-    const { _id, createdAt, updatedAt, ownerId, name, desc, planId, userCount, todoCount, isDeleted } = team;
+    const { _id, createdAt, updatedAt, ownerId, name, desc, planId, userCount, todoCount, isDeleted } = this.props.team;
 
     return (
         <ul className={styles.listGroup}>

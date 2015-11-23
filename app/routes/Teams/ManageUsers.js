@@ -53,7 +53,7 @@ export default class ManageUsersRoute extends Component {
               rolesToCheck.map((role, i) => {
                 permission.roles.includes(role) ?
                 roles.push
-                    (<div key={i}>
+                    (<div key={i} className={styles.permissions}>
                       <Icon
                         size="1.2em"
                         icon="check"
@@ -63,7 +63,7 @@ export default class ManageUsersRoute extends Component {
                     </div>)
                   :
                 roles.push
-                    (<div key={i}>
+                    (<div key={i} className={styles.permissions}>
                       <Icon
                         size="1.2em"
                         icon="check"

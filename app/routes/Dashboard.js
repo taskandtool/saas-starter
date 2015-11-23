@@ -71,14 +71,18 @@ export default class Dashboard extends Component {
   }
 
   getMeteorData() {
-    let handle = Meteor.subscribe("users");
+    let handle = Meteor.subscribe("users", 4);
     return {
-      users: Meteor.users.find({}, {sort: {createdAt: -1}, limit:4}).fetch(),
+      users: Meteor.users.find().fetch(),
       loading: !handle.ready()
     };
   }
 
   render() {
+
+    if (!this.props.isSuperAdmin) {
+      return (<div className={styles.wrapper}>You are not authorized to access this page</div>)
+    }
 
     return (
       <div className={styles.wrapper}>

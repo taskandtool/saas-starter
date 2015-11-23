@@ -37,29 +37,18 @@ export default class InputStacked extends React.Component {
           {this.props.label} <span className={style} dangerouslySetInnerHTML={message} />
           {this.props.errorMsg === '' ? <Icon size="1.2em" icon="check" color='green' /> : null}
         </label>
-        {this.props.type == 'select' ?
-          <select
-            className={this.props.styles || styles.input}
-            onChange={this.props.handleChange}
-            selected={this.props.value}
-            data-name={this.props.name}>
-            {this.props.populate}
-          </select>
-        :
-          <input
-            className={this.props.styles || styles.input}
-            type={this.props.type}
-            data-name={this.props.name}
-            onChange={this.props.handleChange}
-            value={this.props.value}
-            checked={this.props.value == true ? this.props.value : null}
-            placeholder={this.props.label}
-            data-validateby={this.props.validateBy}
-            required={this.props.required}
-            defaultValue={this.props.defaultValue}
-            {...this.props}
-            />
-          }
+        <input
+          className={this.props.styles || styles.input}
+          type={this.props.type}
+          data-name={this.props.name}
+          onChange={this.props.handleChange}
+          value={this.props.value}
+          checked={this.props.value == true ? this.props.value : null}
+          placeholder={this.props.label}
+          data-validateby={this.props.validateBy}
+          required={this.props.required}
+          defaultValue={this.props.defaultValue}
+          {...this.props} />
 
       </div>
     );

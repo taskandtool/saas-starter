@@ -30,6 +30,11 @@ Meteor.publish('users', function(limit) {
  if (limit) {
    return Meteor.users.find({}, {limit: limit, sort: {date: -1}});
  }
+ return Meteor.users.find({}, {sort: {date: -1}});
+});
+
+Meteor.publish('user', function(id) {
+ return Meteor.users.find(id);
 });
 
 //Can see all todos belonging to user/team

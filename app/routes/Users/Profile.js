@@ -7,7 +7,10 @@ import Helmet from 'react-helmet';
 
 export default class UserProfileRoute extends Component {
   static propTypes = {
-    query: PropTypes.object
+    query: PropTypes.object,
+    user: PropTypes.object,
+    currUser: PropTypes.object,
+    ownsProfile: PropTypes.bool
   }
 
   constructor() {
@@ -61,7 +64,7 @@ export default class UserProfileRoute extends Component {
 
     //see if there's pending invites
     let invites
-    if (currUser.profile.invites) {
+    if (currUser && currUser.profile.invites) {
       invites = currUser.profile.invites.map((invite, i) => {
         return (
           <div key={i} className={styles.invite}>
@@ -129,7 +132,13 @@ export default class UserProfileRoute extends Component {
                   : null
                  }
                 </div>
-              : <div>{teams}</div>
+              :
+              <div>
+                {teams}
+                <Link to="/teams/add" >
+                 <button className={styles.btn}>Create a Team</button>
+                </Link>
+              </div>
               }
 
              {ownsProfile ?
