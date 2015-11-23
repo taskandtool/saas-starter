@@ -16,6 +16,7 @@ export default class TeamCreateRoute extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.listenForEnter = this.listenForEnter.bind(this);
     this.state = {
       shakeBtn: false,
       formError: '',
@@ -47,6 +48,7 @@ export default class TeamCreateRoute extends React.Component {
         <div className={styles.grid}>
           <div className={styles.column}>
             <h3 className={styles.subtitle}>Add my Team</h3>
+
             <TeamForms
               buttonText="Create my Team"
               inputsToUse={inputsToUse}
@@ -66,6 +68,17 @@ export default class TeamCreateRoute extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    window.onkeydown = this.listenForEnter;
+  }
+
+  listenForEnter(e) {
+    e = e || window.event;
+    if (e.keyCode === 13) {
+      this.handleSubmit(e, this.props.inputState.errors, this.props.inputState.values);
+    }
   }
 
   handleSubmit(event, errors, values) {
