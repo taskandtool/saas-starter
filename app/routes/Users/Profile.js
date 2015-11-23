@@ -62,9 +62,9 @@ export default class UserProfileRoute extends Component {
       }
     }
 
-    //see if there's pending invites
+    //see if there's pending team invites.
     let invites
-    if (currUser && currUser.profile.invites) {
+    if (ownsProfile && user.profile.invites) {
       invites = currUser.profile.invites.map((invite, i) => {
         return (
           <div key={i} className={styles.invite}>
@@ -125,24 +125,18 @@ export default class UserProfileRoute extends Component {
              {_.isEmpty(teams) ?
                <div>
                  Not a member of any teams yet.<br />
-                 {ownsProfile ?
-                   <Link to="/teams/add" >
-                    <button className={styles.btn}>Create a Team</button>
-                   </Link>
-                  : null
-                 }
                 </div>
               :
               <div>
                 {teams}
-                <Link to="/teams/add" >
-                 <button className={styles.btn}>Create a Team</button>
-                </Link>
               </div>
               }
 
              {ownsProfile ?
                 <div>
+                  <Link to="/teams/add" >
+                   <button className={styles.btn}>Create a Team</button>
+                  </Link>
                   <h3 className={styles.marginTopSubtitle}>Roles</h3>
                   {_.isEmpty(teamsRoles) ? 'No roles in any teams yet.' : <div>{teamsRoles}</div>}
                   <h3 className={styles.marginTopSubtitle}>Edit Profile</h3>
