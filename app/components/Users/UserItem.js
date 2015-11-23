@@ -28,11 +28,14 @@ export default class UserItem extends Component {
                     () => this.history.pushState(null, `/user/${this.props._id}`)}>
 
         <div className={styles.wrapper}>
-            <img src={this.props.avatar} className={styles.avatar} />
+          <img src={this.props.avatar} className={styles.avatar} />
 
           <div className={styles.info}>
             <p className={styles.name}>{this.props.name}</p>
             <p className={styles.items}>Joined {moment({createdAt}).format('MMMM DD, YYYY')}</p>
+          </div>
+          <div className={styles.icon}>
+            <Icon size="1.9em" icon="arrow-forward" />
           </div>
         </div>
       </div>

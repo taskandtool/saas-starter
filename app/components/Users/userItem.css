@@ -2,10 +2,15 @@
   max-width: 100%;
   height: 5em;
   cursor: pointer;
+  margin: 0;
+}
+
+.wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .border {
-  padding: 0em .7em;
   border: solid 1px #ddd;
 }
 
@@ -32,4 +37,10 @@
   color: #333;
   font-size: .9em;
   margin: 0;
+}
+
+.icon {
+  display: inline-block;
+  margin: 1.4em .5em 0 0;
+  float: right;
 }

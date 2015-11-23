@@ -79,12 +79,12 @@ export default class Home extends Component {
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-clone"></i></span>
               <h4>This is the exact app you get on Github</h4>
-              <p>...so this is essentially a placeholder for your sales page.</p>
+              <p>Deployed on meteor's free devel servers...so this is essentially a placeholder for your sales page.</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-user"></i></span>
               <h4>Try logging in</h4>
-              <p>Experience the form validations, the gravatar fetching, profile editing, etc. </p>
+              <p>Experience the form validations, the gravatar fetching, profile editing, etc. Then make a team and invite another user and manage their roles. </p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-lock"></i></span>
@@ -96,7 +96,7 @@ export default class Home extends Component {
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
               <h4>See it on mobile</h4>
-              <p>Because it works there too. Make a chance on your phone and see how fast it updates on your computer. </p>
+              <p>Because it works there too. Make a change on your phone and see how fast it updates on your computer. Lock and unlock your todos to see how permissions works</p>
             </div>
           </div>
         </div>

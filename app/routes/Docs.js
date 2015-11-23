@@ -18,9 +18,11 @@ export default class Docs extends Component {
         <div className={styles.section2}>
           <h2 className={styles.title}>Getting Started</h2>
           <p>
-          git clone git@github.com:taskandtool/saas-starter.git<br/>
+          git clone git@github.com:taskandtool/saas-starter.git yourappname<br/>
+          cd yourappname<br/>
           npm install<br/>
-          add keys to devel.json in /settings folder for social auth/stripe purposes.<br/>
+          git update-index --assume-unchanged settings/devel.json (**so you don't accidentally commit ur keys to github)<br/>
+          add keys to devel.json in /settings folder for social auth/stripe/amazon s3 purposes.<br/>
           type 'node dev.js' in your console to start it up.<br/>
           Note: you should already have node/npm and meteor installed or it won't work.
           </p>
