@@ -6,6 +6,7 @@ import reactMixin from 'react-mixin';
 import Helmet from "react-helmet";
 import {Teams, Users} from '../schemas';
 import Spinner from '../components/Spinner/Spinner';
+import Toast from '../components/Toast/Toast';
 
 import global from '../styles/global.css';
 import styles from './app.css';
@@ -21,10 +22,15 @@ export default class App extends Component {
     super();
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
     this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
+    this.showToast = this.showToast.bind(this);
+    this.closeToast = this.closeToast.bind(this);
     this.state = {
       showDropDown: false,
       showSidebar: false,
-      initialLoad: true
+      initialLoad: true,
+      showToast: false,
+      toastMsg: '',
+      toastType: 'success'
     };
   }
 
@@ -75,7 +81,6 @@ export default class App extends Component {
       }
     }
 
-
     return (
       <div>
         <Helmet
@@ -113,6 +118,13 @@ export default class App extends Component {
               name={this.props.routes[1].name}
               back={backLink} />
 
+            {this.state.showToast ?
+              <Toast content={this.state.toastMsg}
+                      closeToast={this.closeToast}
+                      type={this.state.toastType} />
+            : null}
+
+
             <div className={styles.app}>
 
               {React.cloneElement(this.props.children, {
@@ -122,7 +134,8 @@ export default class App extends Component {
                   currUser: currUser,
                   teamRoles: teamRoles,
                   ownsProfile: ownsProfile,
-                  isSuperAdmin: isSuperAdmin
+                  isSuperAdmin: isSuperAdmin,
+                  showToast: this.showToast,
                 })
               }
             </div>
@@ -132,6 +145,24 @@ export default class App extends Component {
         </div>
       </div>
     );
+  }
+
+  showToast(content, type) {
+    this.setState({
+      showToast: true,
+      toastMsg: content,
+      toastType: type
+    });
+    window.setTimeout(() => {
+      this.closeToast()
+    }, 3000);
+  }
+
+  closeToast() {
+    this.setState({
+      showToast: false,
+      toastMsg: ''
+    });
   }
 
   handleToggleDropDown() {

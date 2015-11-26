@@ -14,7 +14,10 @@ import UserItem from '../../components/Users/UserItem.js';
 export default class UserTodoListRoute extends Component {
 
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    user: PropTypes.object,
+    currUser: PropTypes.object,
+    ownsProfile: PropTypes.bool
   }
 
   constructor(props) {
@@ -94,7 +97,7 @@ export default class UserTodoListRoute extends Component {
             : null }
 
             {todos ?
-              <TodoList todos={todos} />
+              <TodoList todos={todos} canEdit={ownsProfile} />
             : null }
           </div>
           <div className={styles.cardColumn}>

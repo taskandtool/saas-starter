@@ -1,0 +1,42 @@
+.toastContainer {
+  position: fixed;
+  text-align: center;
+  z-index: 12;
+  margin: 3.8em 0 -2em 0;
+  animation: open .5s 1;
+  animation-fill-mode: forwards;
+  width: 100%;
+}
+
+.toast:hover {
+  opacity: .95;
+}
+
+@keyframes open {
+  0% {
+    transform: translate3d(-100%,0,0);
+  } 100% {
+    transform: translate3d(0,0,0);
+  }
+}
+
+.toast {
+  width: 20em;
+  cursor: pointer;
+  max-width: calc(100% - 2em);
+  border-radius: .5em;
+  color: #fff;
+  background-color: #777;
+  padding: 1em;
+  margin: auto;
+}
+
+.error {
+  composes: toast;
+  background-color: red;
+}
+
+.success {
+  composes: toast;
+  background-color: green;
+}

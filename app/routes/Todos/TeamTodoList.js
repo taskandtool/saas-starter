@@ -14,7 +14,8 @@ import TeamCard from '../../components/Teams/TeamCard.js';
 export default class TeamTodoListRoute extends Component {
 
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    showToast: PropTypes.func
   }
 
   constructor(props) {
@@ -86,7 +87,10 @@ export default class TeamTodoListRoute extends Component {
             : null }
 
             {todos ?
-              <TodoList todos={todos} />
+              <TodoList
+                todos={todos}
+                canEdit={this.props.teamRoles.length > 0 ? true : false}
+                showToast={this.props.showToast}  />
             : null }
           </div>
           <div className={styles.cardColumn}>
@@ -114,7 +118,6 @@ export default class TeamTodoListRoute extends Component {
     event.preventDefault();
 
     //don't submit if there's errors showing
-    //underscore method to ensure all errors are empty strings
     let errorValues = _.values(errors);
     if (! _.every(errorValues, function(str){ return str === ''; })) {
       this.setState({

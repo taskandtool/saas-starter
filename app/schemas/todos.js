@@ -30,12 +30,14 @@ Meteor.methods({
     return docId;
   },
 
-  "Todos.update": function(docId, data) {
+  "Todos.update": function(docId, canEdit, data) {
     var count, selector;
     var optional = Match.Optional;
 
     check(docId, String);
     if (!this.userId) throw new Meteor.Error(401, "Login required");
+    if (!canEdit) throw new Meteor.Error(401, "You don't have permission to edit this.");
+
     data.updatedAt = new Date();
 
     // whitelist what can be updated
@@ -48,7 +50,7 @@ Meteor.methods({
     });
 
     // if caller doesn't own doc, update will fail because fields won't match
-    selector = {_id: docId, ownerId: this.userId};
+    selector = {_id: docId};
 
     count = Todos.update(selector, {$set: data});
 

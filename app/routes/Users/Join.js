@@ -67,6 +67,7 @@ export default class JoinRoute extends React.Component {
 
     //if errors or confirm field is empty, shake button and don't submit
     if (errors.password || errors.email || errors.confirm || !confirm) {
+      this.props.showToast('You have errors showing', 'error')
       this.setState({
         shakeBtn: true
       });
@@ -88,6 +89,7 @@ export default class JoinRoute extends React.Component {
       }
     }, (error) => {
       if (error) {
+        this.props.showToast(error.reason)
         this.setState({
           formError: error.reason,
           shakeBtn: true
