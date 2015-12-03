@@ -25,7 +25,7 @@ export default class TodoCard extends React.Component {
 
     return (
       <div key={todo._id} className={styles.border} >
-        <div className={styles.completed}>{todo.text}</div>
+        <div className={styles.text}>{todo.text}</div>
         <div className={styles.right}>
           <div className={styles.item}>
             {todo.isCompleted ?

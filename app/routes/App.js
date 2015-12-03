@@ -119,9 +119,10 @@ export default class App extends Component {
               back={backLink} />
 
             {this.state.showToast ?
-              <Toast content={this.state.toastMsg}
-                      closeToast={this.closeToast}
-                      type={this.state.toastType} />
+              <Toast
+                content={this.state.toastMsg}
+                closeToast={this.closeToast}
+                type={this.state.toastType} />
             : null}
 
 
@@ -150,12 +151,14 @@ export default class App extends Component {
   showToast(content, type) {
     this.setState({
       showToast: true,
+      //toastMsg content is string that accepts HTML
       toastMsg: content,
+      //String: 'error' or 'success'
       toastType: type
     });
     window.setTimeout(() => {
       this.closeToast()
-    }, 3000);
+    }, 2000);
   }
 
   closeToast() {

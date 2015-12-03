@@ -71,7 +71,6 @@ export default class TeamTodoListRoute extends Component {
 
         <h1 className={styles.title}>{name}'s Todos</h1>
         <h3 className={styles.subtitle}>{todos.length} Todos. </h3>
-        <p>Can see whole teams todos (even private ones), but can only edit your todos.</p>
         <div className={styles.grid}>
           <div className={styles.column}>
             {this.props.teamRoles.length > 0 ?
@@ -127,7 +126,7 @@ export default class TeamTodoListRoute extends Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
@@ -144,7 +143,7 @@ export default class TeamTodoListRoute extends Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 

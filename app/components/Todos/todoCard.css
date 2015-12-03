@@ -4,22 +4,20 @@
   border: solid 1px #ddd;
   width: 100%;
   padding: .5em;
+  display: inline-flex;
+  flex-direction: row;
 }
 
 .text {
-  display: inline-block;
-  vertical-align: middle;
+  flex-grow: 1;
 }
 
 .item {
-  display: inline-block;
-  vertical-align: middle;
   padding: 0 .5em;
   cursor: pointer;
+  display: inline-block;
 }
 
 .right {
-  float: right;
-  display: inline-block;
-  margin-top: -1.7em;
+  min-width: 7em;
 }

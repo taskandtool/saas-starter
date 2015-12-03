@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import InputStacked from '../../components/Forms/InputStacked';
+import InputStacked from '../Forms/InputStacked';
 import styles from './userForms.css';
 
 export default class UserForms extends Component {
@@ -9,7 +9,7 @@ export default class UserForms extends Component {
     formError: React.PropTypes.string,
     formSuccess: React.PropTypes.string,
     handleSubmit: React.PropTypes.func,
-    handleChange: React.PropTypes.func
+    handleChange: React.PropTypes.func,
   }
 
   constructor() {
@@ -22,18 +22,14 @@ export default class UserForms extends Component {
     const errors = this.props.inputState.errors;
     const inputs = this.getInputsToUse();
 
-    //FYI this.props.token in handleSubmit below is used only for the ResetPassword route.
     return (
       <div>
         <form className={styles.form}>
           {inputs}
         </form>
-        <div className={styles.error}>{this.props.formError}</div>
-        <div className={styles.success}>{this.props.formSuccess}</div>
         <button
-          type="submit"
           className={this.props.shakeBtn ? styles.btnShake : styles.btn}
-          onClick={() => this.props.handleSubmit(event, errors, values, this.props.token)} >
+          onClick={this.props.handleSubmit} >
           {this.props.buttonText}
         </button>
       </div>
@@ -50,14 +46,12 @@ export default class UserForms extends Component {
           return (
             <InputStacked
               key={i}
-              type="email"
               name="email"
               handleChange={this.props.handleChange}
               value={values.email}
               errorMsg={errors.email}
               validateBy="email"
-              label="Email Address"
-              required="true"  />
+              label="Email Address"  />
           );
         case 'password':
           return (

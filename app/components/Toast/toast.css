@@ -31,6 +31,15 @@
   margin: auto;
 }
 
+.toast h1, .toast h2, .toast h3, .toast h4, .toast h5, .toast h6 {
+  color: #fff;
+  margin: 0;
+}
+
+.toast p {
+  padding-bottom: 0;
+}
+
 .error {
   composes: toast;
   background-color: red;

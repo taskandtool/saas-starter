@@ -108,9 +108,9 @@ export default class PlanCreateRoute extends React.Component {
     }
   }
 
-  handleSubmit(event, errors, values) {
-    event.preventDefault();
-
+  handleSubmit() {
+    let errors = this.props.inputState.errors
+    let values = this.props.inputState.values
     //don't submit if there's errors showing
     //underscore method to ensure all errors are empty strings
     let errorValues = _.values(errors);

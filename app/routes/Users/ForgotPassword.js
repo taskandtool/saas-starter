@@ -9,9 +9,8 @@ export default class ForgotPasswordRoute extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.listenForEnter = this.listenForEnter.bind(this);
     this.state = {
-      formSuccess: "",
-      formError: "",
       shakeBtn: false
     };
   }
@@ -29,8 +28,6 @@ export default class ForgotPasswordRoute extends React.Component {
           buttonText="Reset my Password"
           inputsToUse={inputsToUse}
           inputState={this.props.inputState}
-          formError={this.state.formError}
-          formSuccess={this.state.formSuccess}
           shakeBtn={this.state.shakeBtn}
           handleChange={this.props.handleChange}
           handleSubmit={this.handleSubmit} />
@@ -38,11 +35,27 @@ export default class ForgotPasswordRoute extends React.Component {
     )
   }
 
-  handleSubmit(event, errors, values) {
-    event.preventDefault();
+  componentDidMount() {
+    window.onkeydown = this.listenForEnter;
+  }
+
+  listenForEnter(e) {
+    e = e || window.event;
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.handleSubmit();
+    }
+  }
+
+  handleSubmit() {
+    let errors = this.props.inputState.errors
+    let values = this.props.inputState.values
+
     const {email} = values;
 
-    if (errors.email || !email) {
+    //if errors showing don't submit
+    if (_.some(errors, function(str){ return str !== '' && str !== undefined; })) {
+      this.props.showToast('You have errors showing', 'error')
       this.setState({
         shakeBtn: true
       });
@@ -50,27 +63,37 @@ export default class ForgotPasswordRoute extends React.Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
+      return false;
+    }
+    //if any values missing showing don't submit
+    if (Object.keys(values).length < 1) {
+      this.props.showToast('Please fill out all fields', 'error')
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 1000);
       return false;
     }
 
     Accounts.forgotPassword({email: email}, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          formError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
-        this.setState({
-          formError: "",
-          formSuccess: "Success! Please check your inbox for your reset password link!"
-        });
+        this.props.showToast('<h3>Success!</h3> <p>Please check your inbox for the link to finish resetting your password.</p>', 'success')
       }
     });
   }
