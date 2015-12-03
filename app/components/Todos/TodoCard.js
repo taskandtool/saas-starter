@@ -25,7 +25,7 @@ export default class TodoCard extends React.Component {
 
     return (
       <div key={todo._id} className={styles.border} >
-        <div className={styles.completed}>{todo.text}</div>
+        <div className={styles.text}>{todo.text}</div>
         <div className={styles.right}>
           <div className={styles.item}>
             {todo.isCompleted ?
@@ -51,14 +51,26 @@ export default class TodoCard extends React.Component {
   }
 
   handleDeleteClick() {
-    Meteor.call('Todos.update', this.props.todo._id, {isDeleted: !this.props.todo.isDeleted});
+    Meteor.call('Todos.update', this.props.todo._id, this.props.canEdit, {isDeleted: !this.props.todo.isDeleted}, (err, res) => {
+      if (err) {
+        this.props.showToast(err.reason, 'error')
+      }
+    });
   }
 
   handlePrivateClick() {
-    Meteor.call('Todos.update', this.props.todo._id, {isPrivate: !this.props.todo.isPrivate});
+    Meteor.call('Todos.update', this.props.todo._id, this.props.canEdit, {isPrivate: !this.props.todo.isPrivate}, (err, res) => {
+      if (err) {
+        this.props.showToast(err.reason, 'error')
+      }
+    });
   }
 
   handleClick() {
-    Meteor.call('Todos.update', this.props.todo._id, {isCompleted: !this.props.todo.isCompleted});
+    Meteor.call('Todos.update', this.props.todo._id, this.props.canEdit, {isCompleted: !this.props.todo.isCompleted}, (err, res) => {
+      if (err) {
+        this.props.showToast(err.reason, 'error')
+      }
+    });
   }
 }

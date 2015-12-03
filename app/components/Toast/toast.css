@@ -1,0 +1,51 @@
+.toastContainer {
+  position: fixed;
+  text-align: center;
+  z-index: 12;
+  margin: 3.8em 0 -2em 0;
+  animation: open .5s 1;
+  animation-fill-mode: forwards;
+  width: 100%;
+}
+
+.toast:hover {
+  opacity: .95;
+}
+
+@keyframes open {
+  0% {
+    transform: translate3d(-100%,0,0);
+  } 100% {
+    transform: translate3d(0,0,0);
+  }
+}
+
+.toast {
+  width: 20em;
+  cursor: pointer;
+  max-width: calc(100% - 2em);
+  border-radius: .5em;
+  color: #fff;
+  background-color: #777;
+  padding: 1em;
+  margin: auto;
+}
+
+.toast h1, .toast h2, .toast h3, .toast h4, .toast h5, .toast h6 {
+  color: #fff;
+  margin: 0;
+}
+
+.toast p {
+  padding-bottom: 0;
+}
+
+.error {
+  composes: toast;
+  background-color: red;
+}
+
+.success {
+  composes: toast;
+  background-color: green;
+}

@@ -16,8 +16,6 @@ export default class SignInRoute extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.listenForEnter = this.listenForEnter.bind(this);
     this.state = {
-      formSuccess: "",
-      formError: "",
       shakeBtn: false
     };
   }
@@ -38,8 +36,6 @@ export default class SignInRoute extends Component {
           buttonText="Login"
           inputsToUse={inputsToUse}
           inputState={this.props.inputState}
-          formError={this.state.formError}
-          formSuccess={this.state.formSuccess}
           shakeBtn={this.state.shakeBtn}
           handleChange={this.props.handleChange}
           handleSubmit={this.handleSubmit} />
@@ -60,11 +56,27 @@ export default class SignInRoute extends Component {
     }
   }
 
-  handleSubmit(event, errors, values) {
-    event.preventDefault();
+  handleSubmit() {
+    const {errors, values} = this.props.inputState;
     const {email, password} = values;
 
-    if (errors.password || errors.email) {
+
+    //if errors showing don't submit
+    if (_.some(errors, function(str){ return str !== '' && str !== undefined; })) {
+      this.props.showToast('You have errors showing', 'error')
+      this.setState({
+        shakeBtn: true
+      });
+      window.setTimeout(() => {
+        this.setState({
+          shakeBtn: false
+        });
+      }, 1000);
+      return false;
+    }
+    //if any values missing showing don't submit
+    if (Object.keys(values).length < 2) {
+      this.props.showToast('Please fill out all fields', 'error')
       this.setState({
         shakeBtn: true
       });
@@ -78,8 +90,8 @@ export default class SignInRoute extends Component {
 
     Meteor.loginWithPassword(email, password, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          formError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
@@ -89,10 +101,7 @@ export default class SignInRoute extends Component {
         }, 1000);
         return;
       } else {
-        this.setState ({
-          formError: "",
-          formSuccess: 'Success!'
-        });
+        this.props.showToast('<h3>Welcome Back!</h3><p>Taking you to your to do\'s</p>', 'success')
         window.setTimeout(() => {
           this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
         }, 1000);

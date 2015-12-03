@@ -14,7 +14,8 @@ import TeamCard from '../../components/Teams/TeamCard.js';
 export default class TeamTodoListRoute extends Component {
 
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    showToast: PropTypes.func
   }
 
   constructor(props) {
@@ -70,7 +71,6 @@ export default class TeamTodoListRoute extends Component {
 
         <h1 className={styles.title}>{name}'s Todos</h1>
         <h3 className={styles.subtitle}>{todos.length} Todos. </h3>
-        <p>Can see whole teams todos (even private ones), but can only edit your todos.</p>
         <div className={styles.grid}>
           <div className={styles.column}>
             {this.props.teamRoles.length > 0 ?
@@ -86,7 +86,10 @@ export default class TeamTodoListRoute extends Component {
             : null }
 
             {todos ?
-              <TodoList todos={todos} />
+              <TodoList
+                todos={todos}
+                canEdit={this.props.teamRoles.length > 0 ? true : false}
+                showToast={this.props.showToast}  />
             : null }
           </div>
           <div className={styles.cardColumn}>
@@ -114,7 +117,6 @@ export default class TeamTodoListRoute extends Component {
     event.preventDefault();
 
     //don't submit if there's errors showing
-    //underscore method to ensure all errors are empty strings
     let errorValues = _.values(errors);
     if (! _.every(errorValues, function(str){ return str === ''; })) {
       this.setState({
@@ -124,7 +126,7 @@ export default class TeamTodoListRoute extends Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
@@ -141,7 +143,7 @@ export default class TeamTodoListRoute extends Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
