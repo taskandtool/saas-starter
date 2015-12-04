@@ -28,7 +28,10 @@ export default class PlanCard extends React.Component {
     if (feats) {
       featureList = feats.map((feature, i) => {
         return (
-          <p key={i} className={styles.features}><Icon size="1.2em" icon="check" color='green' />{feature}</p>
+          <p key={i} className={styles.features}>
+            <Icon size="1.2em" icon="check" color='green' />
+            {feature}
+          </p>
         );
       })
     }

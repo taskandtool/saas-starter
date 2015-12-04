@@ -17,10 +17,9 @@ export default class TeamCreateRoute extends React.Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.listenForEnter = this.listenForEnter.bind(this);
+    this.handleSelectPlan = this.handleSelectPlan.bind(this);
     this.state = {
       shakeBtn: false,
-      formError: '',
-      formSuccess: ''
     }
   }
 
@@ -31,7 +30,8 @@ export default class TeamCreateRoute extends React.Component {
 
     let inputsToUse = [
       "name",
-      "desc"
+      "desc",
+      "plans"
     ];
 
     return (
@@ -45,27 +45,25 @@ export default class TeamCreateRoute extends React.Component {
 
         <h1 className={styles.title}>Create Team</h1>
 
-        <div className={styles.grid}>
-          <div className={styles.column}>
-            <h3 className={styles.subtitle}>Add my Team</h3>
-
-            <TeamForms
-              buttonText="Create my Team"
-              inputsToUse={inputsToUse}
-              inputState={this.props.inputState}
-              formError={this.state.formError}
-              formSuccess={this.state.formSuccess}
-              shakeBtn={this.state.shakeBtn}
-              handleChange={this.props.handleChange}
-              handleSubmit={this.handleSubmit} />
-          </div>
-          {this.props.inputState.values.name ?
-          <div className={styles.column}>
+        {this.props.inputState.values.name ?
+          <div className={styles.card}>
             <h3 className={styles.subtitle}>My Team</h3>
             <TeamCard team={values}  />
           </div>
-          : null}
-        </div>
+        : null}
+
+        <h3 className={styles.subtitle}>Add my Team</h3>
+
+        <TeamForms
+          buttonText="Create my Team!"
+          inputsToUse={inputsToUse}
+          inputState={this.props.inputState}
+          shakeBtn={this.state.shakeBtn}
+          handleChange={this.props.handleChange}
+          handleSelectPlan={this.handleSelectPlan}
+          handleSubmit={this.handleSubmit}
+          team={{}} />
+
       </div>
     );
   }
@@ -81,12 +79,19 @@ export default class TeamCreateRoute extends React.Component {
     }
   }
 
+  handleSelectPlan(id) {
+    let newValue = _.extend({}, this.props.inputState.values);
+    newValue["planId"] = id;
+    this.props.setDefaultValues(newValue);
+  }
+
   handleSubmit(event, errors, values) {
     event.preventDefault();
-    const {name, desc} = values;
+    const {name, desc, planId} = values;
 
     //don't submit if there's errors showing
     if (errors.name || errors.desc) {
+      this.props.showToast('<h3>Sorry...</h3><p>you must fix the errors showing</p>', 'error')
       this.setState({
         shakeBtn: true
       });
@@ -94,44 +99,43 @@ export default class TeamCreateRoute extends React.Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
-
+console.log(planId)
     //Don't submit if all fields aren't filled out
     if (!name || !desc ) {
+      this.props.showToast('<h3>Sorry...</h3><p>You have to fill out the name and description fields</p>', 'error')
+
       this.setState({
-        formError: "Please fill out all fields",
         shakeBtn: true
       });
       window.setTimeout(() => {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
     Meteor.call('Team.create', {
       name: name,
-      desc: desc
+      desc: desc,
+      planId: planId
     }, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          formError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
-        this.setState({
-          formError: "",
-          formSuccess: "Success! Team Created!"
-        });
+        this.props.showToast('<h3>Team Created!</h3><p>Invite some friends and create shared public or private todos.</p>', 'success')
         window.setTimeout(() => {
           this.history.pushState(null, `/teams`);
         }, 1000);

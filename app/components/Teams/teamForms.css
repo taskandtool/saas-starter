@@ -1,43 +1,55 @@
 .btn {
-  composes: button from '../../styles/buttons.css';
+  composes: buttonPrimary from '../../styles/buttons.css';
   margin-top: .8em;
   width: 100%;
 }
 
 .btnShake {
-  composes: buttonShake from '../../styles/buttons.css';
+  composes: buttonShakePrimary from '../../styles/buttons.css';
   margin-top: .8em;
   width: 100%;
 }
 
-.form input, .form label{
+.subtitle {
+  composes: subtitle from '../../styles/utilities.css';
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+.grid {
+  lost-utility: clearfix;
+}
+
+.grid input, .grid label{
   display: block;
   margin: 0.25em 0;
   margin-bottom: 0em;
   z-index: 3;
 }
 
-.error {
-  color: red;
+.inputCol {
+  max-width: 23em;
 }
 
-.success {
-  color: green;
+.column {
+  lost-waffle: 2/7;
 }
 
-.btnFeatures {
-  composes: button from '../../styles/buttons.css';
-  margin: 0 .2em;
+@media all and (max-width: 40em) {
+  .column, .inputCol {
+    max-width: 100%;
+    lost-waffle: 1;
+  }
 }
 
-.btnHolder {
- width: 10%;
- display: inline-block;
- margin-top: -2.25em;
- float: right;
+.selected {
+  border: .3em solid green;
+  margin-bottom: 3em;
+  cursor: pointer;
 }
 
-.inputFeatures {
-  width: 90%;
-  display: inline-block;
+.unselected {
+  composes: selected;
+  border-color: rgba(255, 0, 0, 0);
+  cursor: pointer;
 }
