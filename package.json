@@ -48,7 +48,7 @@
     "react-stripe-checkout": "^1.7.2",
     "react-svg-piechart": "^1.1.0",
     "react-typeahead": "^1.1.5",
-    "stripe": "^4.0.0"
+    "stripe": "^4.1.0"
   },
   "scripts": {
     "lint": "eslint app"

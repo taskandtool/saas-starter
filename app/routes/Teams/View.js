@@ -28,7 +28,7 @@ export default class TeamViewRoute extends Component {
 
     if (edit && this.props.teamRoles.includes("admin")) {
       return (
-        <EditTeam team={team} currUser={this.props.currUser} />
+        <EditTeam team={team} showToast={this.props.showToast} currUser={this.props.currUser} />
       )
     }
 

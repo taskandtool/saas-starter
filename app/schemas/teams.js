@@ -29,7 +29,7 @@ Meteor.methods({
     data.userCount = 0;
     data.isDeleted = false;
 
-    check(data, _.omit(schema, '_id', 'picture', 'images', 'planId', 'planName'));
+    check(data, _.omit(schema, '_id', 'picture', 'images', 'planName'));
 
     docId = Teams.insert(data);
 

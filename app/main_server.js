@@ -19,9 +19,7 @@ if (!Users.find().fetch().length) {
 }
 
 Meteor.startup(function () {
-  //Setup stripe keys
-  var stripeKey = Meteor.settings.public.testPublishableKey;
-  //Stripe.setPublishableKey( stripeKey );
+
   //sets up keys for social logins
   ServiceConfiguration.configurations.upsert(
     { service: "google" },

@@ -1,4 +1,7 @@
 import {Plans} from '../schemas';
+// var stripe = require("stripe")(
+//   Meteor.settings.public.testPublishableKey
+// );
 
 var schema = {
   _id: String,
@@ -48,6 +51,30 @@ Meteor.methods({
     docId = Plans.insert(data);
 
     console.log("[Plan.create]", docId);
+
+
+
+    //successfully created plan in app, now make it in stripe.
+    //Except this doesn't work because Stipe seems to be calling 'child process' in browser...
+    //even though I'm trying to run it on just the server.
+
+    // if (Meteor.isServer) {
+    //   let monthlyPrice = data.monthlyPrice * 100;
+    //   stripe.plans.create({
+    //     amount: monthlyPrice,
+    //     interval: "month",
+    //     name: data.title,
+    //     currency: "usd",
+    //     id: "gold"
+    //   }, function(err, plan) {
+    //     if (err) {
+    //       throw new Meteor.Error(401, err.message);
+    //     } else {
+    //       console.log('plan added to stripe successfully')
+    //     }
+    //   });
+    // }
+
     return docId;
   },
 

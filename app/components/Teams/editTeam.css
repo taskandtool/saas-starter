@@ -11,27 +11,6 @@
   max-width: 960px;
 }
 
-.grid {
-  lost-utility: clearfix;
-  margin-bottom: 2em;
-}
-
-.column {
-  lost-waffle: 1/2;
-}
-
-@media all and (max-width: 40em) {
-  .column {
-    lost-waffle: 1;
-  }
-}
-
-.btnFeatures {
-  composes: button from '../../styles/buttons.css';
-  margin: .4em 0em;
-  width: 100%;
-}
-
 .btn {
   composes: buttonPrimary from '../../styles/buttons.css';
   margin-top: .2em;
@@ -45,70 +24,17 @@
   animation: shake .5s 1 ease-in-out;
 }
 
-.addFeature {
-  margin: .5em 0;
-}
-
-.form input, .form label{
-  display: block;
-  margin: 0.25em 0;
-  z-index: 3;
-}
-
-.error {
-  color: red;
-}
-
-.success {
-  color: green;
-}
-
 .imageList {
   margin: .5em .5em .1em 0;
 }
 
-.card {
-  margin-bottom: 2em;
-}
-
-.selected {
-  border: .3em solid green;
-  margin-bottom: 3em;
-  cursor: pointer;
-}
-
-.unselected {
-  composes: selected;
-  border-color: rgba(255, 0, 0, 0);
-  cursor: pointer;
-}
-
-.planColumn {
-  min-width: 16em;
+.container {
+  margin: 1.5em 0;
+  max-width: 23em;
 }
 
 @media all and (max-width: 40em) {
-  .planColumn {
-    width: 100%;
-    min-width: 17em;
+  .container {
+    max-width: 100%;
   }
-}
-
-.planGrid {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-}
-
-.btnPlan {
-  composes: btn;
-  max-width: 10em;
-}
-
-.planSuccess {
-  color:green;
-}
-
-.planError {
-  color:red;
 }

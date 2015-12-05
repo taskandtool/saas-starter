@@ -13,19 +13,9 @@ import PlanCard from '../Plans/PlanCard';
 
 @handleForms
 @reactMixin.decorate(History)
-@reactMixin.decorate(ReactMeteorData)
 export default class EditTeam extends Component {
   static propTypes = {
     team: React.PropTypes.object
-  }
-
-  getMeteorData() {
-    //need to do this to prepopulate plan selection for teams
-    let handle = Meteor.subscribe("plans");
-    return {
-      plans: Plans.find().fetch(),
-      loading: !handle.ready()
-    };
   }
 
   constructor() {
@@ -39,10 +29,6 @@ export default class EditTeam extends Component {
 
     this.state = {
       shakeBtn: false,
-      formError: '',
-      formSuccess: '',
-      planError: '',
-      planSuccess: '',
       showSpinner: false,
       uploadingMsg: "Upload a new profile image:"
     }
@@ -56,6 +42,7 @@ export default class EditTeam extends Component {
     let inputsToUse = [
       "name",
       "desc",
+      "plans"
     ];
 
     const team = this.props.team
@@ -70,23 +57,6 @@ export default class EditTeam extends Component {
       })
     }
 
-    let displayPlans = this.data.plans.map((plan, i) => {
-      return (<div
-              key={i}
-              onClick={() => this.handleSelectPlan(plan._id, plan.title)}
-              className={styles.planColumn}>
-              {team.planId == plan._id ? 'Current Plan' : <br/> }
-              <div className={values.planId == plan._id ? styles.selected : styles.unselected}>
-                <PlanCard plan={plan} />
-              </div>
-            </div>)
-    });
-
-    //get plans to populate option select field in forms
-    let planTitle = this.data.plans.map((plan) => {
-      return <option key={plan._id} value={plan._id}>{plan.title}</option>
-    });
-
     return (
       <div className={styles.wrapper}>
         <Helmet
@@ -97,28 +67,23 @@ export default class EditTeam extends Component {
         />
 
         <h1 className={styles.title}>Edit {this.props.team.name}</h1>
-        <div className={styles.grid}>
+        <h3 className={styles.subtitle}>Update Team Info</h3>
 
-          <div className={styles.column}>
-            <h3 className={styles.subtitle}>Update Team Info</h3>
-            <div className={styles.card}>
-              <TeamCard team={values} picture={team.picture}  />
-            </div>
-            <TeamForms
-              buttonText="Update Team"
-              inputsToUse={inputsToUse}
-              inputState={this.props.inputState}
-              formError={this.state.formError}
-              formSuccess={this.state.formSuccess}
-              shakeBtn={this.state.shakeBtn}
-              handleChange={this.props.handleChange}
-              handleSubmit={this.handleSubmit}
-              handleAddFeature={this.handleAddFeature}
-              team={this.props.team}
-              populate={planTitle} />
-          </div>
+        <div className={styles.container}>
+          <TeamCard team={values} picture={team.picture}  />
+        </div>
 
-          <div className={styles.column}>
+        <TeamForms
+          buttonText="Update Team"
+          inputsToUse={inputsToUse}
+          inputState={this.props.inputState}
+          shakeBtn={this.state.shakeBtn}
+          handleChange={this.props.handleChange}
+          handleSubmit={this.handleSubmit}
+          handleSelectPlan={this.handleSelectPlan}
+          team={this.props.team} />
+
+          <div className={styles.container}>
             <EditImages
               ref="editTeamImages"
               otherImages={otherImages}
@@ -126,14 +91,6 @@ export default class EditTeam extends Component {
               uploadingMsg={this.uploadingMsg}
               showSpinner={this.state.showSpinner} />
           </div>
-        </div>
-        <h3 className={styles.subtitle}>Upgrade Plan</h3>
-        <div className={styles.planGrid}>
-          {displayPlans}
-        </div>
-        <div className={styles.planSuccess}>{this.state.planSuccess}</div>
-        <div className={styles.planError}>{this.state.planError}</div>
-        <button onClick={this.updatePlan} className={styles.btnPlan}>Update Plan</button>
       </div>
     );
   }
@@ -172,21 +129,18 @@ export default class EditTeam extends Component {
       planId: this.props.inputState.values.planId
     }, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          planError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
-        this.setState({
-          planError: "",
-          planSuccess: "Plan Successfully Updated!"
-        });
+        this.props.showToast('<h3>Team Edited Successfully</h3>', 'success')
         window.setTimeout(() => {
           this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
@@ -218,8 +172,8 @@ export default class EditTeam extends Component {
       planId: planId
     }, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          formError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
@@ -229,10 +183,7 @@ export default class EditTeam extends Component {
         }, 3000);
         return;
       } else {
-        this.setState({
-          formError: "",
-          formSuccess: "Team Successfully Changed!"
-        });
+        this.props.showToast('<h3>Team Edited Successully</h3>', 'success')
         window.setTimeout(() => {
           this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
