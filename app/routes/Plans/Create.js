@@ -19,8 +19,6 @@ export default class PlanCreateRoute extends React.Component {
     this.listenForEnter = this.listenForEnter.bind(this);
     this.state = {
       shakeBtn: false,
-      formError: '',
-      formSuccess: '',
       features: ["feature"]
     }
   }
@@ -71,8 +69,6 @@ export default class PlanCreateRoute extends React.Component {
               buttonText="Add Plan"
               inputsToUse={inputsToUse}
               inputState={this.props.inputState}
-              formError={this.state.formError}
-              formSuccess={this.state.formSuccess}
               shakeBtn={this.state.shakeBtn}
               handleChange={this.props.handleChange}
               handleSubmit={this.handleSubmit}
@@ -122,7 +118,7 @@ export default class PlanCreateRoute extends React.Component {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
@@ -140,15 +136,15 @@ export default class PlanCreateRoute extends React.Component {
     //Don't submit if required fields aren't filled out
     let requiredValues = [title, monthlyPrice];
     if (_.some(requiredValues, function(str){ return str == undefined; })) {
+      this.props.showToast('<h3>Sorry...</h3><p>You have to fill out the title and monthly price fields</p>', 'error')
       this.setState({
-        formError: "Please fill out title and monthly price",
         shakeBtn: true
       });
       window.setTimeout(() => {
         this.setState({
           shakeBtn: false
         });
-      }, 3000);
+      }, 1000);
       return false;
     }
 
@@ -165,21 +161,18 @@ export default class PlanCreateRoute extends React.Component {
       displayOnMainSite: !!displayOnMainSite
     }, (error) => {
       if (error) {
+        this.props.showToast(error.reason, 'error')
         this.setState({
-          formError: error.reason,
           shakeBtn: true
         });
         window.setTimeout(() => {
           this.setState({
             shakeBtn: false
           });
-        }, 3000);
+        }, 1000);
         return;
       } else {
-        this.setState({
-          formError: "",
-          formSuccess: "Success! Plan Created!"
-        });
+        this.props.showToast("Plan created successfully!", 'success')
         window.setTimeout(() => {
           this.history.pushState(null, `/plans`);
         }, 1000);

@@ -102,7 +102,7 @@ export default class TeamCreateRoute extends React.Component {
       }, 1000);
       return false;
     }
-console.log(planId)
+
     //Don't submit if all fields aren't filled out
     if (!name || !desc ) {
       this.props.showToast('<h3>Sorry...</h3><p>You have to fill out the name and description fields</p>', 'error')

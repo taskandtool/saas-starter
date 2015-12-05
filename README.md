@@ -1,22 +1,29 @@
-# Boilerplate SaaS app built with Meteor, MongoDB, React and Webpack
+# Prototype your next SaaS app super fast
 
-This is based on https://github.com/jedwards1211/meteor-webpack-react ... which is fantastic work by jedwards1211 and adambrodinski to combine meteor with webpack and react. You'll want to give it a look first.
+## Starter SaaS app built with Meteor, MongoDB, React and Webpack
+
+Prototype your next SaaS app super fast. Replace the 'To Do' portion of this app
+with your app, but keep the user auth, dashboards, social login, profile pics, routing, etc.
+and get deployed in seconds to meteor's free dev server, or to production using
+one of the built-in scripts.
+
+Visit http://demo-saas-app.meteor.com to see the demo (hosted on Meteor's free
+servers, may take a few seconds to spin up at first.)
 
 ### For those new to the react/meteor combo, out of the box it's got:
 
 * optimistic UI (changes reflected immediately and synced with the server behind the scenes)
-* universal/isomorphic
+* can be universal/isomorphic
 * can be productive and iterate quickly
 * easy deployment options
 
 ### This boilerplate has:
 
-* Schemas for users, plans (and soon teams)
+* Schemas for users, plans and teams
 * Form Validation
-* Permissions/roles for users and site admins (soon)
+* Permissions/roles for users and site admins
 * Social and email login with avatars. Email fetches gravatars.
-* User profiles
-* Ability to delete users (soon)
+* User profile displaying and editing with basic permissions
 * Image uploads to s3
 
 ### This boilerplate uses:
@@ -26,35 +33,42 @@ This is based on https://github.com/jedwards1211/meteor-webpack-react ... which 
 * slingshot for s3 uploads (meteor package)
 * ... full list in packages.json for npm stuff plus meteor-specific packages in meteor_core/.meteor/packages
 
-### I'm planning on adding:
+### Todo:
 
-* stripe integration
+* Stripe integration
 * SSR
 
 ### Opinions this boilerplate SaaS app makes:
 
 * User accounts are free, team/org accounts are paid.
 * Users can belong to multiple orgs/teams (like slack)
-* You'll process payments with stripe
+* You'll process payments with stripe (not implemented yet)
 * You want users to edit their profile
 * You want to create custom private or public plans and edit them as needed
 * You want users to create teams/orgs and invite users
 
 ### Basic setup of /app folder:
 
-* Routes folder handles routing and includes pages that are all data fetching components
-* Components folder handles displaying components
-* Publications handles reading permissions
-* Schemas defines the collections
+* Routes folder handles routing. Components in this folder handle data-fetching.
+* Components folder has components organized generically (ie 'charts') or groups (ie. 'users' has user-specific components)
+* Publications handles data-reading permissions
+* Schemas defines the collections in Mongo and their schemas and methods
 * Styles has global styles. Styling for individual components is imported directly into that component from the component dir
 * Lib sets up a few things that don't belong anywhere else
+
+### Future
+
+* Definitely a work in progress
+* Would appreciate help with Stripe and SSR.
+* Not integrated with Redux because it needs to duplicate minimongo's data from meteor. While that's not a great reason in and of itself, I *think* the future will be FB's relay anyways. This project will be kept simple for fast prototyping, ideally.
 
 ### Installing
 
 ```
-git clone git@github.com:taskandtool/saas-starter.git
+git clone git@github.com:taskandtool/saas-starter.git yourfoldername
+cd yourfoldername
 npm install
-add keys to devel.json in /settings folder
-type 'node dev.js' in your console to start it up.
-to deploy read:  https://github.com/jedwards1211/meteor-webpack-react
+*** add keys to devel.json in /settings folder
+node dev.js
+**to see deploy options, read:  https://github.com/jedwards1211/meteor-webpack-react
 ```

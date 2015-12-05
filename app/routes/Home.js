@@ -13,7 +13,7 @@ export default class Home extends Component {
           <div className={styles.heroGrid}>
             <div className={styles.heroColumn}>
               <h1 className={styles.white}>Starter SaaS App Code</h1>
-              <h3 className={styles.white}>Build your next SaaS app fast</h3>
+              <h3 className={styles.white}>Prototype your next SaaS app fast</h3>
               <Link to="/docs"><button className={styles.primary}>Docs</button></Link>
               <a href="https://github.com/taskandtool/saas-starter"><button className={styles.primary}>Github</button></a>
             </div>
@@ -25,7 +25,7 @@ export default class Home extends Component {
             <div className={styles.listColumn}>
               <span className={styles.icon}><Icon size="1em" icon="check" /></span>
               <h4>Get a running start</h4>
-              <p>Clone and deploy the app in 5 minutes. Iterate from there to make a product people love.</p>
+              <p>Replace the todos part of the app with your actual app, but keep user auth & permissions, image uploads, dashboards, etc. </p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.icon}><Icon size="1em" icon="check" /></span>
@@ -54,7 +54,7 @@ export default class Home extends Component {
                 <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>User Accounts with social/pass logins and avatars</li>
                 <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>Form Validation</li>
                 <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>Starter schemas for Users, Plans & Teams/Orgs</li>
-                <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>Stripe integration</li>
+                <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>Stripe integration (in progress)</li>
                 <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>AWS S3 integration for images/media uploads</li>
                 <li className={styles.list}><span className={styles.iconList}><Icon size="1em" icon="check" /> </span>Dashboard</li>
               </ul>
@@ -79,7 +79,7 @@ export default class Home extends Component {
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-clone"></i></span>
               <h4>This is the exact app you get on Github</h4>
-              <p>Deployed on meteor's free devel servers...so this is essentially a placeholder for your sales page.</p>
+              <p>Deployed on meteor's free dev servers. This is essentially a placeholder for your sales page.</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-user"></i></span>
@@ -91,12 +91,12 @@ export default class Home extends Component {
               <h4>Login as super admin</h4>
               <p>With these creds: login: super@admin.com, pass: apple1. Please don't change the creds for this user
               on this public demo site. The only difference with this guy is he can see a link in the sidebar to a global
-              dashboard and see all plans (even ones not labeled 'displayOnMainSite')</p>
+              dashboard, see all plans (even ones not labeled 'displayOnMainSite'), and create new plans.</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
               <h4>See it on mobile</h4>
-              <p>Because it works there too. Make a change on your phone and see how fast it updates on your computer. Lock and unlock your todos to see how permissions works</p>
+              <p>Because it works there too. Make a change on your phone and see how fast it updates on your computer. Lock and unlock your todos to see how permissions work.</p>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default class Home extends Component {
               <span className={styles.iconBlue}><i className="fa fa-lock"></i></span>
               <h4>Current status</h4>
               <p>This is a learning project for me in both react and meteor. I've just started freelancing a few months back and I'm currently looking for more work. =) Please shoot
-              me an email below if you'd like to get in touch.</p>
+              me an email below if you'd like to get in touch. I can prototype your next SaaS app quickly.</p>
             </div>
             <div className={styles.listColumn}>
               <span className={styles.iconBlue}><i className="fa fa-share-square-o"></i></span>
@@ -129,15 +129,18 @@ export default class Home extends Component {
             </div>
           </div>
           <p><em>Last thing - reset password option fake generates an email in your console that you can only see when you run locally at the moment. No real email is sent. While the token pass reset works, you'll have to finish setting up email with Meteor and Mailgun/Mandrill or something of the like.</em></p>
-
+          <br/>
+          <div className={styles.center}>
+            <h3>Take it for a spin!</h3>
+            <Link to="/join"><button className={styles.primary}>Sign up now</button></Link>
+          </div>
         </div>
 
         <div className={styles.section3}>
           <div className={styles.heroGrid}>
             <div className={styles.heroColumn}>
-              <h2 className={styles.white}>Need help with your app?</h2>
-              <span className={styles.icon}><i className="fa fa-envelope"></i></span>
-              <Mailto email="walsh.gavin@gmail.com" obfuscate={true}><button className={styles.secondary}>Shoot me an email</button></Mailto>
+              <h2>Want to launch fast?</h2>
+              <Mailto email="walsh.gavin@gmail.com" obfuscate={true}><button className={styles.primary}>Shoot me an email</button></Mailto>
             </div>
           </div>
         </div>

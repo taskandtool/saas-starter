@@ -85,7 +85,7 @@
 }
 
 .section3 {
-  background-color: #03A9F4;
+  background-color: #f7f7f7;
 }
 
 .secondary {
@@ -96,4 +96,8 @@
 
 .title {
   composes: title from '../styles/utilities.css';
+}
+
+.center {
+  text-align: center;
 }
