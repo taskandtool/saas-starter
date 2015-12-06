@@ -72,3 +72,13 @@ npm install
 node dev.js
 **to see deploy options, read:  https://github.com/jedwards1211/meteor-webpack-react
 ```
+
+### Screenshot of signup form validation
+
+![Image of signup]
+(https://discourse-cdn.global.ssl.fastly.net/meteor/uploads/default/original/2X/3/3d1f7d6cc99ccc48b05c4e5029a649a3a48a5b20.gif)
+
+### Screenshot of creating team and inviting users in 2 browser windows. (gif glitches a bit, but gives the idea)
+
+![Image of creating team]
+(https://discourse-cdn.global.ssl.fastly.net/meteor/uploads/default/optimized/2X/d/dfe98da92a5925c07ec50afc45b11d838ff01bc5_1_690x456.gif)
