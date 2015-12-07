@@ -137,7 +137,7 @@ export default class TeamCreateRoute extends React.Component {
       } else {
         this.props.showToast('<h3>Team Created!</h3><p>Invite some friends and create shared public or private todos.</p>', 'success')
         window.setTimeout(() => {
-          this.history.pushState(null, `/teams`);
+          this.history.push(null, `/teams`);
         }, 1000);
       }
     });

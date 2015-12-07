@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, NotFoundRoute } from 'react-router';
-import createHistory from 'react-router/node_modules/history/lib/createBrowserHistory';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 import App from './App';
 import Home from './Home';
@@ -15,7 +15,7 @@ import * as Todos from './Todos';
 
 import NotFoundPage from './NotFoundPage';
 
-var history = createHistory();
+const history = createBrowserHistory()
 
 Meteor.startup(function () {
   ReactDOM.render(
