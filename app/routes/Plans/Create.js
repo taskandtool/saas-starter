@@ -174,7 +174,7 @@ export default class PlanCreateRoute extends React.Component {
       } else {
         this.props.showToast("Plan created successfully!", 'success')
         window.setTimeout(() => {
-          this.history.pushState(null, `/plans`);
+          this.history.push(null, `/plans`);
         }, 1000);
       }
     });

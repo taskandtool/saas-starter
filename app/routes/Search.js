@@ -87,6 +87,6 @@ export default class Search extends Component {
   }
 
   handleOptionSelect(option) {
-    this.history.pushState(null, `/search?id=${option.id}`)
+    this.history.push(null, `/search?id=${option.id}`)
   }
 }

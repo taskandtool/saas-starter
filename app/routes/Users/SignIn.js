@@ -103,7 +103,7 @@ export default class SignInRoute extends Component {
       } else {
         this.props.showToast('<h3>Welcome Back!</h3><p>Taking you to your to do\'s</p>', 'success')
         window.setTimeout(() => {
-          this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
+          this.history.push(null, `/user/${Meteor.user()._id}/todos`);
         }, 1000);
       }
     });
