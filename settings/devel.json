@@ -1,0 +1,18 @@
+{
+  "public": {
+    "env": "DEVEL",
+    "foo": "bar"
+  },
+  "googleSecret": "key",
+  "googleClientID": "key",
+  "twitterSecret": "key",
+  "twitterClientID": "key",
+  "facebookSecret": "key",
+  "facebookClientID": "key",
+  "AWSAccessKeyId": "key",
+  "AWSSecretAccessKey": "key",
+  "AWSbucketUserImages": "key",
+  "AWSregionUserImages": "key",
+  "AWSbucketTeamImages": "key",
+  "AWSregionTeamImages": "key"
+}
