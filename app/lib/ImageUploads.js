@@ -1,6 +1,7 @@
 //User image profile storage
 Slingshot.createDirective("userImages", Slingshot.S3Storage, {
-  bucket: "revise-local",
+  bucket: Meteor.settings.AWSbucketUserImages,
+  region: Meteor.settings.AWSregionUserImages,
 
   acl: "public-read",
 
@@ -25,8 +26,9 @@ Slingshot.createDirective("userImages", Slingshot.S3Storage, {
 
 //Team image profile storage
 Slingshot.createDirective("teamImages", Slingshot.S3Storage, {
-  bucket: "revise-local",
-
+  bucket: Meteor.settings.AWSbucketTeamImages,
+  region: Meteor.settings.AWSregionTeamImages,
+  
   acl: "public-read",
 
   AWSAccessKeyId: Meteor.settings.AWSAccessKeyId,
