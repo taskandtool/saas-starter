@@ -155,7 +155,7 @@ export default class JoinRoute extends React.Component {
         })
         this.props.showToast('<h3>Welcome!</h3><p>Taking you to your to do\'s</p>', 'success')
         window.setTimeout(() => {
-          this.history.pushState(null, `/user/${Meteor.user()._id}/todos`);
+          this.history.push(null, `/user/${Meteor.user()._id}/todos`);
         }, 2000);
       }
     });

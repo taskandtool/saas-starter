@@ -19,7 +19,7 @@ export default class TeamCard extends Component {
     return (
       <div key={team._id}
         className={styles.container}
-        onClick={this.props.linkTo ? () => this.history.pushState(null, `${this.props.linkTo}`) : null} >
+        onClick={this.props.linkTo ? () => this.history.push(null, `${this.props.linkTo}`) : null} >
         {team.picture || this.props.picture ?
           <img src={this.props.picture || team.picture} className={styles.picture} />
         : null}
