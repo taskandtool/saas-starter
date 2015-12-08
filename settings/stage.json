@@ -14,5 +14,6 @@
   "AWSbucketUserImages": "key",
   "AWSregionUserImages": "key",
   "AWSbucketTeamImages": "key",
-  "AWSregionTeamImages": "key"
+  "AWSregionTeamImages": "key",
+  "StripeSecretKey": "key"
 }

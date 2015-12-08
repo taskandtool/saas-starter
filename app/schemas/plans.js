@@ -58,22 +58,24 @@ Meteor.methods({
     //Except this doesn't work because Stipe seems to be calling 'child process' in browser...
     //even though I'm trying to run it on just the server.
 
-    // if (Meteor.isServer) {
-    //   let monthlyPrice = data.monthlyPrice * 100;
-    //   stripe.plans.create({
-    //     amount: monthlyPrice,
-    //     interval: "month",
-    //     name: data.title,
-    //     currency: "usd",
-    //     id: "gold"
-    //   }, function(err, plan) {
-    //     if (err) {
-    //       throw new Meteor.Error(401, err.message);
-    //     } else {
-    //       console.log('plan added to stripe successfully')
-    //     }
-    //   });
-    // }
+    if (Meteor.isServer) {
+      var Stripe = Meteor.npmRequire('stripe')(Meteor.settings.StripeSecretKey);
+
+      let monthlyPrice = data.monthlyPrice * 100;
+      Stripe.plans.create({
+        amount: monthlyPrice,
+        interval: "month",
+        name: data.title,
+        currency: "usd",
+        id: "gold"
+      }, function(err, plan) {
+        if (err) {
+          throw new Meteor.Error(401, err.message);
+        } else {
+          console.log('plan added to stripe successfully')
+        }
+      });
+    }
 
     return docId;
   },
