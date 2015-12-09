@@ -4,7 +4,7 @@ Accounts.onCreateUser(function (options, user) {
      options.profile.avatar = user.services.twitter.profile_image_url;
      user.profile = options.profile;
      user.profile.images = user.profile.images || [];
-     user.profile.images.push([options.profile.avatar])
+     user.profile.images.push(options.profile.avatar)
    }
  }
 
@@ -13,7 +13,7 @@ if(user.services.facebook) {
    options.profile.avatar = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?width=50&height=50";
    user.profile = options.profile;
    user.profile.images = user.profile.images || [];
-   user.profile.images.push([options.profile.avatar])
+   user.profile.images.push(options.profile.avatar)
   }
   if (user.services.facebook.email) {
     user.emails = user.emails || [];
@@ -26,7 +26,7 @@ if(user.services.facebook) {
      options.profile.avatar = user.services.google.picture;
      user.profile = options.profile;
      user.profile.images = user.profile.images || [];
-     user.profile.images.push([options.profile.avatar])
+     user.profile.images.push(options.profile.avatar)
    }
    if (user.services.google.email) {
      user.emails = user.emails || [];
