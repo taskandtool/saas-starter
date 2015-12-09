@@ -159,7 +159,7 @@ export default class PlanCreateRoute extends React.Component {
       freeTrialDays: parseInt(freeTrialDays),
       currAvail: !!currAvail,
       displayOnMainSite: !!displayOnMainSite
-    }, (error) => {
+    }, (error, result) => {
       if (error) {
         this.props.showToast(error.reason, 'error')
         this.setState({
@@ -174,7 +174,7 @@ export default class PlanCreateRoute extends React.Component {
       } else {
         this.props.showToast("Plan created successfully!", 'success')
         window.setTimeout(() => {
-          this.history.push(null, `/plans`);
+          this.history.pushState(null, `/plans`);
         }, 1000);
       }
     });

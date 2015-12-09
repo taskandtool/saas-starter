@@ -80,7 +80,7 @@ class DropDown extends React.Component {
 
   logout() {
     Meteor.logout();
-    this.history.push(null, `/`);
+    this.history.pushState(null, `/`);
   }
 
   render() {

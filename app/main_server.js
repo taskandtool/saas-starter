@@ -19,7 +19,6 @@ if (!Users.find().fetch().length) {
 }
 
 Meteor.startup(function () {
-
   //sets up keys for social logins
   ServiceConfiguration.configurations.upsert(
     { service: "google" },

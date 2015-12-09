@@ -187,7 +187,7 @@ export default class EditPlan extends Component {
           formSuccess: "Plan Successfully Changed!"
         });
         window.setTimeout(() => {
-          this.history.push(null, `/plans`);
+          this.history.pushState(null, `/plans`);
         }, 1000);
       }
     });

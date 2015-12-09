@@ -7,3 +7,7 @@ import './schemas/plans.js';
 import './schemas/todos.js';
 
 import './lib/ImageUploadPermissions.js';
+
+Meteor.startup(function() {
+  Stripe.setPublishableKey(Meteor.settings.testPublishableKey);
+});

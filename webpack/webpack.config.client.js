@@ -17,6 +17,10 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     root: path.join(__dirname, '../app'),
   },
+  externals: {
+    "Stripe": "Stripe",
+    "StripeAPI": "StripeAPI"
+  },
   module: {
     loaders: [
       {

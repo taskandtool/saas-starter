@@ -78,7 +78,7 @@ export default class Sidebar extends Component {
   }
 
   handleBrandClick() {
-    this.history.push(null, `/`);
+    this.history.pushState(null, `/`);
   }
 
   listenForClose(e) {

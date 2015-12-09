@@ -142,7 +142,7 @@ export default class EditTeam extends Component {
       } else {
         this.props.showToast('<h3>Team Edited Successfully</h3>', 'success')
         window.setTimeout(() => {
-          this.history.push(null, `/team/${this.props.team._id}`);
+          this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
       }
     })
@@ -185,7 +185,7 @@ export default class EditTeam extends Component {
       } else {
         this.props.showToast('<h3>Team Edited Successully</h3>', 'success')
         window.setTimeout(() => {
-          this.history.push(null, `/team/${this.props.team._id}`);
+          this.history.pushState(null, `/team/${this.props.team._id}`);
         }, 1000);
       }
     });

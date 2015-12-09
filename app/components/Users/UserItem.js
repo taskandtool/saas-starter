@@ -24,8 +24,8 @@ export default class UserItem extends Component {
       <div
         className={styles.border}
         onClick={this.props.clickPreview ?
-                    () => this.history.push(null, `/users?id=${this.props._id}`) :
-                    () => this.history.push(null, `/user/${this.props._id}`)}>
+                    () => this.history.pushState(null, `/users?id=${this.props._id}`) :
+                    () => this.history.pushState(null, `/user/${this.props._id}`)}>
 
         <div className={styles.wrapper}>
           <img src={this.props.avatar} className={styles.avatar} />

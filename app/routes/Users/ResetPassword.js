@@ -102,7 +102,7 @@ export default class ResetPasswordRoute extends Component {
       } else {
         this.props.showToast('<h3>Success! Your password has been reset.</h3> <p>Redirecting...</p>', 'success')
         window.setTimeout(() => {
-          this.history.push(null, `/`);
+          this.history.pushState(null, `/`);
         }, 1000);
       }
     });
