@@ -18,6 +18,7 @@ export default class TeamCreateRoute extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.listenForEnter = this.listenForEnter.bind(this);
     this.handleSelectPlan = this.handleSelectPlan.bind(this);
+
     this.state = {
       shakeBtn: false,
     }
@@ -79,15 +80,24 @@ export default class TeamCreateRoute extends React.Component {
     }
   }
 
-  handleSelectPlan(id) {
+  handleSelectPlan(id, amount) {
     let newValue = _.extend({}, this.props.inputState.values);
     newValue["planId"] = id;
+    newValue["amount"] = (amount * 100);
     this.props.setDefaultValues(newValue);
   }
 
   handleSubmit(event, errors, values) {
     event.preventDefault();
-    const {name, desc, planId} = values;
+
+    //needs to use var instead of const below so they're accessable in Stripe call.
+    var {name, desc, planId, amount} = values;
+    var user = this.props.currUser
+    var email =
+      user.emails && user.emails[0].address ?
+      user.emails[0].address :
+      'None@none.com';
+
 
     //don't submit if there's errors showing
     if (errors.name || errors.desc) {
@@ -118,6 +128,24 @@ export default class TeamCreateRoute extends React.Component {
       return false;
     }
 
+    //Setup Stripe's checkout.js
+    const handler = StripeCheckout.configure({
+      key: Meteor.settings.public.testPublishableKey,
+      token: function(token) {
+        //Subscribe to plan on server
+        Meteor.call('Team.charge', token, planId, email, user, (error, res) => {
+          console.log(error, res)
+        })
+      }
+    });
+
+    //Open pop-up to ask for CC details
+    handler.open({
+      name: 'SaaS Starter',
+      amount: amount
+    })
+
+    //Create actual team in app
     Meteor.call('Team.create', {
       name: name,
       desc: desc,
@@ -134,11 +162,6 @@ export default class TeamCreateRoute extends React.Component {
           });
         }, 1000);
         return;
-      } else {
-        this.props.showToast('<h3>Team Created!</h3><p>Invite some friends and create shared public or private todos.</p>', 'success')
-        window.setTimeout(() => {
-          this.history.pushState(null, `/teams`);
-        }, 1000);
       }
     });
   }

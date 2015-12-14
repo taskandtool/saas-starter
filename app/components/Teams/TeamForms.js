@@ -104,7 +104,7 @@ export default class TeamForms extends Component {
           let planList = this.data.plans.map((plan, i) => {
             return (<div
                       key={i}
-                      onClick={() => this.props.handleSelectPlan(plan._id)}
+                      onClick={() => this.props.handleSelectPlan(plan._id, plan.monthlyPrice)}
                       className={styles.column}>
                       {this.props.team.planId == plan._id ? 'Current Plan' : <br/> }
                       <div className={values.planId == plan._id ? styles.selected : styles.unselected}>

@@ -5,7 +5,7 @@ Meteor.publish('plans', function(isSuperAdmin) {
   if (isSuperAdmin) {
     return Plans.find();
   } else {
-    return Plans.find({displayOnMainSite: true});
+    return Plans.find();
   }
 });
 

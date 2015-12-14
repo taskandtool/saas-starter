@@ -13,7 +13,8 @@ var schema = {
   todoCount: Number,
   isDeleted: Boolean,
   picture: String,
-  images: [String]
+  images: [String],
+  stripeId: String
 };
 
 Meteor.methods({
@@ -29,7 +30,7 @@ Meteor.methods({
     data.userCount = 0;
     data.isDeleted = false;
 
-    check(data, _.omit(schema, '_id', 'picture', 'images', 'planName'));
+    check(data, _.omit(schema, '_id', 'picture', 'images', 'planName', 'stripeId'));
 
     docId = Teams.insert(data);
 
@@ -60,6 +61,7 @@ Meteor.methods({
       images: optional(schema.images),
       name: optional(schema.name),
       isDeleted: optional(schema.isDeleted),
+      stripeId: optional(schema.stripeId),
     });
 
     //Check user permissions
@@ -115,4 +117,17 @@ Meteor.methods({
     console.log("Team.increment]", count);
     return count;
   },
+
+  "Team.charge": function(token, planId, userEmail, user) {
+    var Stripe = StripeAPI(Meteor.settings.testSecretKey);
+
+    Stripe.customers.create({
+      source: token.id,
+      email: userEmail,
+      plan: planId
+    }, function(err, customer) {
+      console.log(err, customer);
+    })
+  },
+
 });
