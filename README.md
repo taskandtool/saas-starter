@@ -1,3 +1,8 @@
+# DEPRECATED - This project is no longer maintained. 
+
+At one point it worked decently but react and meteor and any corresponding integrations have had some major changes and this boilerplate has not kept up. It could be useful still as a reference perhaps so I'll leave it here. But I would not recommend starting a project with it. 
+
+
 # Prototype your next SaaS app super fast
 
 ## Starter SaaS app built with Meteor, MongoDB, React and Webpack
